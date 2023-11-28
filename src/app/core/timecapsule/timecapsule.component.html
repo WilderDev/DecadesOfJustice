@@ -1,29 +1,78 @@
 <div>
-  <form #timecapsuleForm="ngForm">
-    <div>
-      <label>Title:</label>
-      <input type="text" name="title" #titleRef="" />
-    </div>
+  <form (ngSubmit)="onSubmit()" #timecapsuleForm="ngForm">
+    <fieldset>
+      <legend>Event details:</legend>
+      <div>
+        <label>Title:</label>
+        <input type="text" ngModel name="title" id="title" #titleRef required />
+      </div>
+
+      <div>
+        <label>Add description:</label>
+        <br />
+        <textarea
+          #descRef
+          required
+          style="resize: none"
+          rows="5"
+          cols="40"
+        ></textarea>
+      </div>
+
+      <div>
+        <label for="url">Add link:</label>
+        <input type="text" ngModel name="url" id="url" #urlRef required />
+      </div>
+    </fieldset>
 
     <div>
-      <label>Add description:</label>
-      <br />
-      <textarea
-        #descRef
-        required
-        style="resize: none"
-        rows="5"
-        cols="40"
-      ></textarea>
+      <fieldset>
+        <legend>Reopening date:</legend>
+        <div>
+          <label for="day">Day:</label>
+          <input type="number" ngModel name="day" id="day" #dayRef required />
+        </div>
+
+        <div>
+          <label for="month">Month:</label>
+          <select name="month" ngModel id="month" #monthRef required>
+            <option>January</option>
+            <option>February</option>
+            <option>March</option>
+            <option>April</option>
+            <option>May</option>
+            <option>June</option>
+            <option>July</option>
+            <option>August</option>
+            <option>September</option>
+            <option>October</option>
+            <option>November</option>
+            <option>December</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="year">Year</label>
+          <input type="number" ngModel name="year" id="year" #urlRef required />
+        </div>
+      </fieldset>
     </div>
 
-    <div>
-      <label for="url">Add link:</label>
-      <input type="text" name="url" id="url" #urlRef required />
-    </div>
-
-    <div>
-      <!-- <p> list of people </p> -->
+    <div *ngFor="let notifyPerson of this.notifyPeople; index as i">
+      <p>Name: {{ notifyPerson.firstName }} {{ notifyPerson.lastName }}</p>
+      <p *ngIf="notifyPerson.phone">{{ notifyPerson.phone }}</p>
+      <p>{{ notifyPerson.email }}</p>
+      <div>
+        <p>Address:</p>
+        <p>{{ notifyPerson.address.street }}</p>
+        <p *ngIf="notifyPerson.address.apartment">
+          {{ notifyPerson.address.apartment }}
+        </p>
+        <p>{{ notifyPerson.address.city }}</p>
+        <p>{{ notifyPerson.address.state }}</p>
+        <p>{{ notifyPerson.address.zipCode }}</p>
+      </div>
+      <button type="button" (click)="removePerson(i)">Remove</button>
     </div>
 
     <div>
@@ -33,10 +82,11 @@
           <label for="fName">First name:</label>
           <input
             type="text"
+            ngModel
             name="fName"
             id="fName"
             placeholder="John"
-            #firstNameRef
+            #fNameRef
             required
           />
         </div>
@@ -44,59 +94,93 @@
           <label for="lName">Last name:</label>
           <input
             type="text"
+            ngModel
             name="lName"
             id="lName"
             placeholder="Smith"
-            #lastNameRef
+            #lNameRef
             required
           />
-        </div>
-        <div>
-          <p>Address:</p>
-          <div>
-            <label for="street">Street:</label>
-            <input
-              type="text"
-              name="street"
-              id="street"
-              placeholder="123 Main Street"
-              #streetRef
-              required
-            />
-          </div>
-
-          <div>
-            <label for="apt">Apartment:</label>
-            <input type="text" name="apt" id="apt" #aptRef />
-          </div>
-
-          <div>
-            <label for="city">City:</label>
-            <input type="text" name="city" id="city" #cityRef required />
-          </div>
-
-          <div>
-            <label for="state">State:</label>
-            <input type="text" name="state" id="state" #stateRef required />
-          </div>
-
-          <div>
-            <label for="zip">Zip:</label>
-            <input type="number" name="zip" id="zip" #zipRef required />
-          </div>
         </div>
 
         <div>
           <label for="phone">Phone:</label>
-          <input type="number" name="phone" id="phone" #phoneRef />
+          <input type="number" ngModel name="phone" id="phone" #phoneRef />
         </div>
 
         <div>
           <label for="email">Email:</label>
-          <input type="email" name="email" id="email" #emailRef required />
+          <input
+            type="email"
+            ngModel
+            name="email"
+            id="email"
+            #emailRef
+            required
+          />
         </div>
 
-        <!-- <button type="button" class="btn btn-primary" (click)="addNofityPerson()">Add Person</button> -->
+        <div>
+          <fieldset>
+            <legend>Address info:</legend>
+            <div>
+              <label for="street">Street:</label>
+              <input
+                type="text"
+                ngModel
+                name="street"
+                id="street"
+                placeholder="123 Main Street"
+                #streetRef
+                required
+              />
+            </div>
+
+            <div>
+              <label for="apt">Apartment:</label>
+              <input type="text" ngModel name="apt" id="apt" #aptRef />
+            </div>
+
+            <div>
+              <label for="city">City:</label>
+              <input
+                type="text"
+                ngModel
+                name="city"
+                id="city"
+                #cityRef
+                required
+              />
+            </div>
+
+            <div>
+              <label for="state">State:</label>
+              <input
+                type="text"
+                ngModel
+                name="state"
+                id="state"
+                #stateRef
+                required
+              />
+            </div>
+
+            <div>
+              <label for="zip">Zip:</label>
+              <input
+                type="number"
+                ngModel
+                name="zip"
+                id="zip"
+                #zipRef
+                required
+              />
+            </div>
+          </fieldset>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="addPerson()">
+          Add Person
+        </button>
       </fieldset>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>

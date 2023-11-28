@@ -1,17 +1,17 @@
-interface Address {
+export interface Address {
   street: string;
-  aptartment?: string;
   city: string;
   state: string;
-  zipCode: string;
+  zipCode: number;
+  apartment?: string;
 }
 
-export class NofifyPerson {
+export class NotifyPerson {
   constructor(
-    firstName: string,
-    lastName: string,
-    email: string,
-    address: Address,
-    phone?: string
+    public firstName: string,
+    public lastName: string,
+    public email: string,
+    public address: Address,
+    public phone?: string
   ) {}
 }
