@@ -19,10 +19,16 @@ export class TimecapsuleService {
     title: string,
     desc: string,
     url: string,
-    date: string,
+    timestamp: number,
     notifyPeople: NotifyPerson[]
   ) => {
-    this.timecapsule = new Timecapsule(title, desc, url, date, notifyPeople);
+    this.timecapsule = new Timecapsule(
+      title,
+      desc,
+      url,
+      timestamp,
+      notifyPeople
+    );
   };
 
   // Read timecapsule

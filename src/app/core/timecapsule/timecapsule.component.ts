@@ -46,13 +46,19 @@ export class TimecapsuleComponent {
     this.notifyPeople.splice(i, 1);
   };
 
+  // Change date format
+  getUNIXTimestamp = (): number => {
+    let dateStr = `${this.timecapsuleForm.form.value.date}`;
+    return Date.parse(dateStr);
+  };
+
   // Submit form
   onSubmit = () => {
     this.timecapsuleService.onCreateTimecapsule(
       this.timecapsuleForm.form.value.title,
       this.timecapsuleForm.form.value.desc,
       this.timecapsuleForm.form.value.url,
-      this.timecapsuleForm.form.value.date,
+      this.getUNIXTimestamp(),
       this.notifyPeople
     );
     console.log(this.timecapsuleService.timecapsule);

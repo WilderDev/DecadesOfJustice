@@ -28,8 +28,15 @@
       </div>
 
       <div class="form-input">
-        <label for="date">Set date:</label>
-        <input type="date" ngModel name="date" id="date" #dateRef required />
+        <label for="date">Set date and time:</label>
+        <input
+          type="datetime-local"
+          ngModel
+          name="date"
+          id="date"
+          #dateRef
+          required
+        />
       </div>
     </fieldset>
 

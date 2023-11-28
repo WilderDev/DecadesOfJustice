@@ -5,7 +5,7 @@ export class Timecapsule {
     public title: string,
     public desc: string,
     public url: string,
-    public date: string,
+    public timestamp: number,
     public notifyPeople: NotifyPerson[]
   ) {}
 }
