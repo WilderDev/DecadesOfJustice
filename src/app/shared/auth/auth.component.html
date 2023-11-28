@@ -23,6 +23,9 @@
       <button type="submit" [disabled]="!authFormRef.valid">{{ isLoginMode ? "Login" : "Sign Up" }}</button>
       <button type="button" (click)="onSwitchAuthMode()">Switch to {{ isLoginMode ? "Sign Up" : "Login" }}</button>
     </form>
+
+    <!-- Error -->
+    <p *ngIf="errMsg">{{ errMsg }}</p>
   </div>
 </div>
 

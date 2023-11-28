@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from './auth.service';
+import { AuthResponseData, AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -11,8 +12,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthComponent {
   isLoginMode = true;
+  errMsg: string = null;
+  authObserv: Observable<AuthResponseData>;
 
-constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   onSwitchAuthMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -24,17 +27,48 @@ constructor(private authService: AuthService) {}
 
     const { email, password } = formObj.value
 
-    if (this.isLoginMode) {
 
+    if (this.isLoginMode) {
+      // Sign In
+      this.authObserv = this.authService.login(email, password);
     } else {
-      this.authService.signUp(email, password).subscribe((res) => {
-        console.log('Auth Response Success:', res);
-      },
-      (err) => {
-        console.error('Auth Res Error:', err);
-      }
-      );
+      // Sign Up
+      this.authObserv = this.authService.signUp(email, password);
     }
+
+    this.authObserv.subscribe((res) => {
+      console.log('Auth Res Success', res);
+      if (this.errMsg) this.errMsg = null;
+    },
+    (err) =>{
+      console.error('Auth Res Error', err);
+      this.errMsg = err.message;
+    }
+    );
+
+
+    // if (this.isLoginMode) {
+    //   this.authService.login(email, password).subscribe(
+    //     res => {
+    //       console.log("Auth Sign in Response:", res);
+    //       if (this.errMsg) this.errMsg=null;
+    //     },
+    //     err => {
+    //       console.error("Auth Res Error:", err);
+    //       this.errMsg = err.message;
+    //     }
+    //   );
+    // } else {
+    //   this.authService.signUp(email, password).subscribe((res) => {
+    //     console.log('Auth Response Success:', res);
+    //     if (this.errMsg) this.errMsg=null;
+    //   },
+    //   (err) => {
+    //     console.error('Auth Res Error:', err);
+    //     this.errMsg = err.message;
+    //   }
+    //   );
+    // }
 
     formObj.reset()
   }
