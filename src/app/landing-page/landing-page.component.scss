@@ -1,7 +1,34 @@
 .appTitle {
   text-align: center;
+  color: #F6F1F1;
 }
 
 .aboutApp {
   text-align: center;
+  color: #F6F1F1;
 }
+
+
+.card-text {
+  text-align: center;
+  color: #F6F1F1;
+}
+.card-body {
+  background-color: #146C94;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+.card-title {
+  font-size: 150%;
+  text-align: center;
+  color: #F6F1F1;
+}
+
+hr {
+  background-color: #19A7CE;
+  color: #19A7CE;
+  height: 5px;
+}
+
