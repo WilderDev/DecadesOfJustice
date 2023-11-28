@@ -1,9 +1,11 @@
-export interface Address {
-  street: string;
-  city: string;
-  state: string;
-  zipCode: number;
-  apartment?: string;
+export class Address {
+  constructor(
+    public street: string,
+    public city: string,
+    public state: string,
+    public zipCode: number,
+    public apartment?: string
+  ) {}
 }
 
 export class NotifyPerson {

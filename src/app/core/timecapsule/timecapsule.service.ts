@@ -19,7 +19,7 @@ export class TimecapsuleService {
     title: string,
     desc: string,
     url: string,
-    date: Date,
+    date: string,
     notifyPeople: NotifyPerson[]
   ) => {
     this.timecapsule = new Timecapsule(title, desc, url, date, notifyPeople);

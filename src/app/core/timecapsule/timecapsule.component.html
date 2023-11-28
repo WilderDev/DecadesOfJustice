@@ -11,6 +11,9 @@
         <label>Add description:</label>
         <br />
         <textarea
+          ngModel
+          name="desc"
+          id="desc"
           #descRef
           required
           style="resize: none"
@@ -23,56 +26,35 @@
         <label for="url">Add link:</label>
         <input type="text" ngModel name="url" id="url" #urlRef required />
       </div>
+
+      <div class="form-input">
+        <label for="date">Set date:</label>
+        <input type="date" ngModel name="date" id="date" #dateRef required />
+      </div>
     </fieldset>
 
-    <div>
-      <fieldset>
-        <legend>Reopening date:</legend>
-        <div class="form-input">
-          <label for="day">Day:</label>
-          <input type="number" ngModel name="day" id="day" #dayRef required />
-        </div>
-
-        <div class="form-input">
-          <label for="month">Month:</label>
-          <select name="month" ngModel id="month" #monthRef required>
-            <option>January</option>
-            <option>February</option>
-            <option>March</option>
-            <option>April</option>
-            <option>May</option>
-            <option>June</option>
-            <option>July</option>
-            <option>August</option>
-            <option>September</option>
-            <option>October</option>
-            <option>November</option>
-            <option>December</option>
-          </select>
-        </div>
-
-        <div class="form-input">
-          <label for="year">Year</label>
-          <input type="number" ngModel name="year" id="year" #urlRef required />
-        </div>
-      </fieldset>
-    </div>
-
-    <div *ngFor="let notifyPerson of this.notifyPeople; index as i">
-      <p>Name: {{ notifyPerson.firstName }} {{ notifyPerson.lastName }}</p>
-      <p *ngIf="notifyPerson.phone">{{ notifyPerson.phone }}</p>
-      <p>{{ notifyPerson.email }}</p>
-      <div>
+    <div class="notifyPerson-wrapper">
+      <div
+        *ngFor="let notifyPerson of this.notifyPeople; index as i"
+        class="notifyPerson-card"
+      >
+        <p>Name: {{ notifyPerson.firstName }} {{ notifyPerson.lastName }}</p>
+        <p *ngIf="notifyPerson.phone">Phone: {{ notifyPerson.phone }}</p>
+        <p>Email: {{ notifyPerson.email }}</p>
         <p>Address:</p>
-        <p>{{ notifyPerson.address.street }}</p>
-        <p *ngIf="notifyPerson.address.apartment">
-          {{ notifyPerson.address.apartment }}
-        </p>
-        <p>{{ notifyPerson.address.city }}</p>
-        <p>{{ notifyPerson.address.state }}</p>
-        <p>{{ notifyPerson.address.zipCode }}</p>
+        <div class="address">
+          <p>Street: {{ notifyPerson.address.street }}</p>
+          <p *ngIf="notifyPerson.address.apartment">
+            Apt: {{ notifyPerson.address.apartment }}
+          </p>
+          <p>City: {{ notifyPerson.address.city }}</p>
+          <p>State: {{ notifyPerson.address.state }}</p>
+          <p>Zip: {{ notifyPerson.address.zipCode }}</p>
+        </div>
+        <button type="button" class="btn btn-danger" (click)="removePerson(i)">
+          Remove
+        </button>
       </div>
-      <button type="button" (click)="removePerson(i)">Remove</button>
     </div>
 
     <div>
