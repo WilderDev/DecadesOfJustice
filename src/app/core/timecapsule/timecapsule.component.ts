@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { NotifyPerson, Address } from './notifyPerson.model';
+import { TimecapsuleService } from './timecapsule.service';
 
 @Component({
   selector: 'app-timecapsule',
@@ -9,7 +10,16 @@ import { NotifyPerson, Address } from './notifyPerson.model';
   styleUrls: ['./timecapsule.component.scss'],
 })
 export class TimecapsuleComponent {
+  //* ==================== Properties ====================
   @ViewChild('timecapsuleForm') timecapsuleForm: NgForm;
+  title: string = '';
+  desc: string = '';
+  url: string = '';
+
+  year: number = 0;
+  month: number = 0;
+  day: number = 0;
+  date: Date = new Date(this.year, this.month, this.day);
 
   firstName: string = '';
   lastName: string = '';
@@ -25,9 +35,17 @@ export class TimecapsuleComponent {
 
   public notifyPeople: NotifyPerson[] = [];
 
-  constructor() {}
+  //* ==================== Constructor ====================
+  constructor(private timecapsuleService: TimecapsuleService) {}
 
-  setAddress = (): Address => {
+  //* ==================== Methods ====================
+  // Create date => used for the onCreateTimecapsule method in timecapsule service
+  createDate = (year, month, day) => {
+    return new Date(year, month, day);
+  };
+
+  // Create address object => used for the addPerson method
+  createAddressObj = (): Address => {
     this.address.street = this.timecapsuleForm.form.value.street;
     this.address.city = this.timecapsuleForm.form.value.city;
     this.address.state = this.timecapsuleForm.form.value.state;
@@ -38,6 +56,7 @@ export class TimecapsuleComponent {
     return this.address;
   };
 
+  // Add person to notify people array
   addPerson = (): void => {
     this.firstName = this.timecapsuleForm.form.value.fName;
     this.lastName = this.timecapsuleForm.form.value.lName;
@@ -48,7 +67,7 @@ export class TimecapsuleComponent {
       this.firstName,
       this.lastName,
       this.email,
-      this.setAddress(),
+      this.createAddressObj(),
       this.phone
     );
 
@@ -56,11 +75,20 @@ export class TimecapsuleComponent {
     console.log(this.notifyPeople);
   };
 
+  // Remove person from notifyPeople array
   removePerson = (i): void => {
     this.notifyPeople.splice(i, 1);
   };
 
+  // Submit form
   onSubmit = () => {
-    console.log(this.timecapsuleForm);
+    this.timecapsuleService.onCreateTimecapsule(
+      this.title,
+      this.desc,
+      this.url,
+      this.createDate(this.year, this.month, this.day),
+      this.notifyPeople
+    );
+    console.log(this.timecapsuleService.timecapsule);
   };
 }

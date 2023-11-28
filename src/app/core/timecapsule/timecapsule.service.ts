@@ -1,9 +1,36 @@
 import { Injectable } from '@angular/core';
 
+import { Timecapsule } from './timecapsule.model';
+import { NotifyPerson } from './notifyPerson.model';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TimecapsuleService {
+  //* ==================== Properties ====================
+  timecapsule: Timecapsule;
 
-  constructor() { }
+  //* ==================== Constructor ====================
+  constructor() {}
+
+  //* ==================== Methods ====================
+  // Create timecapsule
+  onCreateTimecapsule = (
+    title: string,
+    desc: string,
+    url: string,
+    date: Date,
+    notifyPeople: NotifyPerson[]
+  ) => {
+    this.timecapsule = new Timecapsule(title, desc, url, date, notifyPeople);
+  };
+
+  // Read timecapsule
+  onReadTimecapsule = () => {};
+
+  // Update timecapsule
+  onUpdateTimecapsule = () => {};
+
+  // Delete timecapsule
+  onDeleteTimecapsule = () => {};
 }
