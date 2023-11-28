@@ -1,0 +1,104 @@
+<div>
+  <form #timecapsuleForm="ngForm">
+    <div>
+      <label>Title:</label>
+      <input type="text" name="title" #titleRef="" />
+    </div>
+
+    <div>
+      <label>Add description:</label>
+      <br />
+      <textarea
+        #descRef
+        required
+        style="resize: none"
+        rows="5"
+        cols="40"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="url">Add link:</label>
+      <input type="text" name="url" id="url" #urlRef required />
+    </div>
+
+    <div>
+      <!-- <p> list of people </p> -->
+    </div>
+
+    <div>
+      <fieldset>
+        <legend>Add person to notify:</legend>
+        <div>
+          <label for="fName">First name:</label>
+          <input
+            type="text"
+            name="fName"
+            id="fName"
+            placeholder="John"
+            #firstNameRef
+            required
+          />
+        </div>
+        <div>
+          <label for="lName">Last name:</label>
+          <input
+            type="text"
+            name="lName"
+            id="lName"
+            placeholder="Smith"
+            #lastNameRef
+            required
+          />
+        </div>
+        <div>
+          <p>Address:</p>
+          <div>
+            <label for="street">Street:</label>
+            <input
+              type="text"
+              name="street"
+              id="street"
+              placeholder="123 Main Street"
+              #streetRef
+              required
+            />
+          </div>
+
+          <div>
+            <label for="apt">Apartment:</label>
+            <input type="text" name="apt" id="apt" #aptRef />
+          </div>
+
+          <div>
+            <label for="city">City:</label>
+            <input type="text" name="city" id="city" #cityRef required />
+          </div>
+
+          <div>
+            <label for="state">State:</label>
+            <input type="text" name="state" id="state" #stateRef required />
+          </div>
+
+          <div>
+            <label for="zip">Zip:</label>
+            <input type="number" name="zip" id="zip" #zipRef required />
+          </div>
+        </div>
+
+        <div>
+          <label for="phone">Phone:</label>
+          <input type="number" name="phone" id="phone" #phoneRef />
+        </div>
+
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" name="email" id="email" #emailRef required />
+        </div>
+
+        <!-- <button type="button" class="btn btn-primary" (click)="addNofityPerson()">Add Person</button> -->
+      </fieldset>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
