@@ -1,13 +1,13 @@
-<div>
+<div class="form-wrapper">
   <form (ngSubmit)="onSubmit()" #timecapsuleForm="ngForm">
     <fieldset>
       <legend>Event details:</legend>
-      <div>
+      <div class="form-input">
         <label>Title:</label>
         <input type="text" ngModel name="title" id="title" #titleRef required />
       </div>
 
-      <div>
+      <div class="form-input">
         <label>Add description:</label>
         <br />
         <textarea
@@ -19,7 +19,7 @@
         ></textarea>
       </div>
 
-      <div>
+      <div class="form-input">
         <label for="url">Add link:</label>
         <input type="text" ngModel name="url" id="url" #urlRef required />
       </div>
@@ -28,12 +28,12 @@
     <div>
       <fieldset>
         <legend>Reopening date:</legend>
-        <div>
+        <div class="form-input">
           <label for="day">Day:</label>
           <input type="number" ngModel name="day" id="day" #dayRef required />
         </div>
 
-        <div>
+        <div class="form-input">
           <label for="month">Month:</label>
           <select name="month" ngModel id="month" #monthRef required>
             <option>January</option>
@@ -51,7 +51,7 @@
           </select>
         </div>
 
-        <div>
+        <div class="form-input">
           <label for="year">Year</label>
           <input type="number" ngModel name="year" id="year" #urlRef required />
         </div>
@@ -78,7 +78,8 @@
     <div>
       <fieldset>
         <legend>Add person to notify:</legend>
-        <div>
+
+        <div class="form-input">
           <label for="fName">First name:</label>
           <input
             type="text"
@@ -90,7 +91,8 @@
             required
           />
         </div>
-        <div>
+
+        <div class="form-input">
           <label for="lName">Last name:</label>
           <input
             type="text"
@@ -103,12 +105,12 @@
           />
         </div>
 
-        <div>
+        <div class="form-input">
           <label for="phone">Phone:</label>
           <input type="number" ngModel name="phone" id="phone" #phoneRef />
         </div>
 
-        <div>
+        <div class="form-input">
           <label for="email">Email:</label>
           <input
             type="email"
@@ -123,7 +125,7 @@
         <div>
           <fieldset>
             <legend>Address info:</legend>
-            <div>
+            <div class="form-input">
               <label for="street">Street:</label>
               <input
                 type="text"
@@ -136,12 +138,12 @@
               />
             </div>
 
-            <div>
+            <div class="form-input">
               <label for="apt">Apartment:</label>
               <input type="text" ngModel name="apt" id="apt" #aptRef />
             </div>
 
-            <div>
+            <div class="form-input">
               <label for="city">City:</label>
               <input
                 type="text"
@@ -153,7 +155,7 @@
               />
             </div>
 
-            <div>
+            <div class="form-input">
               <label for="state">State:</label>
               <input
                 type="text"
@@ -165,7 +167,7 @@
               />
             </div>
 
-            <div>
+            <div class="form-input">
               <label for="zip">Zip:</label>
               <input
                 type="number"

@@ -1,0 +1,28 @@
+.form {
+  &-wrapper {
+    width: 70vw;
+    margin: 16px auto;
+
+    & fieldset {
+      margin: 8px;
+
+      & fieldset {
+        width: fit-content;
+      }
+    }
+  }
+
+  &-input {
+    margin: 8px;
+
+    & input,
+    select {
+      margin: 0 8px 0 8px;
+      padding: 4px;
+    }
+  }
+}
+
+button {
+  margin: 8px;
+}
