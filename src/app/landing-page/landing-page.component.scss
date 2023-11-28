@@ -1,14 +1,23 @@
+.bgImg {
+  background-image: url("../../assets/images/landing_page_title_bg.png");
+  background-size: cover;
+}
 .appTitle {
   text-align: center;
   color: #F6F1F1;
+  text-shadow: 5px 3px black;
 }
-
 .aboutApp {
   text-align: center;
   color: #F6F1F1;
+  text-shadow: 2px 3px black;
 }
 
-
+.card {
+  box-shadow: 10px 10px 31px 0px rgba(25,167,206,0.30);
+  -webkit-box-shadow: 10px 10px 31px 0px rgba(25,167,206,0.30);
+  -moz-box-shadow: 10px 10px 31px 0px rgba(25,167,206,0.30);
+}
 .card-text {
   text-align: center;
   color: #F6F1F1;
@@ -19,6 +28,9 @@
 
 .card:hover {
   transform: scale(1.1);
+  box-shadow: 0px 0px 31px 14px rgba(25,167,206,0.8);
+  -webkit-box-shadow: 0px 0px 31px 14px rgba(25,167,206,0.8);
+  -moz-box-shadow: 0px 0px 31px 14px rgba(25,167,206,0.8);
 }
 .card-title {
   font-size: 150%;
