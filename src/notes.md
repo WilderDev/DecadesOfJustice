@@ -1,4 +1,6 @@
-# DecadesOfJustice - RENAMED:  Legacy Locker
+# MemoryBox
+
+*Formerly DecadesOfJustice - RENAMED:  Legacy Locker*
 
 *Vision to Set timer to 'lock' away ______ for set time*
  
@@ -19,19 +21,19 @@
 **NodeJS Version:**  TBD
   > *To check nodeJS version > open project, in terminal type: node -v*
 
-**Bootstrap Version:** TBD - *using Bootstrap?*
+**Bootstrap Version:** v5.3.2 - *using Bootstrap?*
   > *To check bootstrap version > open project, navigate to bootstrap.min.css; first line should show bootstrap version*
 
 ## TEAMWORK:
 
 **COMMANDER IN CHARGE:  Will Wilder**
 
- - Landing Page:  **Kyle**
+ - Landing Page:  **Kyle / Blake**
  - Header/Navbar; Routes/RouteGuard: **Wilicia**
- - Design/CSS/Responsive:  **Blake**
- - Login/Auth:  **Trace**
- - API/Services/CRUD:   **Alex**
- - TBD:  **Verona**
+ - Design/CSS/Responsive:  **Blake / Kyle**
+ - Login/Auth:  **Trace / Wilicia**
+ - API/Services/CRUD:   **Alex / Verona**
+ - Project Notes:  **Verona**
 
 
 
@@ -44,7 +46,16 @@
 
 
 
-### Color Scheme:
+### Color Scheme:  **Blue / Black / White**
+
+Color Pallet: https://colorhunt.co/palette/f6f1f119a7ce146c94000000
+
+Style Color Palette: 
+  - #F6F1F1 (white)
+  - #19A7CE (lt blue)
+  - #146C94 (darker blue)
+  - #000000 (black)
+
   -**Landing Page:** TBD
 
   -**Navbar:**  TBD
