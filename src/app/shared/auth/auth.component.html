@@ -16,8 +16,8 @@
         <input type="password" id="password" name="password" class="form-control"/>
       </div>
 
-      <button>Sign Up</button>
-      <button>Login</button>
+      <button type="submit">{{ isLoginMode ? "Login" : "Sign Up" }}</button>
+      <button type="button" (click)="onSwitchAuthMode()">Switch to {{ isLoginMode ? "Login" : "Sign Up" }}</button>
     </form>
   </div>
 </div>
