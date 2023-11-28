@@ -21,23 +21,10 @@
 
       <!-- BUTTONS -->
       <button type="submit" [disabled]="!authFormRef.valid">{{ isLoginMode ? "Login" : "Sign Up" }}</button>
-      <button type="button" (click)="onSwitchAuthMode()">Switch to {{ isLoginMode ? "Login" : "Sign Up" }}</button>
+      <button type="button" (click)="onSwitchAuthMode()">Switch to {{ isLoginMode ? "Sign Up" : "Login" }}</button>
     </form>
   </div>
 </div>
 
 
-<!--
-SignUp Key
-https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY] -->
 
-
-<!--
-  SignIn Key
-  https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY] -->
-
-
-  <!--
-    Web API Key
-    AIzaSyDGa-yj7TU0g0RrjfbNSgeyPGxNXNUSG4g
-   -->
