@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthResponseData, AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -15,7 +16,7 @@ export class AuthComponent {
   errMsg: string = null;
   authObserv: Observable<AuthResponseData>;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSwitchAuthMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -39,6 +40,8 @@ export class AuthComponent {
     this.authObserv.subscribe((res) => {
       console.log('Auth Res Success', res);
       if (this.errMsg) this.errMsg = null;
+
+      // this.router.navigate(['??'])
     },
     (err) =>{
       console.error('Auth Res Error', err);

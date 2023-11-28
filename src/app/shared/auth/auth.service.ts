@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, tap } from "rxjs";
 import { User } from "./User.model";
+import { Router } from "@angular/router";
 
 
 const AUTH_API_KEY = "AIzaSyDGa-yj7TU0g0RrjfbNSgeyPGxNXNUSG4g"
@@ -28,8 +29,9 @@ export interface AuthResponseData {
 
 export class AuthService {
   currentUser = new BehaviorSubject<User>(null);
+  userToken: string = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   signUp(email: string, password: string) {
     return this.http.post<AuthResponseData>(SIGN_UP_URL + AUTH_API_KEY, {
@@ -67,5 +69,12 @@ export class AuthService {
     // Save new user in localStorage
     localStorage.setItem("userData", JSON.stringify(formUser));
   }
+
+  signOut() {
+    this.currentUser.next(null);
+    this.router.navigate(['auth']);
+  }
+
+
 }
 
