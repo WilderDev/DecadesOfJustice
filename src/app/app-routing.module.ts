@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthComponent } from './shared/auth/auth.component';
 
 const routes: Routes = [
   {
@@ -8,7 +9,7 @@ const routes: Routes = [
   { path: "", component:,children:[{path:"", component:}]}, //Creating Capsules
   { path: "", component:,children:[{path:"", component:}]}, //Current Capsules
   { path: "", component:,children:[{path:"", component:}]}, //Opening Capsules
-  { path: "", component:,children:[{path:"", component:}]}, //Authentication
+  { path: "auth", component: AuthComponent}, //Authentication
 ];
 
 @NgModule({

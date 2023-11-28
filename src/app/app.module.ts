@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 import { AuthComponent } from './shared/auth/auth.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './shared/auth/auth-interceptor.service';
+import { NavigationComponent } from './shared/navigation/navigation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent
+    AuthComponent,
+    NavigationComponent,
   ],
   imports: [
     BrowserModule,
