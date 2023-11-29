@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TimecapsuleComponent } from './timecapsule.component';
+import { TimecapsuleFormComponent } from './timecapsule-form.component';
 
 describe('TimecapsuleComponent', () => {
-  let component: TimecapsuleComponent;
-  let fixture: ComponentFixture<TimecapsuleComponent>;
+  let component: TimecapsuleFormComponent;
+  let fixture: ComponentFixture<TimecapsuleFormComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TimecapsuleComponent]
+      declarations: [TimecapsuleFormComponent],
     });
-    fixture = TestBed.createComponent(TimecapsuleComponent);
+    fixture = TestBed.createComponent(TimecapsuleFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,15 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { NotifyPerson, Address } from './notifyPerson.model';
-import { TimecapsuleService } from './timecapsule.service';
+import { Address, NotifyPerson } from '../timecapsule.model';
+import { TimecapsuleService } from '../timecapsule.service';
 
 @Component({
-  selector: 'app-timecapsule',
-  templateUrl: './timecapsule.component.html',
-  styleUrls: ['./timecapsule.component.scss'],
+  selector: 'app-timecapsule-form',
+  templateUrl: './timecapsule-form.component.html',
+  styleUrls: ['./timecapsule-form.component.scss'],
 })
-export class TimecapsuleComponent {
+export class TimecapsuleFormComponent {
   //* ==================== Properties ====================
   @ViewChild('timecapsuleForm') timecapsuleForm: NgForm;
   public notifyPeople: NotifyPerson[] = [];
@@ -48,8 +48,7 @@ export class TimecapsuleComponent {
 
   // Change date format
   getUNIXTimestamp = (): number => {
-    let dateStr = `${this.timecapsuleForm.form.value.date}`;
-    return Date.parse(dateStr);
+    return Date.parse(this.timecapsuleForm.form.value.date);
   };
 
   // Submit form

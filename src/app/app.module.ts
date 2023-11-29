@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TimecapsuleComponent } from './core/timecapsule/timecapsule.component';
-import { FormsModule } from '@angular/forms';
+import { TimecapsuleFormComponent } from './core/timecapsule/timecapsuleForm/timecapsule-form.component';
+import { TimecapsuleViewComponent } from './core/timecapsule/timecapsuleView/timecapsule-view.component';
 
 @NgModule({
-  declarations: [AppComponent, TimecapsuleComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  declarations: [
+    AppComponent,
+    TimecapsuleFormComponent,
+    TimecapsuleViewComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

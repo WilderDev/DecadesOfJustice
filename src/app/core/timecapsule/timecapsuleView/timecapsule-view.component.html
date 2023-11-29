@@ -1,0 +1,11 @@
+<div
+  class="timecapsule"
+  *ngFor="let timecapsule of this.timecapsuleService.loadedTimecapsules"
+>
+  <div class="eventDetails">
+    <h2>Title: {{ timecapsule.title }}</h2>
+    <p>Desc: {{ timecapsule.desc }}</p>
+    <img src="assets/images/placeholder-256x256.gif" alt="image placeholder" />
+  </div>
+  <div class="notifyPeople"></div>
+</div>
