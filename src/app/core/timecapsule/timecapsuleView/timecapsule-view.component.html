@@ -1,0 +1,18 @@
+<div class="timecapsule-wrapper">
+  <div
+    class="timecapsule"
+    *ngFor="let timecapsule of this.timecapsuleService.loadedTimecapsules"
+  >
+    <div class="eventDetails">
+      <h2>Title: {{ timecapsule.title }}</h2>
+      <p>Desc: {{ timecapsule.desc }}</p>
+      <p>Days until open:</p>
+      <img
+        src="assets/images/placeholder-256x256.gif"
+        alt="image placeholder"
+      />
+    </div>
+    <div class="notifyPeople"></div>
+    <button class="btn btn-danger" type="button">Delete</button>
+  </div>
+</div>
