@@ -19,7 +19,7 @@ export class NotifyPerson {
 }
 
 export class Timecapsule {
-  id?: string;
+  id: string;
   constructor(
     public title: string,
     public desc: string,
