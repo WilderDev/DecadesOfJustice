@@ -3,9 +3,10 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, tap } from "rxjs";
 import { User } from "./User.model";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
 
 
-const AUTH_API_KEY = "AIzaSyDGa-yj7TU0g0RrjfbNSgeyPGxNXNUSG4g"
+const AUTH_API_KEY = environment.firebaseAPIKey
 
 const SIGN_UP_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key="
 
