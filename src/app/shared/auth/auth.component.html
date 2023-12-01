@@ -20,8 +20,8 @@
       </div>
 
       <!-- BUTTONS -->
-      <button type="submit" [disabled]="!authFormRef.valid">{{ isLoginMode ? "Login" : "Sign Up" }}</button>
-      <button type="button" (click)="onSwitchAuthMode()">Switch to {{ isLoginMode ? "Sign Up" : "Login" }}</button>
+      <button class="btn btn-success" type="submit" [disabled]="!authFormRef.valid">{{ isLoginMode ? "Login" : "Sign Up" }}</button>
+      <button class="btn btn-primary" type="button" (click)="onSwitchAuthMode()">Switch to {{ isLoginMode ? "Sign Up" : "Login" }}</button>
     </form>
 
     <!-- Error -->
