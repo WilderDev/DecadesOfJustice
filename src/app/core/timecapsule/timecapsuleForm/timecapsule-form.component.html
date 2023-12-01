@@ -1,0 +1,186 @@
+<div class="form-wrapper">
+  <form (ngSubmit)="onSubmit()" #timecapsuleForm="ngForm">
+    <div>
+      <fieldset>
+        <legend>Add person to notify:</legend>
+
+        <div class="form-input">
+          <label for="fName">First name:</label>
+          <input
+            type="text"
+            ngModel
+            name="fName"
+            id="fName"
+            placeholder="John"
+            #fNameRef
+            required
+          />
+        </div>
+
+        <div class="form-input">
+          <label for="lName">Last name:</label>
+          <input
+            type="text"
+            ngModel
+            name="lName"
+            id="lName"
+            placeholder="Smith"
+            #lNameRef
+            required
+          />
+        </div>
+
+        <div class="form-input">
+          <label for="phone">Phone:</label>
+          <input type="number" ngModel name="phone" id="phone" #phoneRef />
+        </div>
+
+        <div class="form-input">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            ngModel
+            name="email"
+            id="email"
+            #emailRef
+            required
+          />
+        </div>
+
+        <div>
+          <fieldset>
+            <legend>Address info:</legend>
+            <div class="form-input">
+              <label for="street">Street:</label>
+              <input
+                type="text"
+                ngModel
+                name="street"
+                id="street"
+                placeholder="123 Main Street"
+                #streetRef
+                required
+              />
+            </div>
+
+            <div class="form-input">
+              <label for="apt">Apartment:</label>
+              <input type="text" ngModel name="apt" id="apt" #aptRef />
+            </div>
+
+            <div class="form-input">
+              <label for="city">City:</label>
+              <input
+                type="text"
+                ngModel
+                name="city"
+                id="city"
+                #cityRef
+                required
+              />
+            </div>
+
+            <div class="form-input">
+              <label for="state">State:</label>
+              <input
+                type="text"
+                ngModel
+                name="state"
+                id="state"
+                #stateRef
+                required
+              />
+            </div>
+
+            <div class="form-input">
+              <label for="zip">Zip:</label>
+              <input
+                type="number"
+                ngModel
+                name="zip"
+                id="zip"
+                #zipRef
+                required
+              />
+            </div>
+          </fieldset>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="addPerson()">
+          Add Person
+        </button>
+      </fieldset>
+    </div>
+    <div class="notifyPerson-wrapper">
+      <div
+        *ngFor="let notifyPerson of this.notifyPeople; index as i"
+        class="notifyPerson-card"
+      >
+        <p>Name: {{ notifyPerson.firstName }} {{ notifyPerson.lastName }}</p>
+        <p *ngIf="notifyPerson.phone">Phone: {{ notifyPerson.phone }}</p>
+        <p>Email: {{ notifyPerson.email }}</p>
+        <p>Address:</p>
+        <div class="address">
+          <p>Street: {{ notifyPerson.address.street }}</p>
+          <p *ngIf="notifyPerson.address.apartment">
+            Apt: {{ notifyPerson.address.apartment }}
+          </p>
+          <p>City: {{ notifyPerson.address.city }}</p>
+          <p>State: {{ notifyPerson.address.state }}</p>
+          <p>Zip: {{ notifyPerson.address.zipCode }}</p>
+        </div>
+        <button type="button" class="btn btn-danger" (click)="removePerson(i)">
+          Remove
+        </button>
+      </div>
+    </div>
+    <div>
+      <fieldset>
+        <legend>Event details:</legend>
+        <div class="form-input">
+          <label>Title:</label>
+          <input
+            type="text"
+            ngModel
+            name="title"
+            id="title"
+            #titleRef
+            required
+          />
+        </div>
+
+        <div class="form-input">
+          <label>Add description:</label>
+          <br />
+          <textarea
+            ngModel
+            name="desc"
+            id="desc"
+            #descRef
+            required
+            style="resize: none"
+            rows="5"
+            cols="40"
+          ></textarea>
+        </div>
+
+        <div class="form-input">
+          <label for="url">Add link:</label>
+          <input type="text" ngModel name="url" id="url" #urlRef required />
+        </div>
+
+        <div class="form-input">
+          <label for="date">Set date and time:</label>
+          <input
+            type="datetime-local"
+            ngModel
+            name="date"
+            id="date"
+            #dateRef
+            required
+          />
+        </div>
+      </fieldset>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
