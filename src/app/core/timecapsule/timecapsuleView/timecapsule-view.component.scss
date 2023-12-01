@@ -1,0 +1,12 @@
+.timecapsule {
+  width: fit-content;
+  border: 1px solid black;
+  padding: 16px;
+
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    margin: 0 auto;
+  }
+}
