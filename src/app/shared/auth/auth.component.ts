@@ -41,7 +41,7 @@ export class AuthComponent {
       console.log('Auth Res Success', res);
       if (this.errMsg) this.errMsg = null;
 
-      // this.router.navigate(['??'])
+      this.router.navigate(['creating-capsules'])
     },
     (err) =>{
       console.error('Auth Res Error', err);
