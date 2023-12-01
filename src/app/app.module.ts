@@ -7,12 +7,14 @@ import { AuthInterceptorService } from './shared/auth/auth-interceptor.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 import { TimecapsuleFormComponent } from './core/timecapsule/timecapsuleForm/timecapsule-form.component';
 import { TimecapsuleViewComponent } from './core/timecapsule/timecapsuleView/timecapsule-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LandingPageComponent,
     TimecapsuleFormComponent,
     TimecapsuleViewComponent,
     AuthComponent,

@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:wght@400;700&display=swap');
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Archivo Black', sans-serif;
+}
+
+.btn-primary {
+  background-color: #19A7CE;
+}
+
+.bgPrimary {
+  background-color: #F6F1F1;
+}
+
+body {
+  background-color: #000000;
+}
