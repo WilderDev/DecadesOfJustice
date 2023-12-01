@@ -10,7 +10,7 @@
   text-align: center;
   color: #F6F1F1;
   text-shadow: 5px 3px black;
-  font-size: 500%;
+  font-size: 400%;
 }
 .loginTitle {
   text-align: center;
@@ -38,10 +38,6 @@ label {
   outline: solid rgba(25, 167, 206, .7);
 }
 
-// .row {
-//   margin-top: 10%;
-// }
-
 hr {
   background-color: #19A7CE;
   color: #19A7CE;
@@ -58,4 +54,24 @@ form {
   color: red;
   text-align: center;
   font-family: 'Archivo Black', sans-serif;
+}
+
+input {
+  transition: transform 0.3s ease 0s;
+
+}
+
+input:focus {
+  transform: scale(1.06);
+  box-shadow: 0px 0px 31px 14px rgba(25,167,206,0.4);
+  -webkit-box-shadow: 0px 0px 31px 14px rgba(25,167,206,0.4);
+  -moz-box-shadow: 0px 0px 31px 14px rgba(25,167,206,0.4);
+}
+
+btn-success {
+  transition: transform 0.3s ease 0s;
+}
+
+btn-success:hover {
+  transform: scale(1.06);
 }
