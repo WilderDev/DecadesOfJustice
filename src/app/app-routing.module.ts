@@ -6,9 +6,9 @@ const routes: Routes = [
   {
     path: '', redirectTo: '/Home', pathMatch: 'full'}, //Landing Page
 
-  { path: "", component:,children:[{path:"", component:}]}, //Creating Capsules
-  { path: "", component:,children:[{path:"", component:}]}, //Current Capsules
-  { path: "", component:,children:[{path:"", component:}]}, //Opening Capsules
+  //{ path: "", component:,children:[{path:"", component:}]}, //Creating Capsules
+  //{ path: "", component:,children:[{path:"", component:}]}, //Current Capsules
+  //{ path: "", component:,children:[{path:"", component:}]}, //Opening Capsules
   { path: "auth", component: AuthComponent}, //Authentication
 ];
 
