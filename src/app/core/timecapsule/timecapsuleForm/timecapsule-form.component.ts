@@ -27,6 +27,7 @@ export class TimecapsuleFormComponent {
       this.timecapsuleForm.form.value.zip,
       this.timecapsuleForm.form.value.apt
     );
+
   };
 
   // Add person to notify people array
@@ -39,6 +40,7 @@ export class TimecapsuleFormComponent {
       this.timecapsuleForm.form.value.phone
     );
     this.notifyPeople.push(notifyPerson);
+    this.timecapsuleForm.resetForm();
   };
 
   // Remove person from notifyPeople array
@@ -52,14 +54,22 @@ export class TimecapsuleFormComponent {
   };
 
   // Submit form
+  showMsg: boolean = false;
+
   onSubmit = () => {
     this.timecapsuleService.onCreateTimecapsule(
       this.timecapsuleForm.form.value.title,
       this.timecapsuleForm.form.value.desc,
       this.timecapsuleForm.form.value.url,
       this.getUNIXTimestamp(),
-      this.notifyPeople
+      this.notifyPeople,
+
     );
+    this.showMsg = true;
+
     console.log(this.timecapsuleService.timecapsule);
+
+    this.timecapsuleForm.resetForm();
   };
+
 }

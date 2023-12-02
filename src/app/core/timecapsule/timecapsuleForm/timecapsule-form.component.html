@@ -1,6 +1,14 @@
 <div class="form-wrapper">
   <form (ngSubmit)="onSubmit()" #timecapsuleForm="ngForm">
     <div>
+
+      <div class="row"  *ngIf="showMsg">
+        <div class="col-xs-12">
+          <p class="alert alert-success">
+              <strong>Registration Success!</strong> Please click here to login!.
+
+          </p>
+        </div>
       <fieldset>
         <legend>Add person to notify:</legend>
 
@@ -106,7 +114,7 @@
           </fieldset>
         </div>
         <button type="button" class="btn btn-primary" (click)="addPerson()">
-          Add Person
+          Add New Person
         </button>
       </fieldset>
     </div>
