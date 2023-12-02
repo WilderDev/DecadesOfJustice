@@ -1,10 +1,23 @@
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg mb-4">
 	<a class="navbar-brand brand" id="brand">Memory Box</a>
-
-  <!--NEED TO MAKE A CHANGE TO DISPLAY FOR NAVBAR TO BE SEEN AT ALL TIMES-->
-	<div
-		class="navbar-collapse collapse"
+  <button
+		class="navbar-toggler"
+		type="button"
+		data-toggle="collapse"
+		data-target="#navbarToggler"
+		aria-label="Toggle navigation"
+		aria-controls="navbarToggler"
+		aria-expanded="false"
+		(click)="collapsed = !collapsed"
 	>
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div
+  class="navbar-collapse collapse"
+		id="navbarToggler"
+		[class.collapse]="collapsed"
+		(window:resize)="collapsed = true">
+
 		<ul class="navbar-nav mt-lg-0 mr-auto mt-2">
 			<li class="nav-item" *ngIf="isAuthenticated">
 				<a class="nav-link" routerLink="" routerLinkActive="active">Home</a>
@@ -21,11 +34,8 @@
       <li class="nav-item" *ngIf="!isAuthenticated">
         <a class="nav-link" routerLink="/authentication" routerLinkActive="active">LOGIN</a>
       </li>
-
-      <!--NEED TO MAKE A LOGOUT METHOD-->
-      <!-- <li class="nav-item">
-        <a class="nav-link" routerLink="/logout" routerLinkActive="active">LOGOUT</a>
-      </li> -->
+      <li class="nav-item" *ngIf="isAuthenticated" (click)="handleSignOut()">
+      <a class="nav-link" style="cursor: pointer" routerLink="/logout" routerLinkActive="active">Logout</a>
 		</ul>
 	</div>
 </nav>
