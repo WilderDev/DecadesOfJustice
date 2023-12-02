@@ -19,7 +19,7 @@ import { TimecapsuleViewComponent } from './core/timecapsule/timecapsuleView/tim
     NavigationComponent,
     LandingPageComponent,
     TimecapsuleFormComponent,
-    TimecapsuleViewComponent,
+    TimecapsuleViewComponent
 
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
