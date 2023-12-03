@@ -1,12 +1,21 @@
+<!--added * too all required-->
+<!-- <link class="bgImg" rel="stylesheet" href="img/yoav-hornung-LOxcL-LFsug-unsplash.jpg"> -->
+<div class="bgImg">
+
 <div class="form-wrapper">
+
   <form (ngSubmit)="onSubmit()" #timecapsuleForm="ngForm">
     <div>
       <fieldset>
-        <legend>Add person to notify:</legend>
+        <legend class="headerOne">Add person to notify:</legend>
+
+        <!--style div for grid one-->
+      <div class="containerOne">
 
         <div class="form-input">
-          <label for="fName">First name:</label>
+          <label for="fName" class="fontOne">First name *</label>
           <input
+            class="flexOne"
             type="text"
             ngModel
             name="fName"
@@ -18,8 +27,9 @@
         </div>
 
         <div class="form-input">
-          <label for="lName">Last name:</label>
+          <label for="lName" class="fontOne">Last name * </label>
           <input
+            class="flexOne"
             type="text"
             ngModel
             name="lName"
@@ -31,13 +41,14 @@
         </div>
 
         <div class="form-input">
-          <label for="phone">Phone:</label>
-          <input type="number" ngModel name="phone" id="phone" #phoneRef />
+          <label for="phone" class="fontOne">Phone</label>
+          <input class="flexOne" type="number" ngModel name="phone" id="phone" #phoneRef />
         </div>
 
         <div class="form-input">
-          <label for="email">Email:</label>
+          <label for="email" class="fontOne">Email *</label>
           <input
+          class="flexOne"
             type="email"
             ngModel
             name="email"
@@ -46,13 +57,18 @@
             required
           />
         </div>
+  <!--end grid one-->
+      </div>
+  <!--style div for grid two-->
+      <div class="containterTwo">
 
         <div>
           <fieldset>
-            <legend>Address info:</legend>
+            <legend class="headerTwo">Address info:</legend>
             <div class="form-input">
-              <label for="street">Street:</label>
+              <label for="street" class="fontTwo">Street *</label>
               <input
+                class="flexTwo"
                 type="text"
                 ngModel
                 name="street"
@@ -64,13 +80,14 @@
             </div>
 
             <div class="form-input">
-              <label for="apt">Apartment:</label>
-              <input type="text" ngModel name="apt" id="apt" #aptRef />
+              <label for="apt" class="fontTwo">Apartment</label>
+              <input class="flexTwo" type="text" ngModel name="apt" id="apt" #aptRef />
             </div>
 
             <div class="form-input">
-              <label for="city">City:</label>
+              <label for="city" fontTwo>City *</label>
               <input
+              class="flexTwo"
                 type="text"
                 ngModel
                 name="city"
@@ -81,8 +98,9 @@
             </div>
 
             <div class="form-input">
-              <label for="state">State:</label>
+              <label for="state" class="fontTwo">State *</label>
               <input
+              class="flexTwo"
                 type="text"
                 ngModel
                 name="state"
@@ -93,8 +111,9 @@
             </div>
 
             <div class="form-input">
-              <label for="zip">Zip:</label>
+              <label for="zip" class="fontTwo">Zip *</label>
               <input
+              class="flexTwo"
                 type="number"
                 ngModel
                 name="zip"
@@ -108,8 +127,14 @@
         <button type="button" class="btn btn-primary" (click)="addPerson()">
           Add Person
         </button>
+
+      </div>
+      <!--end grid two-->
       </fieldset>
     </div>
+
+
+
     <div class="notifyPerson-wrapper">
       <div
         *ngFor="let notifyPerson of this.notifyPeople; index as i"
@@ -135,7 +160,7 @@
     </div>
     <div>
       <fieldset>
-        <legend>Event details:</legend>
+        <legend class="headerThree">Event details:</legend>
         <div class="form-input">
           <label>Title:</label>
           <input
@@ -184,3 +209,7 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
+
+</div>
+
+

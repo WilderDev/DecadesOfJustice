@@ -1,3 +1,51 @@
+.flexOne {
+  display: flex;
+  border-width: 1px;
+  border-color: #146C94;
+  border-radius: 8px;
+}
+
+.fontOne {
+  font-size: 18px;
+  font-weight: bolder;
+  text-shadow: 1px 1px black;
+}
+
+.fontTwo {
+  font-size: 18px;
+  font-weight: bolder;
+  text-shadow: 1px 1px black;
+}
+
+.flexTwo {
+  display: flex;
+  border-width: 1px;
+  border-color: #146C94;
+  border-radius: 8px;
+}
+
+.bgImg {
+  background-image: url(../../../../assets/images/yoav-hornung-LOxcL-LFsug-unsplash.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.headerOne {
+  color: #F6F1F1;
+  text-shadow: 2px 2px black;
+}
+
+.headerTwo {
+  color: #F6F1F1;
+  text-shadow: 2px 2px black;
+}
+
+.headerThree {
+  color: #F6F1F1;
+  text-shadow: #146C94;
+}
+
 .form {
   &-wrapper {
     width: 70vw;
@@ -14,6 +62,7 @@
 
   &-input {
     margin: 8px;
+    color: #F6F1F1;
 
     & input,
     select {
