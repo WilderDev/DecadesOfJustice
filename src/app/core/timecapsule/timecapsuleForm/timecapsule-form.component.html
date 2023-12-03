@@ -61,11 +61,11 @@
 
         <div>
           <fieldset>
-            <legend class="headerTwo">Address info:</legend>
+            <legend class="headerOne">Address info:</legend>
             <div class="form-input">
-              <label for="street" class="fontTwo">Street *</label>
+              <label for="street" class="fontOne">Street *</label>
               <input
-                class="flexTwo"
+                class="flexOne"
                 type="text"
                 ngModel
                 name="street"
@@ -77,14 +77,14 @@
             </div>
 
             <div class="form-input">
-              <label for="apt" class="fontTwo">Apartment</label>
-              <input class="flexTwo" type="text" ngModel name="apt" id="apt" #aptRef />
+              <label for="apt" class="fontOne">Apartment</label>
+              <input class="flexOne" type="text" ngModel name="apt" id="apt" #aptRef />
             </div>
 
             <div class="form-input">
-              <label for="city" fontTwo>City *</label>
+              <label for="city" class="fontOne">City *</label>
               <input
-              class="flexTwo"
+                class="flexOne"
                 type="text"
                 ngModel
                 name="city"
@@ -95,9 +95,9 @@
             </div>
 
             <div class="form-input">
-              <label for="state" class="fontTwo">State *</label>
+              <label for="state" class="fontOne">State *</label>
               <input
-              class="flexTwo"
+                class="flexOne"
                 type="text"
                 ngModel
                 name="state"
@@ -108,9 +108,9 @@
             </div>
 
             <div class="form-input">
-              <label for="zip" class="fontTwo">Zip *</label>
+              <label for="zip" class="fontOne">Zip *</label>
               <input
-              class="flexTwo"
+              class="flexOne"
                 type="number"
                 ngModel
                 name="zip"
@@ -121,7 +121,7 @@
             </div>
           </fieldset>
         </div>
-        <button type="button" class="btn btn-primary" (click)="addPerson()">
+        <button type="button" class="btn btn-primary flexOne" (click)="addPerson()">
           Add Person
         </button>
 
@@ -134,7 +134,7 @@
     <div class="notifyPerson-wrapper">
       <div
         *ngFor="let notifyPerson of this.notifyPeople; index as i"
-        class="notifyPerson-card"
+        class="notifyPerson-card boxShadow"
       >
         <p>Name: {{ notifyPerson.firstName }} {{ notifyPerson.lastName }}</p>
         <p *ngIf="notifyPerson.phone">Phone: {{ notifyPerson.phone }}</p>
@@ -149,17 +149,18 @@
           <p>State: {{ notifyPerson.address.state }}</p>
           <p>Zip: {{ notifyPerson.address.zipCode }}</p>
         </div>
-        <button type="button" class="btn btn-danger" (click)="removePerson(i)">
+        <button type="button" class="btn btn-danger boxShadow" (click)="removePerson(i)">
           Remove
         </button>
       </div>
     </div>
     <div>
       <fieldset>
-        <legend class="headerThree">Event details:</legend>
+        <legend class="headerOne flexTwo">Event details:</legend>
         <div class="form-input">
-          <label>Title:</label>
+          <label class="flexTwo">Title:</label>
           <input
+          class="flexTwo boxShadow"
             type="text"
             ngModel
             name="title"
@@ -170,9 +171,10 @@
         </div>
 
         <div class="form-input">
-          <label>Add description:</label>
+          <label class="flexTwo">Add description:</label>
           <br />
           <textarea
+            class="flexTwo boxShadow"
             ngModel
             name="desc"
             id="desc"
@@ -185,13 +187,14 @@
         </div>
 
         <div class="form-input">
-          <label for="url">Add link:</label>
-          <input type="text" ngModel name="url" id="url" #urlRef required />
+          <label for="url" class="flexTwo">Add link:</label>
+          <input class="flexTwo boxShadow" type="text" ngModel name="url" id="url" #urlRef required />
         </div>
 
         <div class="form-input">
-          <label for="date">Set date and time:</label>
+          <label for="date" class="flexTwo">Set date and time:</label>
           <input
+            class="flexTwo boxShadow"
             type="datetime-local"
             ngModel
             name="date"
@@ -202,7 +205,7 @@
         </div>
       </fieldset>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary flexTwo boxShadow">Submit</button>
   </form>
 </div>
 
