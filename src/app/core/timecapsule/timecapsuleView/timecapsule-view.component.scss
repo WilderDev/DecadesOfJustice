@@ -11,6 +11,23 @@
 //   }
 // }
 
+.bgImg {
+  background-image: url("../../../../assets/images/landing_page_title_bg.png");
+  background-size: cover;
+  outline: solid rgba(25, 167, 206, .7);
+}
+.appTitle {
+  text-align: center;
+  color: #F6F1F1;
+  text-shadow: 5px 3px black;
+}
+.aboutApp {
+  text-align: center;
+  color: #F6F1F1;
+  text-shadow: 2px 3px black;
+  font-family: 'Roboto', sans-serif;
+}
+
 .timecapsule {
   position: relative;
   outline: solid rgba(25, 167, 206, .7);
