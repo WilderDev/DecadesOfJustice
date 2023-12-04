@@ -26,7 +26,7 @@ export class TimecapsuleFormComponent {
     'Details about the moment that you would like to put in the Memory Box.';
   defaultUrl: string = 'Link';
   defaultTime: string = '00:00';
-  showMsg: boolean = false;
+  showMsg: boolean = true;
 
   //* ==================== Constructor ====================
   constructor(private timecapsuleService: TimecapsuleService) {}
