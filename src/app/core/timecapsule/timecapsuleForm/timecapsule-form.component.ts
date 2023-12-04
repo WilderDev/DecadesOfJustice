@@ -26,12 +26,12 @@ export class TimecapsuleFormComponent {
     'Details about the moment that you would like to put in the Memory Box.';
   defaultUrl: string = 'Link';
   defaultTime: string = '00:00';
+  showMsg: boolean = false;
 
   //* ==================== Constructor ====================
   constructor(private timecapsuleService: TimecapsuleService) {}
 
   //* ==================== Methods ====================
-
   // Get future date and format it for form
   getYearFromNow = () => {
     const dateNotFormatted = new Date(Date.now() + 31556926000);
@@ -70,6 +70,7 @@ export class TimecapsuleFormComponent {
       this.timecapsuleForm.form.value.phone
     );
     this.notifyPeople.push(notifyPerson);
+    this.timecapsuleForm.resetForm();
   };
 
   // Remove person from notifyPeople array
@@ -82,24 +83,36 @@ export class TimecapsuleFormComponent {
     return Date.parse(this.timecapsuleForm.form.value.date);
   };
 
-  // Submit form
   onSubmit = () => {
+    const { title, desc, url } = this.timecapsuleForm.form.value;
+
     let newTimeCapsule: Timecapsule = this.timecapsuleService.createTimecapsule(
-      this.timecapsuleForm.form.value.title,
-      this.timecapsuleForm.form.value.desc,
-      this.timecapsuleForm.form.value.url,
+      title,
+      desc,
+      url,
       this.getUNIXTimestamp(),
       this.notifyPeople
     );
+
+    // Add New Timecapsule to Firebase
+    this.timecapsuleService.onPostTimecapsule(newTimeCapsule);
+
+    // Add New Timecapsule to loadedTimecapsules (in timecapsule.service.ts)
     let newTimecapsuleList: Timecapsule[] =
       this.timecapsuleService.loadedTimecapsules;
-    this.timecapsuleService.onPostTimecapsule(newTimeCapsule);
     newTimecapsuleList.push(newTimeCapsule);
+
+    // Update loadedTimecapsules in timecapsule.service.ts
     this.timecapsuleService.timecapsulesChanged.next(
       newTimecapsuleList.slice()
     );
+
+    this.showMsg = true;
+    setTimeout(() => {
+      this.showMsg = false;
+    }, 3000);
+    this.timecapsuleForm.resetForm();
   };
 
   //* Run Methods
-  defaultDate = this.getYearFromNow();
 }
