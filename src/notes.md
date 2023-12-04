@@ -2,21 +2,24 @@
 
 *Formerly DecadesOfJustice - RENAMED:  Legacy Locker*
 
-_Vision to Set timer to 'lock' away **\_\_** for set time_
+*Vision to Set timer to 'lock' away ______ for set time*
+ 
 
-Generic timecapsules
+ Generic timecapsules
 
-landing page
+ landing page
 
-authentication
+ authentication
 
-create/read/update/delete timecapsule
+ create/read/update/delete timecapsule
+
 
 ## PROJECT BASICS:
-
 **Angular Version:** 16.0.0
+  > *To check your angular version > open project, in terminal type: ng version*
 
-> _To check your angular version > open project, in terminal type: ng version_
+**NodeJS Version:**  TBD
+  > *To check nodeJS version > open project, in terminal type: node -v*
 
 **Bootstrap Version:** v5.3.2 - *using Bootstrap?*
   > *To check bootstrap version > open project, navigate to bootstrap.min.css; first line should show bootstrap version*
@@ -36,28 +39,12 @@ create/read/update/delete timecapsule
 
 **NodeJS Version:** TBD
 
-> _To check nodeJS version > open project, in terminal type: node -v_
-
-**Bootstrap Version:** TBD - _using Bootstrap?_
-
-> _To check bootstrap version > open project, navigate to bootstrap.min.css; first line should show bootstrap version_
-
-## TEAMWORK:
-
-**COMMANDER IN CHARGE: Will Wilder**
-
-- Landing Page: **Kyle**
-- Header/Navbar; Routes/RouteGuard: **Wilicia**
-- Design/CSS/Responsive: **Blake**
-- Login/Auth: **Trace**
-- Form structure & logic/API/Services/CRUD: **Alex**
-- TBD: **Verona**
-
 ## DESIGN BASICS:
 
 ### Naming Convention(s):
+ >  TBD
 
-> TBD
+
 
 ### Color Scheme:  **Blue / Black / White**
 
@@ -70,19 +57,22 @@ Style Color Palette:
   - #000000 (black)
 
   -**Landing Page:** TBD
-### Color Scheme:
 
--**Landing Page:** TBD
+  -**Navbar:**  TBD
 
--**Navbar:** TBD
+  -**Additional Pages:**  TBD
 
--**Additional Pages:** TBD
+  -**Other:**  TBD
 
--**Other:** TBD
+
+
 
 ### Classes ([naming] for styling & reference):
+ >  TBD
 
-> TBD
+
+
+__________________________________________________________
 
 ---
 
