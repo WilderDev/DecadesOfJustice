@@ -9,14 +9,24 @@ import { Timecapsule } from '../timecapsule.model';
 })
 export class TimecapsuleViewComponent implements OnInit {
   //* ==================== Properties ====================
+  loadedTimecapsules: Timecapsule[];
 
   //* ==================== Constructor ====================
   constructor(public timecapsuleService: TimecapsuleService) {}
 
   //* ==================== Lifecycle Hooks ====================
   ngOnInit(): void {
-    this.timecapsuleService.onReadTimecapsule();
+    this.timecapsuleService.onFetchTimecapsule().subscribe((timecapsules) => {
+      this.loadedTimecapsules = timecapsules;
+      //console.log(timecapsules);
+    });
   }
 
   //* ==================== Methods ====================
+
+  deleteTimecapsule = (i) => {
+    this.timecapsuleService
+      .onDeleteTimecapsule(this.loadedTimecapsules[i].id)
+      .subscribe(() => this.loadedTimecapsules.splice(i, 1));
+  };
 }

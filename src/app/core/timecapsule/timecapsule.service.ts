@@ -10,7 +10,6 @@ import { map } from 'rxjs/operators';
 export class TimecapsuleService {
   //* ==================== Properties ====================
   timecapsule: Timecapsule;
-  loadedTimecapsules: Timecapsule[];
   FIREBASE_URL: string = 'https://memorybox-80ee9-default-rtdb.firebaseio.com';
 
   //* ==================== Constructor ====================
@@ -36,34 +35,30 @@ export class TimecapsuleService {
     this.http
       .post<Timecapsule>(`${this.FIREBASE_URL}/posts.json`, this.timecapsule)
       .subscribe((res) => {
-        console.log(res);
+        //console.log(res);
       });
   };
 
   // Read timecapsule
-  onReadTimecapsule = () => {
-    this.http
-      .get<Timecapsule[]>(`${this.FIREBASE_URL}/posts.json`)
-      .pipe(
-        map((res) => {
-          const timecapsules = [];
-          for (const key in res) {
-            if (res.hasOwnProperty(key)) {
-              timecapsules.push({ ...res[key], id: key });
-            }
+  onFetchTimecapsule = () => {
+    return this.http.get<Timecapsule[]>(`${this.FIREBASE_URL}/posts.json`).pipe(
+      map((res) => {
+        const timecapsules = [];
+        for (const key in res) {
+          if (res.hasOwnProperty(key)) {
+            timecapsules.push({ ...res[key], id: key });
           }
-          return timecapsules;
-        })
-      )
-      .subscribe((timecapsules) => {
-        this.loadedTimecapsules = timecapsules;
-        console.log(timecapsules);
-      });
+        }
+        return timecapsules;
+      })
+    );
   };
 
   // Update timecapsule
   onUpdateTimecapsule = () => {};
 
   // Delete timecapsule
-  onDeleteTimecapsule = () => {};
+  onDeleteTimecapsule = (id) => {
+    return this.http.delete(`${this.FIREBASE_URL}/posts/${id}.json`);
+  };
 }

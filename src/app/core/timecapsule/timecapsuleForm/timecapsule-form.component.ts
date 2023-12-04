@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { Address, NotifyPerson } from '../timecapsule.model';
@@ -51,6 +51,10 @@ export class TimecapsuleFormComponent {
     return Date.parse(this.timecapsuleForm.form.value.date);
   };
 
+  formInfo = (form: NgForm) => {
+    console.log(form);
+  };
+
   // Submit form
   onSubmit = () => {
     this.timecapsuleService.onCreateTimecapsule(
@@ -60,6 +64,5 @@ export class TimecapsuleFormComponent {
       this.getUNIXTimestamp(),
       this.notifyPeople
     );
-    console.log(this.timecapsuleService.timecapsule);
   };
 }
