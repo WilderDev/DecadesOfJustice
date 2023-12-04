@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 
 import { Address, NotifyPerson } from '../timecapsule.model';
 import { TimecapsuleService } from '../timecapsule.service';
+import { Time } from '@angular/common';
 
 @Component({
   selector: 'app-timecapsule-form',
@@ -13,11 +14,43 @@ export class TimecapsuleFormComponent {
   //* ==================== Properties ====================
   @ViewChild('timecapsuleForm') timecapsuleForm: NgForm;
   public notifyPeople: NotifyPerson[] = [];
+  defaultFirstName: string = 'John';
+  defaultLastName: string = 'Doe';
+  defaultPhone: string = '312-555-5556';
+  defaultEmail: string = 'john@gmail.com';
+  defaultStreet: string = '235 Main St';
+  defaultApt: string = 'Apt 3';
+  defaultCity: string = 'Chicago';
+  defaultState: string = 'IL';
+  defaultZip: number = 60131;
+  defaultTitle: string = 'A Catchy Title';
+  defaultDesc: string =
+    'Details about the moment that you would like to put in the Memory Box.';
+  defaultUrl: string = 'Link';
+  defaultTime: string = '00:00';
 
   //* ==================== Constructor ====================
   constructor(private timecapsuleService: TimecapsuleService) {}
 
   //* ==================== Methods ====================
+
+  // Get future date and format it for form
+  getYearFromNow = () => {
+    const dateNotFormatted = new Date(Date.now() + 31556926000);
+    let dateString = dateNotFormatted.getFullYear() + '-';
+    if (dateNotFormatted.getMonth() < 9) {
+      dateString += '0';
+    }
+    dateString += dateNotFormatted.getMonth() + 1;
+    dateString += '-';
+    if (dateNotFormatted.getDate() < 10) {
+      dateString += '0';
+    }
+    dateString += dateNotFormatted.getDate();
+    console.log(dateString);
+    return dateString;
+  };
+
   // Create address object => used for the addPerson method
   createAddressObj = (): Address => {
     return new Address(
@@ -65,4 +98,7 @@ export class TimecapsuleFormComponent {
       this.notifyPeople
     );
   };
+
+  //* Run Methods
+  defaultDate = this.getYearFromNow();
 }

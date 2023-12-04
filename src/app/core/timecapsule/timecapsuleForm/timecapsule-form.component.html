@@ -15,10 +15,9 @@
           <label for="fName">First name:</label>
           <input
             type="text"
-            ngModel
+            [ngModel]="defaultFirstName"
             name="fName"
             id="fName"
-            placeholder="John"
             #fNameRef="ngModel"
             required
           />
@@ -31,7 +30,7 @@
           <label for="lName">Last name:</label>
           <input
             type="text"
-            ngModel
+            [ngModel]="defaultLastName"
             name="lName"
             id="lName"
             placeholder="Smith"
@@ -47,7 +46,7 @@
           <label for="phone">Phone:</label>
           <input
             type="number"
-            ngModel
+            [ngModel]="defaultPhone"
             name="phone"
             id="phone"
             #phoneRef="ngModel"
@@ -58,7 +57,7 @@
           <label for="email">Email:</label>
           <input
             type="email"
-            ngModel
+            [ngModel]="defaultEmail"
             name="email"
             id="email"
             #emailRef="ngModel"
@@ -77,7 +76,7 @@
               <label for="street">Street:</label>
               <input
                 type="text"
-                ngModel
+                [ngModel]="defaultStreet"
                 name="street"
                 id="street"
                 placeholder="123 Main Street"
@@ -93,7 +92,7 @@
               <label for="apt">Apartment:</label>
               <input
                 type="text"
-                ngModel
+                [ngModel]="defaultApt"
                 name="apt"
                 id="apt"
                 #aptRef="ngModel"
@@ -104,7 +103,7 @@
               <label for="city">City:</label>
               <input
                 type="text"
-                ngModel
+                [ngModel]="defaultCity"
                 name="city"
                 id="city"
                 #cityRef="ngModel"
@@ -119,7 +118,7 @@
               <label for="state">State:</label>
               <input
                 type="text"
-                ngModel
+                [ngModel]="defaultState"
                 name="state"
                 id="state"
                 #stateRef="ngModel"
@@ -134,7 +133,7 @@
               <label for="zip">Zip:</label>
               <input
                 type="number"
-                ngModel
+                [ngModel]="defaultZip"
                 name="zip"
                 id="zip"
                 #zipRef="ngModel"
@@ -153,12 +152,19 @@
           [disabled]="
             !(
               fNameRef.valid &&
+              fNameRef.touched &&
               lNameRef.valid &&
+              lNameRef.touched &&
               emailRef.valid &&
+              emailRef.touched &&
               stateRef.valid &&
+              stateRef.touched &&
               cityRef.valid &&
+              cityRef.touched &&
               stateRef.valid &&
-              zipRef.valid
+              stateRef.touched &&
+              zipRef.valid &&
+              zipRef.touched
             )
           "
         >
@@ -196,7 +202,7 @@
           <label>Title:</label>
           <input
             type="text"
-            ngModel
+            [ngModel]="defaultTitle"
             name="title"
             id="title"
             #titleRef="ngModel"
@@ -211,7 +217,7 @@
           <label>Add description:</label>
           <br />
           <textarea
-            ngModel
+            [ngModel]="defaultDesc"
             name="desc"
             id="desc"
             #descRef="ngModel"
@@ -231,15 +237,26 @@
         </div>
 
         <div class="form-input">
-          <label for="date">Set date and time:</label>
+          <label for="date">Set date:</label>
           <input
-            type="datetime-local"
-            ngModel
+            type="date"
+            [ngModel]="defaultDate"
             name="date"
             id="date"
             #dateRef="ngModel"
             required
           />
+
+          <div>
+            <label for="time">Set time:</label>
+            <input
+              type="time"
+              [ngModel]="defaultTime"
+              name="time"
+              id="time"
+              #timeRef="ngModel"
+            />
+          </div>
           <p *ngIf="!dateRef.valid && dateRef.touched">
             * Please enter a date.
           </p>
@@ -250,7 +267,14 @@
       type="submit"
       class="btn btn-primary"
       [disabled]="
-        !(titleRef.valid && descRef.valid && dateRef.valid) || !notifyPeople[0]
+        !(
+          titleRef.valid &&
+          titleRef.touched &&
+          descRef.valid &&
+          descRef.touched &&
+          dateRef.valid &&
+          timeRef.valid
+        ) || !notifyPeople[0]
       "
     >
       Submit
