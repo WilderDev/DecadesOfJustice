@@ -1,12 +1,5 @@
 <div class="form-wrapper">
   <form (ngSubmit)="onSubmit()" #timecapsuleForm="ngForm">
-    <button
-      type="button"
-      class="btn btn-primary"
-      (click)="formInfo(timecapsuleForm)"
-    >
-      Show Info
-    </button>
     <div>
       <fieldset>
         <legend>Add a person to notify:</legend>
@@ -15,7 +8,8 @@
           <label for="fName">First name:</label>
           <input
             type="text"
-            [ngModel]="defaultFirstName"
+            ngModel
+            [placeholder]="defaultFirstName"
             name="fName"
             id="fName"
             #fNameRef="ngModel"
@@ -30,10 +24,10 @@
           <label for="lName">Last name:</label>
           <input
             type="text"
-            [ngModel]="defaultLastName"
+            ngModel
             name="lName"
             id="lName"
-            placeholder="Smith"
+            [placeholder]="defaultLastName"
             #lNameRef="ngModel"
             required
           />
@@ -46,7 +40,8 @@
           <label for="phone">Phone:</label>
           <input
             type="number"
-            [ngModel]="defaultPhone"
+            ngModel
+            [placeholder]="defaultPhone"
             name="phone"
             id="phone"
             #phoneRef="ngModel"
@@ -57,7 +52,8 @@
           <label for="email">Email:</label>
           <input
             type="email"
-            [ngModel]="defaultEmail"
+            ngModel
+            [placeholder]="defaultEmail"
             name="email"
             id="email"
             #emailRef="ngModel"
@@ -76,10 +72,10 @@
               <label for="street">Street:</label>
               <input
                 type="text"
-                [ngModel]="defaultStreet"
+                ngModel
+                [placeholder]="defaultStreet"
                 name="street"
                 id="street"
-                placeholder="123 Main Street"
                 #streetRef="ngModel"
                 required
               />
@@ -92,7 +88,8 @@
               <label for="apt">Apartment:</label>
               <input
                 type="text"
-                [ngModel]="defaultApt"
+                ngModel
+                [placeholder]="defaultApt"
                 name="apt"
                 id="apt"
                 #aptRef="ngModel"
@@ -103,7 +100,8 @@
               <label for="city">City:</label>
               <input
                 type="text"
-                [ngModel]="defaultCity"
+                ngModel
+                [placeholder]="defaultCity"
                 name="city"
                 id="city"
                 #cityRef="ngModel"
@@ -118,7 +116,8 @@
               <label for="state">State:</label>
               <input
                 type="text"
-                [ngModel]="defaultState"
+                ngModel
+                [placeholder]="defaultState"
                 name="state"
                 id="state"
                 #stateRef="ngModel"
@@ -133,7 +132,8 @@
               <label for="zip">Zip:</label>
               <input
                 type="number"
-                [ngModel]="defaultZip"
+                ngModel
+                [placeholder]="defaultZip"
                 name="zip"
                 id="zip"
                 #zipRef="ngModel"
@@ -202,7 +202,8 @@
           <label>Title:</label>
           <input
             type="text"
-            [ngModel]="defaultTitle"
+            ngModel
+            [placeholder]="defaultTitle"
             name="title"
             id="title"
             #titleRef="ngModel"
@@ -217,7 +218,8 @@
           <label>Add description:</label>
           <br />
           <textarea
-            [ngModel]="defaultDesc"
+            ngModel
+            [placeholder]="defaultDesc"
             name="desc"
             id="desc"
             #descRef="ngModel"
@@ -233,7 +235,14 @@
 
         <div class="form-input">
           <label for="url">Add link:</label>
-          <input type="text" ngModel name="url" id="url" #urlRef="ngModel" />
+          <input
+            type="text"
+            ngModel
+            placeholder="urls"
+            name="url"
+            id="url"
+            #urlRef="ngModel"
+          />
         </div>
 
         <div class="form-input">

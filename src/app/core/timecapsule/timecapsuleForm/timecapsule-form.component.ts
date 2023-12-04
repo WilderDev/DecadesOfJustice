@@ -84,10 +84,6 @@ export class TimecapsuleFormComponent {
     return Date.parse(this.timecapsuleForm.form.value.date);
   };
 
-  formInfo = (form: NgForm) => {
-    console.log(form);
-  };
-
   // Submit form
   onSubmit = () => {
     this.timecapsuleService.onCreateTimecapsule(
