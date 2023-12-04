@@ -1,10 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { Address, NotifyPerson } from '../timecapsule.model';
+import { Address, NotifyPerson, Timecapsule } from '../timecapsule.model';
 import { TimecapsuleService } from '../timecapsule.service';
-import { Time } from '@angular/common';
-
 @Component({
   selector: 'app-timecapsule-form',
   templateUrl: './timecapsule-form.component.html',
@@ -86,12 +84,19 @@ export class TimecapsuleFormComponent {
 
   // Submit form
   onSubmit = () => {
-    this.timecapsuleService.onCreateTimecapsule(
+    let newTimeCapsule: Timecapsule = this.timecapsuleService.createTimecapsule(
       this.timecapsuleForm.form.value.title,
       this.timecapsuleForm.form.value.desc,
       this.timecapsuleForm.form.value.url,
       this.getUNIXTimestamp(),
       this.notifyPeople
+    );
+    let newTimecapsuleList: Timecapsule[] =
+      this.timecapsuleService.loadedTimecapsules;
+    this.timecapsuleService.onPostTimecapsule(newTimeCapsule);
+    newTimecapsuleList.push(newTimeCapsule);
+    this.timecapsuleService.timecapsulesChanged.next(
+      newTimecapsuleList.slice()
     );
   };
 
