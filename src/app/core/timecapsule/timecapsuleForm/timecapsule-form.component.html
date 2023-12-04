@@ -3,21 +3,29 @@
 
 <div class="form-wrapper">
   <form (ngSubmit)="onSubmit()" #timecapsuleForm="ngForm">
-    <div>
+    <div class="row">
+      <div class="col-xs-12" *ngIf="showMsg">
+        <p class="alert alert-success">
+          <strong>Registration Success!</strong> Please click here to login!.
+        </p>
+      </div>
       <fieldset>
-        <legend>Add person to notify:</legend>
+        <legend>Add a person to notify:</legend>
 
         <div class="form-input">
           <label for="fName">First name:</label>
           <input
             type="text"
             ngModel
+            [placeholder]="defaultFirstName"
             name="fName"
             id="fName"
-            placeholder="John"
-            #fNameRef
+            #fNameRef="ngModel"
             required
           />
+          <p *ngIf="!fNameRef.valid && fNameRef.touched">
+            * Please enter a first name.
+          </p>
         </div>
 
         <div class="form-input">
@@ -27,15 +35,25 @@
             ngModel
             name="lName"
             id="lName"
-            placeholder="Smith"
-            #lNameRef
+            [placeholder]="defaultLastName"
+            #lNameRef="ngModel"
             required
           />
+          <p *ngIf="!lNameRef.valid && lNameRef.touched">
+            * Please enter a last name.
+          </p>
         </div>
 
         <div class="form-input">
           <label for="phone">Phone:</label>
-          <input type="number" ngModel name="phone" id="phone" #phoneRef />
+          <input
+            type="number"
+            ngModel
+            [placeholder]="defaultPhone"
+            name="phone"
+            id="phone"
+            #phoneRef="ngModel"
+          />
         </div>
 
         <div class="form-input">
@@ -43,11 +61,16 @@
           <input
             type="email"
             ngModel
+            [placeholder]="defaultEmail"
             name="email"
             id="email"
-            #emailRef
+            #emailRef="ngModel"
             required
+            email
           />
+          <p *ngIf="!emailRef.valid && emailRef.touched">
+            * Please enter a valid email.
+          </p>
         </div>
 
         <div>
@@ -58,17 +81,27 @@
               <input
                 type="text"
                 ngModel
+                [placeholder]="defaultStreet"
                 name="street"
                 id="street"
-                placeholder="123 Main Street"
-                #streetRef
+                #streetRef="ngModel"
                 required
               />
+              <p *ngIf="!streetRef.valid && streetRef.touched">
+                * Please enter a street address.
+              </p>
             </div>
 
             <div class="form-input">
               <label for="apt">Apartment:</label>
-              <input type="text" ngModel name="apt" id="apt" #aptRef />
+              <input
+                type="text"
+                ngModel
+                [placeholder]="defaultApt"
+                name="apt"
+                id="apt"
+                #aptRef="ngModel"
+              />
             </div>
 
             <div class="form-input">
@@ -76,11 +109,15 @@
               <input
                 type="text"
                 ngModel
+                [placeholder]="defaultCity"
                 name="city"
                 id="city"
-                #cityRef
+                #cityRef="ngModel"
                 required
               />
+              <p *ngIf="!cityRef.valid && cityRef.touched">
+                * Please enter a city.
+              </p>
             </div>
 
             <div class="form-input">
@@ -88,11 +125,15 @@
               <input
                 type="text"
                 ngModel
+                [placeholder]="defaultState"
                 name="state"
                 id="state"
-                #stateRef
+                #stateRef="ngModel"
                 required
               />
+              <p *ngIf="!stateRef.valid && stateRef.touched">
+                * Please enter a state.
+              </p>
             </div>
 
             <div class="form-input">
@@ -100,20 +141,46 @@
               <input
                 type="number"
                 ngModel
+                [placeholder]="defaultZip"
                 name="zip"
                 id="zip"
-                #zipRef
+                #zipRef="ngModel"
                 required
               />
+              <p *ngIf="!zipRef.valid && zipRef.touched">
+                * Please enter a zip code.
+              </p>
             </div>
           </fieldset>
         </div>
-        <button type="button" class="btn btn-primary" (click)="addPerson()">
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="addPerson()"
+          [disabled]="
+            !(
+              fNameRef.valid &&
+              fNameRef.touched &&
+              lNameRef.valid &&
+              lNameRef.touched &&
+              emailRef.valid &&
+              emailRef.touched &&
+              stateRef.valid &&
+              stateRef.touched &&
+              cityRef.valid &&
+              cityRef.touched &&
+              stateRef.valid &&
+              stateRef.touched &&
+              zipRef.valid &&
+              zipRef.touched
+            )
+          "
+        >
           Add Person
         </button>
       </fieldset>
     </div>
-
 
     <div class="notifyPerson-wrapper">
       <div
@@ -138,6 +205,7 @@
         </button>
       </div>
     </div>
+
     <div>
       <fieldset>
         <legend>Event details:</legend>
@@ -146,11 +214,15 @@
           <input
             type="text"
             ngModel
+            [placeholder]="defaultTitle"
             name="title"
             id="title"
-            #titleRef
+            #titleRef="ngModel"
             required
           />
+          <p *ngIf="!titleRef.valid && titleRef.touched">
+            * Please enter a title.
+          </p>
         </div>
 
         <div class="form-input">
@@ -158,35 +230,76 @@
           <br />
           <textarea
             ngModel
+            [placeholder]="defaultDesc"
             name="desc"
             id="desc"
-            #descRef
+            #descRef="ngModel"
             required
             style="resize: none"
             rows="5"
             cols="40"
           ></textarea>
+          <p *ngIf="!descRef.valid && descRef.touched">
+            * Please enter a description.
+          </p>
         </div>
 
         <div class="form-input">
           <label for="url">Add link:</label>
-          <input type="text" ngModel name="url" id="url" #urlRef required />
+          <input
+            type="text"
+            ngModel
+            placeholder="urls"
+            name="url"
+            id="url"
+            #urlRef="ngModel"
+          />
         </div>
 
         <div class="form-input">
-          <label for="date">Set date and time:</label>
+          <label for="date">Set date:</label>
           <input
-            type="datetime-local"
-            ngModel
+            type="date"
+            [ngModel]="this.getYearFromNow()"
             name="date"
             id="date"
-            #dateRef
+            #dateRef="ngModel"
             required
           />
+
+          <div>
+            <label for="time">Set time:</label>
+            <input
+              type="time"
+              [ngModel]="defaultTime"
+              name="time"
+              id="time"
+              #timeRef="ngModel"
+            />
+          </div>
+          <p *ngIf="!dateRef.valid && dateRef.touched">
+            * Please enter a date.
+          </p>
         </div>
       </fieldset>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="
+        !(
+          titleRef.valid &&
+          titleRef.touched &&
+          descRef.valid &&
+          descRef.touched &&
+          dateRef.valid &&
+          timeRef.valid
+        ) || !notifyPeople[0]
+      "
+    >
+      Submit
+    </button>
   </form>
 </div>
 
