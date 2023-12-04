@@ -1,3 +1,10 @@
+<!-- ? Blake's Changes -->
+<!-- * These were additions to the HTML for styling * -->
+<!-- ! ANYTHING DIVS WITH COL, ROW, AND CONTAINER IS THE BOOTSTRAP I ADDED ! -->
+<!-- ! ADDED <br> IS THERE TO ADD BREAKS BETWEEN THE CONTENT ! -->
+<!-- ! ADDED <hr> IS THERE TO ADD LINES BETWEEN SPECIFIC CONTENT ! -->
+<!-- * -=========================================== * -->
+
 <div class="container">
   <br>
   <div class="bgImg">
@@ -7,7 +14,7 @@
     <div class="row">
       <div class="col-md-12" >
 
-        <!--? BG: Maybe "!Welcome to Memory Box"-->
+  <!-- ? BG: Added a title box and picture to top the page -->
   <h1 class="appTitle">Your Timecapsules!</h1>
   </div>
   </div>
@@ -20,7 +27,6 @@
 
   <div class="col-md-12">
  <h2 class="aboutApp">
-    <!--Here at Memory Box it is our joy to help you save special moments, and lock them away to view and remember at another later date.-->
     Here is the look of your memories you stored and when they will be opened for you to see again!
   </h2>
   <br>
@@ -28,9 +34,10 @@
   </div>
 </div>
 </div>
-
+  <!-- ? ============================================= -->
 
   <div class="row">
+      <!-- ? BG: Changed to *ngFor to allow the timecapsules to line up in even rows -->
     <div class="col-md-6" *ngFor="let timecapsule of this.timecapsuleService.loadedTimecapsules">
 
       <br>
