@@ -75,6 +75,9 @@ export class AuthService {
     const formUser = new User(email, userId, token, expDate);
     this.currentUser.next(formUser);
 
+
+    this.automaticSignOut(expiresIn * 1000);
+
     // Save new user in localStorage
     localStorage.setItem("userData", JSON.stringify(formUser));
   }
