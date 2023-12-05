@@ -86,7 +86,7 @@ export class AuthService {
 
     if (this.tokenExpTimer) clearTimeout(this.tokenExpTimer);
 
-    this.router.navigate(['auth']);
+    this.router.navigate(['authentication']);
   }
 
 
