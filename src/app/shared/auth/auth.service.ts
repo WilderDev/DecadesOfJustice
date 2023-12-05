@@ -3,9 +3,10 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, tap } from "rxjs";
 import { User } from "./User.model";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
 
 
-const AUTH_API_KEY = "AIzaSyDGa-yj7TU0g0RrjfbNSgeyPGxNXNUSG4g"
+const AUTH_API_KEY = environment.firebaseAPIKey
 
 const SIGN_UP_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key="
 
@@ -21,6 +22,13 @@ export interface AuthResponseData {
   registered?: boolean;
 }
 
+export interface UserData {
+  email: string;
+  id: string;
+  _token: string;
+  _tokenExpirationDate: string;
+}
+
 
 @Injectable({
   providedIn: "root"
@@ -28,6 +36,7 @@ export interface AuthResponseData {
 
 
 export class AuthService {
+  private tokenExpTimer: any;
   currentUser = new BehaviorSubject<User>(null);
   userToken: string = null;
 
@@ -66,14 +75,52 @@ export class AuthService {
     const formUser = new User(email, userId, token, expDate);
     this.currentUser.next(formUser);
 
+
+    this.automaticSignOut(expiresIn * 1000);
+
     // Save new user in localStorage
     localStorage.setItem("userData", JSON.stringify(formUser));
   }
 
   signOut() {
     this.currentUser.next(null);
-    this.router.navigate(['auth']);
+
+    localStorage.removeItem("userData");
+
+    if (this.tokenExpTimer) clearTimeout(this.tokenExpTimer);
+
+    this.router.navigate(['authentication']);
   }
+
+
+  automaticSignOut(expDuration: number) {
+    console.log("Expiration Duration", expDuration);
+
+    this.tokenExpTimer = setTimeout(() => {
+      this.signOut();
+    }, expDuration);
+  }
+
+
+  automaticSignIn() {
+    const userData: UserData = JSON.parse(localStorage.getItem('userData'));
+
+    if(!userData) return;
+    const { email, id, _token, _tokenExpirationDate } = userData;
+
+    const loadedUser = new User(
+      email,
+      id,
+      _token,
+      new Date(_tokenExpirationDate)
+    );
+
+    if (loadedUser.token) {
+      this.currentUser.next(loadedUser);
+    }
+  }
+
+
 
 
 }
