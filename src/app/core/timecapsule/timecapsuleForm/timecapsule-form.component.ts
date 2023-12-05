@@ -45,7 +45,6 @@ export class TimecapsuleFormComponent {
       dateString += '0';
     }
     dateString += dateNotFormatted.getDate();
-    console.log(dateString);
     return dateString;
   };
 
