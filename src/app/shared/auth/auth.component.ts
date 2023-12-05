@@ -45,7 +45,7 @@ export class AuthComponent {
     },
     (err) =>{
       console.error('Auth Res Error', err);
-      this.errMsg = err.message;
+      this.errMsg = 'Incorrect Email or Password';
     }
     );
 
