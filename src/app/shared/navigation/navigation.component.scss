@@ -1,0 +1,25 @@
+* {
+  color: #F6F1F1;
+}
+
+#brand {
+  font-family: 'Archivo Black', sans-serif;
+  margin-left: 1%;
+}
+
+#logout {
+  transition: transform 0.3s ease 0s;
+}
+
+#logout:hover {
+  color: red;
+}
+
+#login {
+  transition: transform 0.3s ease 0s;
+}
+
+#login:hover {
+  color: #66ff00;
+}
+

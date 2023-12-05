@@ -32,10 +32,10 @@
 				<a class="nav-link" routerLink="/opening-capsules" routerLinkActive="active">Opening Capsules</a>
 			</li>
       <li class="nav-item" *ngIf="!isAuthenticated">
-        <a class="nav-link" routerLink="/authentication" routerLinkActive="active">LOGIN</a>
+        <a class="nav-link" routerLink="/authentication" routerLinkActive="active" id="login">LOGIN</a>
       </li>
       <li class="nav-item" *ngIf="isAuthenticated" (click)="handleSignOut()">
-      <a class="nav-link" style="cursor: pointer" routerLink="/logout" routerLinkActive="active">Logout</a>
+      <a class="nav-link" style="cursor: pointer" routerLink="/logout" routerLinkActive="active" id="logout">LOGOUT</a>
 		</ul>
 	</div>
 </nav>
