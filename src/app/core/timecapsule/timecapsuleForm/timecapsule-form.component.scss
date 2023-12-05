@@ -1,3 +1,43 @@
+.bgImg {
+  background-image: url(../../../../assets/images/yoav-hornung-LOxcL-LFsug-unsplash.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.headerOne {
+  color: #F6F1F1;
+  text-shadow: 2px 2px black;
+}
+
+.boxShadow {
+  box-shadow: 3px 2px black, -.3em 0 .2em #146C94;
+}
+
+.fontOne {
+  font-size: 18px;
+  font-weight: bolder;
+  text-shadow: 1px 1px black;
+}
+
+.flexOne {
+  display: flex;
+  border-width: 1px;
+  border-color: #146C94;
+  border-radius: 20px;
+  box-shadow: 3px 2px black, -.3em 0 .2em #146C94;
+}
+
+.flexTwo {
+  display: flex;
+  border-width: 1px;
+  border-color: #146C94;
+  border-radius: 20px;
+  position: relative;
+  bottom: 760px;
+  left: 575px;
+}
+
 .form {
   &-wrapper {
     width: 70vw;
@@ -14,6 +54,7 @@
 
   &-input {
     margin: 8px;
+    color: #F6F1F1;
 
     & p {
       display: inline;
@@ -42,6 +83,13 @@
     min-width: 150px;
     width: fit-content;
     max-width: 300px;
+    background-color: #F6F1F1;
+    border-radius: 20px;
+    font-weight: bold;
+    text-align: left;
+    position: relative;
+    bottom: 750px;
+    left: 550px;
 
     & p {
       margin: 0;

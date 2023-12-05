@@ -1,3 +1,4 @@
+<div class="bgImg">
 <div class="form-wrapper">
   <form (ngSubmit)="onSubmit()" #timecapsuleForm="ngForm">
     <div class="row">
@@ -7,11 +8,12 @@
         </p>
       </div>
       <fieldset>
-        <legend>Add a person to notify:</legend>
+        <legend class="headerOne">Add a person to notify:</legend>
 
         <div class="form-input">
-          <label for="fName">First name:</label>
+          <label for="fName" class="fontOne">First name:</label>
           <input
+            class="flexOne"
             type="text"
             ngModel
             [placeholder]="defaultFirstName"
@@ -26,8 +28,9 @@
         </div>
 
         <div class="form-input">
-          <label for="lName">Last name:</label>
+          <label for="lName" class="fontOne">Last name:</label>
           <input
+            class="flexOne"
             type="text"
             ngModel
             name="lName"
@@ -42,8 +45,9 @@
         </div>
 
         <div class="form-input">
-          <label for="phone">Phone:</label>
+          <label for="phone" class="fontOne">Phone:</label>
           <input
+            class="flexOne"
             type="number"
             ngModel
             [placeholder]="defaultPhone"
@@ -54,8 +58,9 @@
         </div>
 
         <div class="form-input">
-          <label for="email">Email:</label>
+          <label for="email" class="fontOne">Email:</label>
           <input
+            class="flexOne"
             type="email"
             ngModel
             [placeholder]="defaultEmail"
@@ -72,10 +77,11 @@
 
         <div>
           <fieldset>
-            <legend>Address info:</legend>
+            <legend class="headerOne">Address info:</legend>
             <div class="form-input">
-              <label for="street">Street:</label>
+              <label for="street" class="fontOne">Street:</label>
               <input
+                class="flexOne"
                 type="text"
                 ngModel
                 [placeholder]="defaultStreet"
@@ -90,8 +96,9 @@
             </div>
 
             <div class="form-input">
-              <label for="apt">Apartment:</label>
+              <label for="apt" class="fontOne">Apartment:</label>
               <input
+                class="flexOne"
                 type="text"
                 ngModel
                 [placeholder]="defaultApt"
@@ -102,8 +109,9 @@
             </div>
 
             <div class="form-input">
-              <label for="city">City:</label>
+              <label for="city" class="fontOne">City:</label>
               <input
+                class="flexOne"
                 type="text"
                 ngModel
                 [placeholder]="defaultCity"
@@ -118,8 +126,9 @@
             </div>
 
             <div class="form-input">
-              <label for="state">State:</label>
+              <label for="state" class="fontOne">State:</label>
               <input
+                class="flexOne"
                 type="text"
                 ngModel
                 [placeholder]="defaultState"
@@ -134,8 +143,9 @@
             </div>
 
             <div class="form-input">
-              <label for="zip">Zip:</label>
+              <label for="zip" class="fontOne">Zip:</label>
               <input
+                class="flexOne"
                 type="number"
                 ngModel
                 [placeholder]="defaultZip"
@@ -153,7 +163,7 @@
 
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-primary flexOne boxShadow"
           (click)="addPerson()"
           [disabled]="
             !(
@@ -182,7 +192,7 @@
     <div class="notifyPerson-wrapper">
       <div
         *ngFor="let notifyPerson of this.notifyPeople; index as i"
-        class="notifyPerson-card"
+        class="notifyPerson-card boxShadow"
       >
         <p>Name: {{ notifyPerson.firstName }} {{ notifyPerson.lastName }}</p>
         <p *ngIf="notifyPerson.phone">Phone: {{ notifyPerson.phone }}</p>
@@ -205,10 +215,11 @@
 
     <div>
       <fieldset>
-        <legend>Event details:</legend>
+        <legend class="headerOne flexTwo">Event details:</legend>
         <div class="form-input">
-          <label>Title:</label>
+          <label class="flexTwo">Title:</label>
           <input
+            class="flexTwo boxShadow"
             type="text"
             ngModel
             [placeholder]="defaultTitle"
@@ -223,9 +234,10 @@
         </div>
 
         <div class="form-input">
-          <label>Add description:</label>
+          <label class="flexTwo">Add description:</label>
           <br />
           <textarea
+            class="flexTwo boxShadow"
             ngModel
             [placeholder]="defaultDesc"
             name="desc"
@@ -242,8 +254,9 @@
         </div>
 
         <div class="form-input">
-          <label for="url">Add link:</label>
+          <label for="url" class="flexTwo">Add link:</label>
           <input
+            class="flexTwo boxShadow"
             type="text"
             ngModel
             placeholder="urls"
@@ -254,8 +267,9 @@
         </div>
 
         <div class="form-input">
-          <label for="date">Set date:</label>
+          <label for="date" class="flexTwo">Set date:</label>
           <input
+            class="flexTwo boxShadow"
             type="date"
             [ngModel]="this.getYearFromNow()"
             name="date"
@@ -283,7 +297,7 @@
 
     <button
       type="submit"
-      class="btn btn-primary"
+      class="btn btn-primary flexTwo boxShadow"
       [disabled]="
         !(
           titleRef.valid &&
@@ -299,3 +313,5 @@
     </button>
   </form>
 </div>
+</div>
+
