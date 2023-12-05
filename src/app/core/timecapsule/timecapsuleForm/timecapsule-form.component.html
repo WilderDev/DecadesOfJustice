@@ -1,8 +1,5 @@
-<!--added * too all required-->
 <div class="bgImg">
-
 <div class="form-wrapper">
-
   <form (ngSubmit)="onSubmit()" #timecapsuleForm="ngForm">
     <div class="row">
       <div class="col-xs-12" *ngIf="showMsg">
@@ -11,12 +8,10 @@
         </p>
       </div>
       <fieldset>
-        <legend class="headerOne">Add person to notify:</legend>
-
-
+        <legend class="headerOne">Add a person to notify:</legend>
 
         <div class="form-input">
-          <label for="fName" class="fontOne">First name *</label>
+          <label for="fName" class="fontOne">First name:</label>
           <input
             class="flexOne"
             type="text"
@@ -33,7 +28,7 @@
         </div>
 
         <div class="form-input">
-          <label for="lName" class="fontOne">Last name * </label>
+          <label for="lName" class="fontOne">Last name:</label>
           <input
             class="flexOne"
             type="text"
@@ -50,10 +45,9 @@
         </div>
 
         <div class="form-input">
-          <label for="phone" class="fontOne">Phone</label>
-          <input class="flexOne" type="number" ngModel name="phone" id="phone" #phoneRef />
-          <label for="phone">Phone:</label>
+          <label for="phone" class="fontOne">Phone:</label>
           <input
+            class="flexOne"
             type="number"
             ngModel
             [placeholder]="defaultPhone"
@@ -64,9 +58,9 @@
         </div>
 
         <div class="form-input">
-          <label for="email" class="fontOne">Email *</label>
+          <label for="email" class="fontOne">Email:</label>
           <input
-          class="flexOne"
+            class="flexOne"
             type="email"
             ngModel
             [placeholder]="defaultEmail"
@@ -81,14 +75,11 @@
           </p>
         </div>
 
-
-
-
         <div>
           <fieldset>
             <legend class="headerOne">Address info:</legend>
             <div class="form-input">
-              <label for="street" class="fontOne">Street *</label>
+              <label for="street" class="fontOne">Street:</label>
               <input
                 class="flexOne"
                 type="text"
@@ -105,10 +96,9 @@
             </div>
 
             <div class="form-input">
-              <label for="apt" class="fontOne">Apartment</label>
-              <input class="flexOne" type="text" ngModel name="apt" id="apt" #aptRef />
-              <label for="apt">Apartment:</label>
+              <label for="apt" class="fontOne">Apartment:</label>
               <input
+                class="flexOne"
                 type="text"
                 ngModel
                 [placeholder]="defaultApt"
@@ -119,7 +109,7 @@
             </div>
 
             <div class="form-input">
-              <label for="city" class="fontOne">City *</label>
+              <label for="city" class="fontOne">City:</label>
               <input
                 class="flexOne"
                 type="text"
@@ -136,7 +126,7 @@
             </div>
 
             <div class="form-input">
-              <label for="state" class="fontOne">State *</label>
+              <label for="state" class="fontOne">State:</label>
               <input
                 class="flexOne"
                 type="text"
@@ -153,9 +143,9 @@
             </div>
 
             <div class="form-input">
-              <label for="zip" class="fontOne">Zip *</label>
+              <label for="zip" class="fontOne">Zip:</label>
               <input
-              class="flexOne"
+                class="flexOne"
                 type="number"
                 ngModel
                 [placeholder]="defaultZip"
@@ -170,11 +160,10 @@
             </div>
           </fieldset>
         </div>
-        <button type="button" class="btn btn-primary flexOne" (click)="addPerson()">
 
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-primary flexOne boxShadow"
           (click)="addPerson()"
           [disabled]="
             !(
@@ -197,10 +186,8 @@
         >
           Add Person
         </button>
-
-
-      <!-- </fieldset> -->
-    <!-- </div> -->
+      </fieldset>
+    </div>
 
     <div class="notifyPerson-wrapper">
       <div
@@ -220,7 +207,7 @@
           <p>State: {{ notifyPerson.address.state }}</p>
           <p>Zip: {{ notifyPerson.address.zipCode }}</p>
         </div>
-        <button type="button" class="btn btn-danger boxShadow" (click)="removePerson(i)">
+        <button type="button" class="btn btn-danger" (click)="removePerson(i)">
           Remove
         </button>
       </div>
@@ -232,7 +219,7 @@
         <div class="form-input">
           <label class="flexTwo">Title:</label>
           <input
-          class="flexTwo boxShadow"
+            class="flexTwo boxShadow"
             type="text"
             ngModel
             [placeholder]="defaultTitle"
@@ -268,18 +255,8 @@
 
         <div class="form-input">
           <label for="url" class="flexTwo">Add link:</label>
-          <input class="flexTwo boxShadow" type="text" ngModel name="url" id="url" #urlRef required />
-        </div>
-
-        <div class="form-input">
-          <label for="date" class="flexTwo">Set date and time:</label>
           <input
             class="flexTwo boxShadow"
-            type="datetime-local"
-            ngModel
-            />
-          <label for="url">Add link:</label>
-          <input
             type="text"
             ngModel
             placeholder="urls"
@@ -290,8 +267,9 @@
         </div>
 
         <div class="form-input">
-          <label for="date">Set date:</label>
+          <label for="date" class="flexTwo">Set date:</label>
           <input
+            class="flexTwo boxShadow"
             type="date"
             [ngModel]="this.getYearFromNow()"
             name="date"
@@ -316,11 +294,10 @@
         </div>
       </fieldset>
     </div>
-    <button type="submit" class="btn btn-primary flexTwo boxShadow">Submit</button>
 
     <button
       type="submit"
-      class="btn btn-primary"
+      class="btn btn-primary flexTwo boxShadow"
       [disabled]="
         !(
           titleRef.valid &&
@@ -336,7 +313,5 @@
     </button>
   </form>
 </div>
-
 </div>
-
 
