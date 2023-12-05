@@ -1,9 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { Address, NotifyPerson } from '../timecapsule.model';
+import { Address, NotifyPerson, Timecapsule } from '../timecapsule.model';
 import { TimecapsuleService } from '../timecapsule.service';
-
 @Component({
   selector: 'app-timecapsule-form',
   templateUrl: './timecapsule-form.component.html',
@@ -13,11 +12,43 @@ export class TimecapsuleFormComponent {
   //* ==================== Properties ====================
   @ViewChild('timecapsuleForm') timecapsuleForm: NgForm;
   public notifyPeople: NotifyPerson[] = [];
+  defaultFirstName: string = 'John';
+  defaultLastName: string = 'Doe';
+  defaultPhone: string = '312-555-5556';
+  defaultEmail: string = 'john@gmail.com';
+  defaultStreet: string = '235 Main St';
+  defaultApt: string = 'Apt 3';
+  defaultCity: string = 'Chicago';
+  defaultState: string = 'IL';
+  defaultZip: number = 60131;
+  defaultTitle: string = 'A Catchy Title';
+  defaultDesc: string =
+    'Details about the moment that you would like to put in the Memory Box.';
+  defaultUrl: string = 'Link';
+  defaultTime: string = '00:00';
+  showMsg: boolean = true;
 
   //* ==================== Constructor ====================
   constructor(private timecapsuleService: TimecapsuleService) {}
 
   //* ==================== Methods ====================
+  // Get future date and format it for form
+  getYearFromNow = () => {
+    const dateNotFormatted = new Date(Date.now() + 31556926000);
+    let dateString = dateNotFormatted.getFullYear() + '-';
+    if (dateNotFormatted.getMonth() < 9) {
+      dateString += '0';
+    }
+    dateString += dateNotFormatted.getMonth() + 1;
+    dateString += '-';
+    if (dateNotFormatted.getDate() < 10) {
+      dateString += '0';
+    }
+    dateString += dateNotFormatted.getDate();
+    console.log(dateString);
+    return dateString;
+  };
+
   // Create address object => used for the addPerson method
   createAddressObj = (): Address => {
     return new Address(
@@ -39,6 +70,7 @@ export class TimecapsuleFormComponent {
       this.timecapsuleForm.form.value.phone
     );
     this.notifyPeople.push(notifyPerson);
+    this.timecapsuleForm.resetForm();
   };
 
   // Remove person from notifyPeople array
@@ -51,15 +83,36 @@ export class TimecapsuleFormComponent {
     return Date.parse(this.timecapsuleForm.form.value.date);
   };
 
-  // Submit form
   onSubmit = () => {
-    this.timecapsuleService.onCreateTimecapsule(
-      this.timecapsuleForm.form.value.title,
-      this.timecapsuleForm.form.value.desc,
-      this.timecapsuleForm.form.value.url,
+    const { title, desc, url } = this.timecapsuleForm.form.value;
+
+    let newTimeCapsule: Timecapsule = this.timecapsuleService.createTimecapsule(
+      title,
+      desc,
+      url,
       this.getUNIXTimestamp(),
       this.notifyPeople
     );
-    console.log(this.timecapsuleService.timecapsule);
+
+    // Add New Timecapsule to Firebase
+    this.timecapsuleService.onPostTimecapsule(newTimeCapsule);
+
+    // Add New Timecapsule to loadedTimecapsules (in timecapsule.service.ts)
+    let newTimecapsuleList: Timecapsule[] =
+      this.timecapsuleService.loadedTimecapsules;
+    newTimecapsuleList.push(newTimeCapsule);
+
+    // Update loadedTimecapsules in timecapsule.service.ts
+    this.timecapsuleService.timecapsulesChanged.next(
+      newTimecapsuleList.slice()
+    );
+
+    this.showMsg = true;
+    setTimeout(() => {
+      this.showMsg = false;
+    }, 3000);
+    this.timecapsuleForm.resetForm();
   };
+
+  //* Run Methods
 }

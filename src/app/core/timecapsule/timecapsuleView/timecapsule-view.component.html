@@ -1,7 +1,17 @@
 <div class="timecapsule-wrapper">
+  <div *ngIf="this.isLoading && !this.error">
+    <p>Loading...</p>
+  </div>
+  <div *ngIf="this.error">
+    <p>An Error has occured!</p>
+    <p>{{ error }}</p>
+  </div>
   <div
     class="timecapsule"
-    *ngFor="let timecapsule of this.timecapsuleService.loadedTimecapsules"
+    *ngFor="
+      let timecapsule of this.timecapsuleService.loadedTimecapsules;
+      index as i
+    "
   >
     <div class="eventDetails">
       <h2>Title: {{ timecapsule.title }}</h2>
@@ -13,6 +23,12 @@
       />
     </div>
     <div class="notifyPeople"></div>
-    <button class="btn btn-danger" type="button">Delete</button>
+    <button
+      class="btn btn-danger"
+      type="button"
+      (click)="this.deleteTimecapsule(i)"
+    >
+      Delete
+    </button>
   </div>
 </div>

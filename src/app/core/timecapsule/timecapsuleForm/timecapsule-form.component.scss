@@ -56,6 +56,11 @@
     margin: 8px;
     color: #F6F1F1;
 
+    & p {
+      display: inline;
+      color: red;
+    }
+
     & input,
     select {
       margin: 0 8px 0 8px;
@@ -90,6 +95,11 @@
       margin: 0;
     }
   }
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
 }
 
 .address {
