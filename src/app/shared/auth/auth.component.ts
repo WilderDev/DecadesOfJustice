@@ -49,30 +49,6 @@ export class AuthComponent {
     }
     );
 
-
-    // if (this.isLoginMode) {
-    //   this.authService.login(email, password).subscribe(
-    //     res => {
-    //       console.log("Auth Sign in Response:", res);
-    //       if (this.errMsg) this.errMsg=null;
-    //     },
-    //     err => {
-    //       console.error("Auth Res Error:", err);
-    //       this.errMsg = err.message;
-    //     }
-    //   );
-    // } else {
-    //   this.authService.signUp(email, password).subscribe((res) => {
-    //     console.log('Auth Response Success:', res);
-    //     if (this.errMsg) this.errMsg=null;
-    //   },
-    //   (err) => {
-    //     console.error('Auth Res Error:', err);
-    //     this.errMsg = err.message;
-    //   }
-    //   );
-    // }
-
     formObj.reset()
   }
 }
