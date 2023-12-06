@@ -1,16 +1,17 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, tap } from "rxjs";
-import { User } from "./User.model";
-import { Router } from "@angular/router";
-import { environment } from "src/environments/environment";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, tap } from 'rxjs';
+import { User } from './User.model';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
+const AUTH_API_KEY = environment.firebase.apiKey;
 
-const AUTH_API_KEY = environment.firebaseAPIKey
+const SIGN_UP_URL =
+  'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
 
-const SIGN_UP_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key="
-
-const SIGN_IN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key="
+const SIGN_IN_URL =
+  'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
 
 export interface AuthResponseData {
   kind: string;
@@ -29,12 +30,9 @@ export interface UserData {
   _tokenExpirationDate: string;
 }
 
-
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
-
-
 export class AuthService {
   private tokenExpTimer: any;
   currentUser = new BehaviorSubject<User>(null);
@@ -43,31 +41,38 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   signUp(email: string, password: string) {
-    return this.http.post<AuthResponseData>(SIGN_UP_URL + AUTH_API_KEY, {
-      email, password, returnSecureToken: true
-    })
-    .pipe(
-      tap(res => {
-      const { email, localId, idToken, expiresIn } = res;
+    return this.http
+      .post<AuthResponseData>(SIGN_UP_URL + AUTH_API_KEY, {
+        email,
+        password,
+        returnSecureToken: true,
+      })
+      .pipe(
+        tap((res) => {
+          const { email, localId, idToken, expiresIn } = res;
 
-      this.handleAuth(email, localId, idToken, +expiresIn);
-    })
-    );
+          this.handleAuth(email, localId, idToken, +expiresIn);
+        })
+      );
   }
 
   login(email: string, password: string) {
-    return this.http.post<AuthResponseData>(SIGN_IN_URL + AUTH_API_KEY, {
-      email, password, returnSecureToken: true,
-    })
-    .pipe(tap(res => {
-      const { email, localId, idToken, expiresIn } = res;
+    return this.http
+      .post<AuthResponseData>(SIGN_IN_URL + AUTH_API_KEY, {
+        email,
+        password,
+        returnSecureToken: true,
+      })
+      .pipe(
+        tap((res) => {
+          const { email, localId, idToken, expiresIn } = res;
 
-      this.handleAuth(email, localId, idToken, +expiresIn);
-    })
-    );
+          this.handleAuth(email, localId, idToken, +expiresIn);
+        })
+      );
   }
 
-  handleAuth(email:string, userId:string, token:string, expiresIn:number) {
+  handleAuth(email: string, userId: string, token: string, expiresIn: number) {
     // Expiration Date for Token
     const expDate = new Date(new Date().getTime() + expiresIn * 1000);
 
@@ -75,37 +80,34 @@ export class AuthService {
     const formUser = new User(email, userId, token, expDate);
     this.currentUser.next(formUser);
 
-
     this.automaticSignOut(expiresIn * 1000);
 
     // Save new user in localStorage
-    localStorage.setItem("userData", JSON.stringify(formUser));
+    localStorage.setItem('userData', JSON.stringify(formUser));
   }
 
   signOut() {
     this.currentUser.next(null);
 
-    localStorage.removeItem("userData");
+    localStorage.removeItem('userData');
 
     if (this.tokenExpTimer) clearTimeout(this.tokenExpTimer);
 
     this.router.navigate(['authentication']);
   }
 
-
   automaticSignOut(expDuration: number) {
-    console.log("Expiration Duration", expDuration);
+    console.log('Expiration Duration', expDuration);
 
     this.tokenExpTimer = setTimeout(() => {
       this.signOut();
     }, expDuration);
   }
 
-
   automaticSignIn() {
     const userData: UserData = JSON.parse(localStorage.getItem('userData'));
 
-    if(!userData) return;
+    if (!userData) return;
     const { email, id, _token, _tokenExpirationDate } = userData;
 
     const loadedUser = new User(
@@ -119,9 +121,4 @@ export class AuthService {
       this.currentUser.next(loadedUser);
     }
   }
-
-
-
-
 }
-
