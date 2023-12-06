@@ -91,12 +91,11 @@ export class TimecapsuleFormComponent {
   };
 
   onSubmit = () => {
-    const { title, desc, url } = this.timecapsuleForm.form.value;
+    const { title, desc } = this.timecapsuleForm.form.value;
 
     let newTimeCapsule: Timecapsule = this.timecapsuleService.createTimecapsule(
       title,
       desc,
-      url,
       this.getUNIXTimestamp(),
       this.notifyPeople
     );
@@ -121,10 +120,12 @@ export class TimecapsuleFormComponent {
     this.timecapsuleForm.resetForm();
   };
 
+  // Assign file to property
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
   }
 
+  // Send file to firebase
   upload(): void {
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
