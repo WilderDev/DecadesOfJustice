@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Observable, finalize } from 'rxjs';
 import {
   AngularFireDatabase,
   AngularFireList,
 } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+
 import { FileUpload } from './file-upload.model';
-import { Observable, finalize } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +31,9 @@ export class UploadService {
           storageRef.getDownloadURL().subscribe((downloadURL) => {
             fileUpload.url = downloadURL;
             fileUpload.name = fileUpload.file.name;
-            this.saveFileData(fileUpload);
+            this.saveFileData(fileUpload); // <----- This needs to change
+            // right now it creates an entry in realtime db /uploads with name and url properties
+            // needs to be added into the timecapsule entry with the associated timecapsule info
           });
         })
       )
