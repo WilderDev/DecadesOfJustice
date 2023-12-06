@@ -94,6 +94,7 @@ export class TimecapsuleFormComponent {
     const { title, desc } = this.timecapsuleForm.form.value;
 
     let newTimeCapsule: Timecapsule = this.timecapsuleService.createTimecapsule(
+      //TODO: add files [{name, url}]
       title,
       desc,
       this.getUNIXTimestamp(),

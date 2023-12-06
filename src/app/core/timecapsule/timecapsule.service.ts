@@ -22,12 +22,13 @@ export class TimecapsuleService {
   //* ==================== Methods ====================
   // Create timecapsule
   createTimecapsule = (
+    //TODO: add files [{name, url}]
     title: string,
     desc: string,
     timestamp: number,
     notifyPeople: NotifyPerson[]
   ) => {
-    return new Timecapsule(title, desc, timestamp, notifyPeople);
+    return new Timecapsule(title, desc, timestamp, notifyPeople); //TODO: add files [{name, url}]
   };
 
   // Post Timecapsule
