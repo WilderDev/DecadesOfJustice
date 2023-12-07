@@ -258,15 +258,15 @@
           </div>
 
           <div class="form-input">
-            <label for="url" class="flexTwo">Add link:</label>
+            <label for="fileUpload" class="flexTwo">Upload Image:</label>
             <input
               class="flexTwo boxShadow"
-              type="file"
+              type="fileUpload"
               ngModel
-              placeholder="file"
-              name="file"
-              id="file"
-              #urlRef="ngModel"
+              placeholder="fileUpload"
+              name="fileUpload"
+              id="fileUpload"
+              #fileUploadRef="ngModel"
               (change)="selectFile($event)"
             />
           </div>
