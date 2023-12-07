@@ -21,7 +21,7 @@ export class NotifyPerson {
 export class Timecapsule {
   id: string;
   constructor(
-    //TODO: add files [{ name, url }]
+    public fileRefs: { name: string; url: string }[],
     public title: string,
     public desc: string,
     public timestamp: number,
