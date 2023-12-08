@@ -13,7 +13,7 @@
       <h2>Title: {{ timecapsule.title }}</h2>
       <p>Description: {{ timecapsule.desc }}</p>
 
-      <p> Opens In: {{ countdown }} </p>
+      <p [ngClass]="this.isTime ? 'done' : 'countdown'"> Opens In: {{ countdown }} </p>
       <hr />
       <!-- {{ showRemaining(timecapsule.timestamp) }} -->
 

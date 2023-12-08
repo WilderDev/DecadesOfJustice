@@ -16,8 +16,6 @@ export class TimecapsuleItemComponent {
  timer = interval(1000);
  isLoading: boolean = false;
  error: null;
-
-// ! BG: properties for showing date
  isTime = false;
  curDate = new Date();
  second = 1000;
@@ -45,6 +43,7 @@ export class TimecapsuleItemComponent {
 
 
  //* ==================== Methods ====================
+ // TODO: RE-WRITE THE DELETE METHOD
  deleteTimecapsule = (i) => {
    this.timecapsuleService
      .onDeleteTimecapsule(this.timecapsuleService.loadedTimecapsules[i].id)

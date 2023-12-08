@@ -11,12 +11,4 @@ export class ViewTimecapsuleComponent {
 
   constructor(public timecapsuleService: TimecapsuleService, private route: ActivatedRoute,) {}
 
-//   ngOnInit() {
-//     this.route.params.subscribe((params: Params) => {
-//       const songTitle = params['title'];
-//       if(this.timecapsuleService.getTimecapsuleByTitle(songTitle) != null) {
-//       this.timecapsuleDetails = this.timecapsuleService.getTimecapsuleByTitle(songTitle);
-//       }
-//   }
-// }
 }
