@@ -35,64 +35,12 @@
   <div class="row">
     <!-- ? BG: Changed to *ngFor to allow the timecapsules to line up in even rows -->
     <div
-      class="col-md-6"
-      *ngFor="
-        let timecapsule of this.timecapsuleService.loadedTimecapsules;
-        index as i
-      "
+      class="col-md-6" *ngFor="
+      let timecapsule of this.timecapsuleService.loadedTimecapsules;
+      index as i"
     >
-      <br />
-
-      <div class="timecapsule-wrapper">
-        <div *ngIf="this.isLoading && !this.error">
-          <p>Loading...</p>
-        </div>
-        <div *ngIf="this.error">
-          <p>An Error has occured!</p>
-          <p>{{ error }}</p>
-        </div>
-        <div class="timecapsule">
-          <div class="eventDetails">
-            <h2>Title: {{ timecapsule.title }}</h2>
-            <p>Description: {{ timecapsule.desc }}</p>
-
-            <p>{{ this.showRemaining(timecapsule.timestamp) }} </p>
-            <hr />
-            <!-- {{ showRemaining(timecapsule.timestamp) }} -->
-
-
-
-            <!-- * BG: Two images and second one is clickable and takes you to the timecapsule page by title of capsule-->
-            <img *ngIf="!this.isDateRight(timecapsule.timestamp)"
-              class="img-fluid"
-              src="assets/images/generic_chest.png"
-              alt="image placeholder"
-            />
-
-            <a *ngIf="this.isDateRight(timecapsule.timestamp)"  routerLink="/view-capsule/{{timecapsule.title}}">
-            <img
-              class="img-fluid"
-              src="assets/images/genric_chest_open.png"
-              alt="image placeholder"
-            />
-          </a>
-          <!-- * ================================================================ * -->
-
-
-            <br />
-          </div>
-          <div class="notifyPeople"></div>
-          <button
-            class="btn btn-danger"
-            type="button"
-            (click)="this.deleteTimecapsule(i)"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-
-      <br />
+    <app-timecapsule-item
+   [timecapsule]="timecapsule"></app-timecapsule-item>
     </div>
   </div>
 </div>
