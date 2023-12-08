@@ -44,9 +44,6 @@ img {
   margin-left:auto;
   margin-right:auto;
   margin: auto;
-  box-shadow: 10px 10px 31px 0px rgba(25,167,206,0.30);
-  -webkit-box-shadow: 10px 10px 31px 0px rgba(25,167,206,0.30);
-  -moz-box-shadow: 10px 10px 31px 0px rgba(25,167,206,0.30);
 }
 
 .btn {
@@ -70,4 +67,12 @@ hr {
   width: 80%;
   height: 2px;
   opacity: 80%;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+a img:hover {
+  transform: scale(1.05);
 }

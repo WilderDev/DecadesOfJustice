@@ -17,6 +17,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { UploadProgressComponent } from './core/upload/upload-progress/upload-progress.component';
+import { ViewTimecapsuleComponent } from './core/timecapsule/timecapsuleView/view-timecapsule/view-timecapsule.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { UploadProgressComponent } from './core/upload/upload-progress/upload-pr
     TimecapsuleFormComponent,
     TimecapsuleViewComponent,
     UploadProgressComponent,
+    ViewTimecapsuleComponent,
   ],
   imports: [
     BrowserModule,

@@ -57,11 +57,23 @@
             <p>Description: {{ timecapsule.desc }}</p>
             <p>Days until open:</p>
             <hr />
+
+
+            <img *ngIf="!isCorrectDate"
+              class="img-fluid"
+              src="assets/images/generic_chest.png"
+              alt="image placeholder"
+            />
+
+            <a *ngIf="isCorrectDate"  routerLink="/view-capsule/{{timecapsule.title}}">
             <img
               class="img-fluid"
               src="assets/images/placeholder-256x256.gif"
               alt="image placeholder"
             />
+          </a>
+
+
             <br />
           </div>
           <div class="notifyPeople"></div>

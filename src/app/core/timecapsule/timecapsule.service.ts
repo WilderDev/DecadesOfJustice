@@ -20,6 +20,7 @@ export class TimecapsuleService {
   constructor(private http: HttpClient, private db: AngularFireDatabase) {}
 
   //* ==================== Methods ====================
+
   // Create timecapsule
   createTimecapsule = (
     //TODO: add files [{name, url}]
@@ -76,4 +77,11 @@ export class TimecapsuleService {
   onDeleteTimecapsule = (id) => {
     return this.http.delete(`${this.FIREBASE_URL}${this.basePath}/${id}.json`);
   };
+
+  // * BG: Find Timevapsule by title
+ getTimecapsuleByTitle(title: string) {
+  const foundCapsule = this.loadedTimecapsules.find((timecapsule) => timecapsule.title === title);
+  return foundCapsule;
+}
+
 }
