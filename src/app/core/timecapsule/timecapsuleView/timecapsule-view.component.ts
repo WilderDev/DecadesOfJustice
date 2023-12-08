@@ -15,10 +15,8 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   error: null;
 
-// ! BG: Logic for if date is correct (PLACEHOLDER)
-  countdownSub: Subject<String>;
-
-  isCorrectDate = false
+// ! BG: properties for showing date
+  test = true;
 
   curDate = new Date();
   second = 1000;
@@ -74,7 +72,7 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
       );
   };
 
-  //* BG:to change date to correct date
+  //* BG: Checks to see if time is up yet
   isDateRight(timestamp) {
     const curDateTimestamp = new Date().getTime();
     const timeRemaining = timestamp - curDateTimestamp;
@@ -85,7 +83,9 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
     }
   }
 
+  //* BG: Shows the remaining time for the capsule
   showRemaining(timestamp) {
+
     if(timestamp != null) {
     const setDate = new Date(timestamp).getTime();
     const distance = setDate - this.curDate.getTime();
@@ -101,10 +101,18 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
   const seconds = Math.floor((distance % this.minute) / this.second);
 
   return `${years} Years ${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+
   } else {
     return 'NO TIME ENTERED'
   }
+
   }
+
+  // timer(string){
+  //    setInterval(() => {
+  //     string;
+  //   }, 1000)
+  // }
 }
 
 
