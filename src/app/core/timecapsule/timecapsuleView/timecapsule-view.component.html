@@ -59,6 +59,8 @@
             <hr />
 
 
+
+            <!-- * BG: Two images and second one is clickable and takes you to the timecapsule page by title of capsule-->
             <img *ngIf="!isCorrectDate"
               class="img-fluid"
               src="assets/images/generic_chest.png"
@@ -68,10 +70,11 @@
             <a *ngIf="isCorrectDate"  routerLink="/view-capsule/{{timecapsule.title}}">
             <img
               class="img-fluid"
-              src="assets/images/placeholder-256x256.gif"
+              src="assets/images/genric_chest_open.png"
               alt="image placeholder"
             />
           </a>
+          <!-- * ================================================================ * -->
 
 
             <br />

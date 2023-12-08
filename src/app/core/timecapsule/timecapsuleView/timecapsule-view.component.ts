@@ -14,8 +14,8 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   error: null;
 
-  isCorrectDate = true
-
+// ! BG: Logic for if date is correct (PLACEHOLDER)
+  isCorrectDate = false
 
   //* ==================== Constructor ====================
   constructor(public timecapsuleService: TimecapsuleService) {}
