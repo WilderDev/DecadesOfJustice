@@ -42,6 +42,8 @@ export class UploadService {
             // Fetches metadata for the object at this location, if one exists.
             fileUpload.url = downloadURL; // saves metadata url
             fileUpload.name = fileUpload.file.name; // saves metadata file.name
+
+            console.log(fileUpload)
             this.saveFileData(fileUpload); //! <----- This needs to change
             // right now it creates an entry in realtime db /uploads with name and url properties
             // needs to be added into the timecapsule entry with the associated timecapsule info
@@ -55,7 +57,7 @@ export class UploadService {
 
   // Create reference of storage name and location
   private saveFileData(fileUpload: FileUpload): void {
-    this.db.list(this.basePath).push(fileUpload); //! <-- path needs to be different. needs to be part of timecapsule object
+    this.db.list('/timecapsules').push(fileUpload); //! <-- path needs to be different. needs to be part of timecapsule object
     // this is the method that takes the fileUpload object (name and url) and puts them into the realtime db at the location specified by this.basePath
   }
 
