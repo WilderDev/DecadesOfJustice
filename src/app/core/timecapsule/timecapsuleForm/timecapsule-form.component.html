@@ -1,5 +1,6 @@
 <div class="bgImg">
   <div class="form-wrapper">
+    <button type="button" (click)="console()">Show Info</button>
     <form (ngSubmit)="onSubmit()" #timecapsuleForm="ngForm">
       <div class="row">
         <div class="col-xs-12" *ngIf="showMsg">
@@ -261,7 +262,7 @@
             <label for="fileUpload" class="flexTwo">Upload Image:</label>
             <input
               class="flexTwo boxShadow"
-              type="fileUpload"
+              type="file"
               ngModel
               placeholder="fileUpload"
               name="fileUpload"
@@ -270,8 +271,12 @@
               (change)="selectFile($event)"
             />
           </div>
-          <button type="button" [disabled]="!selectedFiles" (click)="upload()">
-            Upload
+          <button
+            type="button"
+            [disabled]="!selectedFile"
+            (click)="addSelectedFile()"
+          >
+            Add File
           </button>
 
           <div class="form-input">
@@ -301,6 +306,12 @@
             </p>
           </div>
         </fieldset>
+      </div>
+      <div *ngFor="let file of this.selectedFileList; index as i">
+        {{ file.name }}
+        <button type="button" (click)="this.selectedFileList.splice(i, 1)">
+          Delete File
+        </button>
       </div>
 
       <button

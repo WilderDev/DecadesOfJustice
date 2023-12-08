@@ -13,10 +13,17 @@ import { FileUpload } from '../../upload/file-upload.model';
 export class TimecapsuleFormComponent {
   //* ==================== Properties ====================
   @ViewChild('timecapsuleForm') timecapsuleForm: NgForm;
-  selectedFiles?: FileList;
+  selectedFile?: FileList;
   currentFileUpload?: FileUpload;
+
+  selectedFileList?: File[] | null = [];
+  currentUploadQueue?: FileUpload[] | null = [];
+
   percentage = 0;
   public notifyPeople: NotifyPerson[] = [];
+  showMsg: boolean = true;
+
+  // Form placeholder text
   defaultFirstName: string = 'John';
   defaultLastName: string = 'Doe';
   defaultPhone: string = '312-555-5556';
@@ -31,7 +38,6 @@ export class TimecapsuleFormComponent {
     'Details about the moment that you would like to put in the Memory Box.';
   defaultUrl: string = 'Link';
   defaultTime: string = '00:00';
-  showMsg: boolean = true;
 
   //* ==================== Constructor ====================
   constructor(
@@ -92,14 +98,18 @@ export class TimecapsuleFormComponent {
 
   onSubmit = () => {
     const { title, desc } = this.timecapsuleForm.form.value;
+    const fileRefs = [];
 
     let newTimeCapsule: Timecapsule = this.timecapsuleService.createTimecapsule(
-      //TODO: add files [{name, url}]
+      fileRefs,
       title,
       desc,
       this.getUNIXTimestamp(),
       this.notifyPeople
     );
+
+    // Upload file list
+    this.uploadFileList();
 
     // Add New Timecapsule to Firebase
     this.timecapsuleService.onPostTimecapsule(newTimeCapsule);
@@ -123,24 +133,52 @@ export class TimecapsuleFormComponent {
 
   // Assign file to property
   selectFile(event: any): void {
-    this.selectedFiles = event.target.files;
+    this.selectedFile = event.target.files;
+  }
+
+  addSelectedFile(): void {
+    if (this.selectedFile) {
+      this.selectedFileList.push(this.selectedFile.item(0));
+      this.selectedFile = undefined;
+    }
+  }
+
+  uploadFileList() {
+    if (this.selectedFileList) {
+      this.selectedFileList.forEach((f) => {
+        let currentFile = new FileUpload(f);
+        this.currentUploadQueue.push(currentFile);
+        this.currentUploadQueue.forEach((f) => {
+          this.uploadService.pushFileToStorage(f).subscribe(
+            (percentage) => {
+              this.percentage = Math.round(percentage ? percentage : 0);
+            },
+            (error) => console.log(error)
+          );
+        });
+      });
+    }
   }
 
   // Send file to firebase
-  upload(): void {
-    if (this.selectedFiles) {
-      const file: File | null = this.selectedFiles.item(0);
-      this.selectedFiles = undefined;
+  // upload(): void {
+  //   if (this.selectedFile) {
+  //     const file: File | null = this.selectedFile.item(0);
+  //     this.selectedFile = undefined;
 
-      if (file) {
-        this.currentFileUpload = new FileUpload(file);
-        this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
-          (percentage) => {
-            this.percentage = Math.round(percentage ? percentage : 0);
-          },
-          (error) => console.log(error)
-        );
-      }
-    }
+  //     if (file) {
+  //       this.currentFileUpload = new FileUpload(file);
+  //       this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
+  //         (percentage) => {
+  //           this.percentage = Math.round(percentage ? percentage : 0);
+  //         },
+  //         (error) => console.log(error)
+  //       );
+  //     }
+  //   }
+  // }
+
+  console() {
+    console.log(this.selectedFile);
   }
 }
