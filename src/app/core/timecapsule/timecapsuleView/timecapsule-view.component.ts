@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TimecapsuleService } from '../timecapsule.service';
 import { Timecapsule } from '../timecapsule.model';
-import { Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription, timestamp } from 'rxjs';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-timecapsule-view',
@@ -15,7 +16,16 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
   error: null;
 
 // ! BG: Logic for if date is correct (PLACEHOLDER)
+  countdownSub: Subject<String>;
+
   isCorrectDate = false
+
+  curDate = new Date();
+  second = 1000;
+  minute = this.second * 60;
+  hour = this.minute * 60;
+  day = this.hour * 24;
+  year = this.day * 365;
 
   //* ==================== Constructor ====================
   constructor(public timecapsuleService: TimecapsuleService) {}
@@ -34,6 +44,7 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.timecapsulesChangedSub.unsubscribe();
   }
+
 
   //* ==================== Methods ====================
   fetchTimecapsules = () => {
@@ -62,4 +73,38 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
         }
       );
   };
+
+  //* BG:to change date to correct date
+  isDateRight(timestamp) {
+    const curDateTimestamp = new Date().getTime();
+    const timeRemaining = timestamp - curDateTimestamp;
+    if( timeRemaining <= 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  showRemaining(timestamp) {
+    if(timestamp != null) {
+    const setDate = new Date(timestamp).getTime();
+    const distance = setDate - this.curDate.getTime();
+    if (distance < 0) {
+
+      return 'DONE';
+  }
+
+  const years = Math.floor( distance / this.year);
+  const days = Math.floor((distance % this.year) / this.day);
+  const hours = Math.floor((distance % this.day) / this.hour);
+  const minutes = Math.floor((distance % this.hour) / this.minute);
+  const seconds = Math.floor((distance % this.minute) / this.second);
+
+  return `${years} Years ${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+  } else {
+    return 'NO TIME ENTERED'
+  }
+  }
 }
+
+
