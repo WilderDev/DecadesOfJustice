@@ -11,6 +11,12 @@ import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { TimecapsuleFormComponent } from './core/timecapsule/timecapsuleForm/timecapsule-form.component';
 import { TimecapsuleViewComponent } from './core/timecapsule/timecapsuleView/timecapsule-view.component';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { UploadProgressComponent } from './core/upload/upload-progress/upload-progress.component';
 
 @NgModule({
   declarations: [
@@ -19,10 +25,19 @@ import { TimecapsuleViewComponent } from './core/timecapsule/timecapsuleView/tim
     NavigationComponent,
     LandingPageComponent,
     TimecapsuleFormComponent,
-    TimecapsuleViewComponent
-
+    TimecapsuleViewComponent,
+    UploadProgressComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
