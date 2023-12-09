@@ -305,31 +305,39 @@
               * Please enter a date.
             </p>
           </div>
+          <div class="fileUpload-wrapper">
+            <div
+              class="fileUpload-card boxShadow"
+              *ngFor="let file of this.selectedFileList; index as i"
+            >
+              <img [src]="" [alt]="file.name" />
+
+              <button
+                type="button"
+                (click)="this.selectedFileList.splice(i, 1)"
+              >
+                Delete File
+              </button>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary flexTwo boxShadow"
+            [disabled]="
+              !(
+                titleRef.valid &&
+                titleRef.touched &&
+                descRef.valid &&
+                descRef.touched &&
+                dateRef.valid &&
+                timeRef.valid
+              ) || !notifyPeople[0]
+            "
+          >
+            Submit
+          </button>
         </fieldset>
       </div>
-      <div *ngFor="let file of this.selectedFileList; index as i">
-        {{ file.name }}
-        <button type="button" (click)="this.selectedFileList.splice(i, 1)">
-          Delete File
-        </button>
-      </div>
-
-      <button
-        type="submit"
-        class="btn btn-primary flexTwo boxShadow"
-        [disabled]="
-          !(
-            titleRef.valid &&
-            titleRef.touched &&
-            descRef.valid &&
-            descRef.touched &&
-            dateRef.valid &&
-            timeRef.valid
-          ) || !notifyPeople[0]
-        "
-      >
-        Submit
-      </button>
     </form>
   </div>
 </div>

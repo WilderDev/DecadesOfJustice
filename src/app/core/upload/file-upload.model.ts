@@ -1,9 +1,9 @@
 export class FileUpload {
-  fileRefs: { name: string; url: string }[];
   key: string;
   name: string;
   url: string;
   file: File;
+  parentUUID: string;
 
   constructor(file: File) {
     this.file = file;

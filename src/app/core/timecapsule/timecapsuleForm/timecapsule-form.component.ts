@@ -13,10 +13,10 @@ import { FileUpload } from '../../upload/file-upload.model';
 export class TimecapsuleFormComponent {
   //* ==================== Properties ====================
   @ViewChild('timecapsuleForm') timecapsuleForm: NgForm;
-  selectedFile?: FileList;
-  currentFileUpload?: FileUpload;
 
-  selectedFileList?: File[] | null = [];
+  // currentFileUpload?: FileUpload;
+  selectedFile?: FileList;
+  public selectedFileList?: File[] | null = [];
   currentUploadQueue?: FileUpload[] | null = [];
 
   percentage = 0;
@@ -96,12 +96,11 @@ export class TimecapsuleFormComponent {
     return Date.parse(this.timecapsuleForm.form.value.date);
   };
 
+  // Take all fields from form and create the timecapsule object and upload any files from selectedFiles array to firebse storage.
   onSubmit = () => {
     const { title, desc } = this.timecapsuleForm.form.value;
-    const fileRefs = [];
 
     let newTimeCapsule: Timecapsule = this.timecapsuleService.createTimecapsule(
-      fileRefs,
       title,
       desc,
       this.getUNIXTimestamp(),
@@ -109,7 +108,7 @@ export class TimecapsuleFormComponent {
     );
 
     // Upload file list
-    this.uploadFileList();
+    this.uploadCurrentQueue(newTimeCapsule.uuid);
 
     // Add New Timecapsule to Firebase
     this.timecapsuleService.onPostTimecapsule(newTimeCapsule);
@@ -124,30 +123,40 @@ export class TimecapsuleFormComponent {
       newTimecapsuleList.slice()
     );
 
+    // Show message in template that form submission was successful
     this.showMsg = true;
     setTimeout(() => {
+      // Show message for 3 secs.
       this.showMsg = false;
     }, 3000);
+
+    // Reset form
     this.timecapsuleForm.resetForm();
   };
 
-  // Assign file to property
+  // File imput change event assigns single file to selected file
   selectFile(event: any): void {
     this.selectedFile = event.target.files;
   }
 
+  // Add file button click listener adds selected file to array from the and clears selected file for next file input
   addSelectedFile(): void {
     if (this.selectedFile) {
-      this.selectedFileList.push(this.selectedFile.item(0));
+      this.selectedFileList.push(this.selectedFile.item(0)); // By default, the form input of type file returns a value of FileList which is an array with only 1 item. We first need to remove the file from the array.
       this.selectedFile = undefined;
     }
   }
 
-  uploadFileList() {
+  // Upload File list loops through each file in selectedFileList array and takes each item of the array (type File) and creates a new FileUpload which has properties needed for adding them to firebase storage.
+  uploadCurrentQueue(parentUUID) {
     if (this.selectedFileList) {
       this.selectedFileList.forEach((f) => {
-        let currentFile = new FileUpload(f);
-        this.currentUploadQueue.push(currentFile);
+        let newFileUpload = new FileUpload(f);
+        // Assign each fileUpload's parentUUID property in currentUploadQueue to have the uuid of the newly generated timecapsule
+        newFileUpload.parentUUID = parentUUID;
+        // Once the File is converted to FileUpload, we then can push it back into a new array called uploadQueue
+        this.currentUploadQueue.push(newFileUpload);
+        // We need to finally loop through uploadQueue and take each item and run pushFileToStorage() which uploads them to firebase storage and creates an reference entry in realtime db.
         this.currentUploadQueue.forEach((f) => {
           this.uploadService.pushFileToStorage(f).subscribe(
             (percentage) => {
@@ -160,12 +169,12 @@ export class TimecapsuleFormComponent {
     }
   }
 
+  // Deprecated:
   // Send file to firebase
   // upload(): void {
   //   if (this.selectedFile) {
   //     const file: File | null = this.selectedFile.item(0);
   //     this.selectedFile = undefined;
-
   //     if (file) {
   //       this.currentFileUpload = new FileUpload(file);
   //       this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
@@ -178,7 +187,8 @@ export class TimecapsuleFormComponent {
   //   }
   // }
 
+  // Todo: remove for production. for testing purposes only
   console() {
-    console.log(this.selectedFile);
+    console.log(this.selectedFileList);
   }
 }

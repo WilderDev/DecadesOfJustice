@@ -22,13 +22,12 @@ export class TimecapsuleService {
   //* ==================== Methods ====================
   // Create timecapsule
   createTimecapsule = (
-    fileRefs: { name: string; url: string }[],
     title: string,
     desc: string,
     timestamp: number,
     notifyPeople: NotifyPerson[]
   ) => {
-    return new Timecapsule(fileRefs, title, desc, timestamp, notifyPeople);
+    return new Timecapsule(title, desc, timestamp, notifyPeople);
   };
 
   // Post Timecapsule
@@ -70,10 +69,12 @@ export class TimecapsuleService {
   };
 
   // Update timecapsule
-  onUpdateTimecapsule = (id) => {};
+  onUpdateTimecapsule = (uuid) => {};
 
   // Delete timecapsule
-  onDeleteTimecapsule = (id) => {
-    return this.http.delete(`${this.FIREBASE_URL}${this.basePath}/${id}.json`);
+  onDeleteTimecapsule = (uuid) => {
+    return this.http.delete(
+      `${this.FIREBASE_URL}${this.basePath}/${uuid}.json`
+    );
   };
 }

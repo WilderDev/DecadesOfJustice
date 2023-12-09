@@ -22,16 +22,12 @@ export class UploadService {
   ) {}
 
   //* ==================== Methods ====================
-  // Create entry in firebase storage
+  //* Create
+  // Creates entry in firebase storage
   pushFileToStorage(fileUpload: FileUpload): Observable<number | undefined> {
-    // path used to store upload
-    const filePath = `${this.basePath}/${fileUpload.file.name}`;
-
-    // filepath of where metadata is stored in fire realtime database
-    const storageRef = this.storage.ref(filePath);
-
-    // observable of the upload event
-    const uploadTask = this.storage.upload(filePath, fileUpload.file);
+    const filePath = `${this.basePath}/${fileUpload.file.name}`; // path used to store upload
+    const storageRef = this.storage.ref(filePath); // filepath of where metadata is stored in fire realtime database
+    const uploadTask = this.storage.upload(filePath, fileUpload.file); // observable of the upload event
 
     uploadTask
       .snapshotChanges() // returns observable with metadata of the upload as they change (bytes transferred, metadata, ref, state, task, totalbytes)
@@ -42,9 +38,8 @@ export class UploadService {
             // Fetches metadata for the object at this location, if one exists.
             fileUpload.url = downloadURL; // saves metadata url
             fileUpload.name = fileUpload.file.name; // saves metadata file.name
-
-            console.log(fileUpload);
-            this.saveFileData(fileUpload); //! <----- This needs to change
+            console.log(fileUpload); //todo: remove for production.
+            this.saveFileData(fileUpload);
             // right now it creates an entry in realtime db /uploads with name and url properties
             // needs to be added into the timecapsule entry with the associated timecapsule info
           });
@@ -57,11 +52,11 @@ export class UploadService {
 
   // Create reference of storage name and location
   private saveFileData(fileUpload: FileUpload): void {
-    this.db.list(this.basePath).push(fileUpload); //! <-- path needs to be different. needs to be part of timecapsule object
+    this.db.list(this.basePath).push(fileUpload);
     // this is the method that takes the fileUpload object (name and url) and puts them into the realtime db at the location specified by this.basePath
   }
 
-  // Read
+  //* Read
   getFiles(numberItems: number): AngularFireList<FileUpload> {
     return this.db.list(this.basePath, (ref) => ref.limitToLast(numberItems));
   }
