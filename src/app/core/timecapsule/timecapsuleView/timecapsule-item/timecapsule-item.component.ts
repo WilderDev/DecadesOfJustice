@@ -11,11 +11,12 @@ import { interval } from 'rxjs';
 })
 export class TimecapsuleItemComponent {
  //* ==================== Properties ===================
+ isLoading: boolean = false;
+ error: null;
+
  @Input() timecapsule;
  countdownSub: Subscription;
  timer = interval(1000);
- isLoading: boolean = false;
- error: null;
  isTime = false;
  curDate = new Date();
  second = 1000;
@@ -23,13 +24,14 @@ export class TimecapsuleItemComponent {
  hour = this.minute * 60;
  day = this.hour * 24;
  year = this.day * 365;
-
- countdown;
+ countdown: String;
 
  //* ==================== Constructor ====================
  constructor(public timecapsuleService: TimecapsuleService) {}
 
  //* ==================== Lifecycle Hooks ====================
+ 
+ // ? Updates the Date every second
  ngOnInit(): void {
   this.countdownSub = this.timer.subscribe(x => {
    this.countdown = this.showRemaining(new Date())
@@ -56,7 +58,7 @@ export class TimecapsuleItemComponent {
      );
  };
 
- //* BG: Checks to see if time is up yet
+ // ? BG: Checks to see if timecapsule is ready to be opened
  isDateRight(curDate) {
    const curDateTimestamp = curDate.getTime();
    const timeRemaining = this.timecapsule.timestamp - curDateTimestamp;
@@ -67,7 +69,7 @@ export class TimecapsuleItemComponent {
    }
  }
 
- //* BG: Shows the remaining time for the capsule
+ // ? BG: Shows the remaining time for the capsule
  showRemaining(curDate) {
   const timestamp = this.timecapsule.timestamp
    if(timestamp != null) {
