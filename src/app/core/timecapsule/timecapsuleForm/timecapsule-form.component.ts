@@ -1,8 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { Address, NotifyPerson, Timecapsule } from '../timecapsule.model';
 import { TimecapsuleService } from '../timecapsule.service';
+import { UploadService } from '../../upload/upload.service';
+import { FileUpload } from '../../upload/file-upload.model';
 @Component({
   selector: 'app-timecapsule-form',
   templateUrl: './timecapsule-form.component.html',
@@ -11,6 +13,9 @@ import { TimecapsuleService } from '../timecapsule.service';
 export class TimecapsuleFormComponent {
   //* ==================== Properties ====================
   @ViewChild('timecapsuleForm') timecapsuleForm: NgForm;
+  selectedFiles?: FileList;
+  currentFileUpload?: FileUpload;
+  percentage = 0;
   public notifyPeople: NotifyPerson[] = [];
   defaultFirstName: string = 'John';
   defaultLastName: string = 'Doe';
@@ -29,7 +34,10 @@ export class TimecapsuleFormComponent {
   showMsg: boolean = true;
 
   //* ==================== Constructor ====================
-  constructor(private timecapsuleService: TimecapsuleService) {}
+  constructor(
+    private timecapsuleService: TimecapsuleService,
+    private uploadService: UploadService
+  ) {}
 
   //* ==================== Methods ====================
   // Get future date and format it for form
@@ -45,7 +53,6 @@ export class TimecapsuleFormComponent {
       dateString += '0';
     }
     dateString += dateNotFormatted.getDate();
-    console.log(dateString);
     return dateString;
   };
 
@@ -84,12 +91,12 @@ export class TimecapsuleFormComponent {
   };
 
   onSubmit = () => {
-    const { title, desc, url } = this.timecapsuleForm.form.value;
+    const { title, desc } = this.timecapsuleForm.form.value;
 
     let newTimeCapsule: Timecapsule = this.timecapsuleService.createTimecapsule(
+      //TODO: add files [{name, url}]
       title,
       desc,
-      url,
       this.getUNIXTimestamp(),
       this.notifyPeople
     );
@@ -114,5 +121,26 @@ export class TimecapsuleFormComponent {
     this.timecapsuleForm.resetForm();
   };
 
-  //* Run Methods
+  // Assign file to property
+  selectFile(event: any): void {
+    this.selectedFiles = event.target.files;
+  }
+
+  // Send file to firebase
+  upload(): void {
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+      this.selectedFiles = undefined;
+
+      if (file) {
+        this.currentFileUpload = new FileUpload(file);
+        this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
+          (percentage) => {
+            this.percentage = Math.round(percentage ? percentage : 0);
+          },
+          (error) => console.log(error)
+        );
+      }
+    }
+  }
 }
