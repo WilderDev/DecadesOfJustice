@@ -23,14 +23,15 @@ export class TimecapsuleItemComponent {
  minute = this.second * 60;
  hour = this.minute * 60;
  day = this.hour * 24;
- year = this.day * 365;
+ month = this.day * 30.437;
+ year = this.month * 12;
  countdown: String;
 
  //* ==================== Constructor ====================
  constructor(public timecapsuleService: TimecapsuleService) {}
 
  //* ==================== Lifecycle Hooks ====================
- 
+
  // ? Updates the Date every second
  ngOnInit(): void {
   this.countdownSub = this.timer.subscribe(x => {
@@ -73,20 +74,20 @@ export class TimecapsuleItemComponent {
  showRemaining(curDate) {
   const timestamp = this.timecapsule.timestamp
    if(timestamp != null) {
-   const setDate = new Date(timestamp).getTime();
+   const setDate = timestamp;
    const distance = setDate - curDate.getTime();
-   if (distance < 0) {
-
+   if (distance <= 0) {
      return 'DONE';
  }
 
- const years = Math.floor( distance / this.year);
- const days = Math.floor((distance % this.year) / this.day);
+ const years = Math.floor(distance / this.year);
+ const months = Math.floor ((distance % this.year) / this.month)
+ const days = Math.floor((distance % this.month) / this.day)
  const hours = Math.floor((distance % this.day) / this.hour);
  const minutes = Math.floor((distance % this.hour) / this.minute);
  const seconds = Math.floor((distance % this.minute) / this.second);
 
- return `${years} Years ${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+ return `${years} Years ${months} Months ${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
 
  } else {
    return 'NO TIME ENTERED'
