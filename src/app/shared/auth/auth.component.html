@@ -1,0 +1,95 @@
+<!-- ? Blake's Changes -->
+<!-- * These were additions to the HTML for styling * -->
+<!-- ! ANYTHING DIVS WITH COL, ROW, AND CONTAINER IS THE BOOTSTRAP I ADDED ! -->
+<!-- ! ADDED <br> IS THERE TO ADD BREAKS BETWEEN THE CONTENT ! -->
+<!-- ! ADDED <hr> IS THERE TO ADD LINES BETWEEN SPECIFIC CONTENT ! -->
+<!-- * -=========================================== * -->
+
+<div class="container">
+
+
+  <!-- ? BG: Added a title box and picture to top the page -->
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-12 bgImg">
+      <h1 class="appTitle">Sign In!</h1>
+      <h2 class="aboutApp">
+        Or sign up with us to start creating your time capsuls today!
+      </h2>
+    </div>
+
+    </div>
+    <br>
+    <hr>
+
+  <!-- ? BG: Added a title to the form -->
+    <h1 class="loginTitle">{{ isLoginMode ? "Login" : "Sign Up" }}</h1>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 formDiv">
+
+
+<div>
+  <div>
+    <form #authFormRef="ngForm" (ngSubmit)="onAuthFormSubmit(authFormRef)">
+      <!-- EMAIL -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <br>
+        <input
+        type="email" id="email" name="email" class="form-control" email ngModel required
+        />
+      </div>
+
+      <br>
+
+      <!-- PASSWORD -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <br>
+        <input type="password" id="password" name="password" class="form-control"
+        minlength="6"
+        ngModel
+        required/>
+      </div>
+
+      <hr>
+
+      <!-- BUTTONS -->
+      <button class="btn btn-success" type="submit" [disabled]="!authFormRef.valid">{{ isLoginMode ? "Login" : "Sign Up" }}</button>
+      <button class="btn btn-primary" type="button" (click)="onSwitchAuthMode()">Switch to {{ isLoginMode ? "Sign Up" : "Login" }}</button>
+    </form>
+
+    <!-- * Success alerts -->
+    <div class="row">
+      <div class="col-xs-12">
+        <p class="alert alert-success" *ngIf="registerSuccess">
+          <strong>Registration Successful!</strong>
+          Please continue with your timecapsule(s)!
+          </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <p class="alert alert-success" *ngIf="loginSuccess">
+          <strong>Login Success!</strong>
+          Please continue with your timecapsule(s)!
+          </p>
+      </div>
+    </div>
+
+    <!-- Error-->
+    <p class="errorMSg" *ngIf="errMsg" >{{ errMsg }}</p>
+  </div>
+</div>
+
+<br>
+
+</div>
+<div class="col-md-3"></div>
+
+
+
+</div>
+</div>
+

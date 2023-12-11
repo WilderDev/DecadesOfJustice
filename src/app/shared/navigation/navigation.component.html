@@ -1,0 +1,38 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg mb-4">
+	<a class="navbar-brand brand" id="brand">Memory Box</a>
+  <button
+		class="navbar-toggler"
+		type="button"
+		data-toggle="collapse"
+		data-target="#navbarToggler"
+		aria-label="Toggle navigation"
+		aria-controls="navbarToggler"
+		aria-expanded="false"
+		(click)="collapsed = !collapsed"
+	>
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div
+  class="navbar-collapse collapse"
+		id="navbarToggler"
+		[class.collapse]="collapsed"
+		(window:resize)="collapsed = true">
+
+		<ul class="navbar-nav mt-lg-0 mr-auto mt-2">
+			<li class="nav-item" *ngIf="isAuthenticated">
+				<a class="nav-link" routerLink="" routerLinkActive="active">Home</a>
+			</li>
+			<li class="nav-item" *ngIf="isAuthenticated">
+				<a class="nav-link" routerLink="/creating-capsules" routerLinkActive="active">Creating Capsules</a>
+			</li>
+      <li class="nav-item" *ngIf="isAuthenticated">
+				<a class="nav-link" routerLink="/current-capsules" routerLinkActive="active">Current Capsules</a>
+			</li>
+      <li class="nav-item" *ngIf="!isAuthenticated">
+        <a class="nav-link" routerLink="/authentication" routerLinkActive="active" id="login">LOGIN</a>
+      </li>
+      <li class="nav-item" *ngIf="isAuthenticated" (click)="handleSignOut()">
+      <a class="nav-link" style="cursor: pointer" routerLink="/logout" routerLinkActive="active" id="logout">LOGOUT</a>
+		</ul>
+	</div>
+</nav>

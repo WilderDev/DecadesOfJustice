@@ -1,0 +1,10 @@
+$progress: 0%;
+
+#progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: $progress;
+  height: 20px;
+  background-color: dodgerblue;
+}
