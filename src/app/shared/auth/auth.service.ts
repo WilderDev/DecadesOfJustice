@@ -4,6 +4,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 import { User } from './User.model';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 const AUTH_API_KEY = environment.firebase.apiKey;
 
@@ -37,8 +38,13 @@ export class AuthService {
   private tokenExpTimer: any;
   currentUser = new BehaviorSubject<User>(null);
   userToken: string = null;
+  basePath: string = '/users';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private db: AngularFireDatabase
+  ) {}
 
   signUp(email: string, password: string) {
     return this.http
@@ -79,6 +85,9 @@ export class AuthService {
     // New User based on form info and emit user
     const formUser = new User(email, userId, token, expDate);
     this.currentUser.next(formUser);
+
+    // Add entry into firebase db /users
+    this.db.list(this.basePath).push(formUser);
 
     this.automaticSignOut(expiresIn * 1000);
 

@@ -50,7 +50,7 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
 
   deleteTimecapsule = (i) => {
     this.timecapsuleService
-      .onDeleteTimecapsule(this.timecapsuleService.loadedTimecapsules[i].id)
+      .onDeleteTimecapsule(this.timecapsuleService.loadedTimecapsules[i].uuid)
       .subscribe(
         () => this.timecapsuleService.loadedTimecapsules.splice(i, 1),
         (error) => {

@@ -310,7 +310,7 @@
             <label for="fileUpload" class="flexTwo">Upload Image:</label>
             <input
               class="flexTwo boxShadow"
-              type="fileUpload"
+              type="file"
               ngModel
               placeholder="fileUpload"
               name="fileUpload"
@@ -319,8 +319,12 @@
               (change)="selectFile($event)"
             />
           </div>
-          <button type="button" [disabled]="!selectedFiles" (click)="upload()">
-            Upload
+          <button
+            type="button"
+            [disabled]="!selectedFile"
+            (click)="addSelectedFile()"
+          >
+            Add File
           </button>
 
           <div class="form-input">
@@ -349,25 +353,39 @@
               * Please enter a date.
             </p>
           </div>
+          <div class="fileUpload-wrapper">
+            <div
+              class="fileUpload-card boxShadow"
+              *ngFor="let file of this.selectedFileList; index as i"
+            >
+              <img [src]="" [alt]="file.name" />
+
+              <button
+                type="button"
+                (click)="this.selectedFileList.splice(i, 1)"
+              >
+                Delete File
+              </button>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary flexTwo boxShadow"
+            [disabled]="
+              !(
+                titleRef.valid &&
+                titleRef.touched &&
+                descRef.valid &&
+                descRef.touched &&
+                dateRef.valid &&
+                timeRef.valid
+              ) || !notifyPeople[0]
+            "
+          >
+            Submit
+          </button>
         </fieldset>
       </div>
-
-      <button
-        type="submit"
-        class="btn btn-primary flexTwo boxShadow"
-        [disabled]="
-          !(
-            titleRef.valid &&
-            titleRef.touched &&
-            descRef.valid &&
-            descRef.touched &&
-            dateRef.valid &&
-            timeRef.valid
-          ) || !notifyPeople[0]
-        "
-      >
-        Submit
-      </button>
     </form>
   </div>
 </div>
