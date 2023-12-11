@@ -1,46 +1,6 @@
-.bgImg {
-  background-image: url(../../../../assets/images/yoav-hornung-LOxcL-LFsug-unsplash.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.headerOne {
-  color: #F6F1F1;
-  text-shadow: 2px 2px black;
-}
-
-.boxShadow {
-  box-shadow: 3px 2px black, -.3em 0 .2em #146C94;
-}
-
-.fontOne {
-  font-size: 18px;
-  font-weight: bolder;
-  text-shadow: 1px 1px black;
-}
-
-.flexOne {
-  display: flex;
-  border-width: 1px;
-  border-color: #146C94;
-  border-radius: 20px;
-  box-shadow: 3px 2px black, -.3em 0 .2em #146C94;
-}
-
-.flexTwo {
-  display: flex;
-  border-width: 1px;
-  border-color: #146C94;
-  border-radius: 20px;
-  bottom: 760px;
-  left: 575px;
-}
-
 .form {
   &-wrapper {
-    width: 70vw;
-    margin: 16px auto;
+    height: 100%;
 
     & fieldset {
       margin: 8px;
@@ -70,9 +30,9 @@
 
 .notifyPerson {
   &-wrapper {
+    flex-wrap: wrap;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     gap: 8px;
   }
 
@@ -91,6 +51,7 @@
 
     & p {
       margin: 0;
+
     }
   }
 }
@@ -106,4 +67,63 @@ textarea.ng-invalid.ng-touched {
 
 button {
   margin: 8px;
+}
+
+.item1{
+  display: flex;
+  justify-content: center;
+}
+
+.bgImg {
+  background-image: url(../../../../assets/images/yoav-hornung-LOxcL-LFsug-unsplash.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  isolation: isolate;
+}
+
+.bgImg::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .7;
+  background-color: #233f4d;
+}
+
+.headerOne {
+  color: #F6F1F1;
+  text-shadow: 2px 2px black;
+}
+
+@mixin boxShadow {
+  box-shadow: 3px 2px black, -.3em 0 .2em #146C94;
+}
+
+@mixin border {
+  display: flex;
+  border-width: 1px;
+  border-color: #146C94;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.boxShadow {
+  @include boxShadow;
+}
+
+.fontOne {
+  font-size: 18px;
+  font-weight: bolder;
+  text-shadow: 1px 1px black;
+}
+
+.flexOne {
+  @include border;
+  @include boxShadow;
+}
+
+.flexTwo {
+  @include border;
 }

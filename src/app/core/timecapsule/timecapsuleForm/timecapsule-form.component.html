@@ -1,13 +1,23 @@
-<div class="bgImg">
 <div class="form-wrapper">
+  <div class="bgImg">
   <form (ngSubmit)="onSubmit()" #timecapsuleForm="ngForm">
-    <div class="row">
-      <div class="col-xs-12" *ngIf="showMsg">
-        <p class="alert alert-success">
+
+      <div *ngIf="showMsg">
+        <p class="alert alert-success item1">
           <strong>Registration Success!</strong> Please click here to login!.
         </p>
       </div>
-      <fieldset>
+
+
+
+      <!-- <fieldset> -->
+
+
+        <div class="container">
+          <div class="row">
+
+            <div class="col-sm-6">
+
         <legend class="headerOne">Add a person to notify:</legend>
 
         <div class="form-input">
@@ -74,9 +84,14 @@
             * Please enter a valid email.
           </p>
         </div>
+      </div>
 
-        <div>
-          <fieldset>
+
+
+
+          <!-- <fieldset> -->
+            <div class="col-sm-6">
+
             <legend class="headerOne">Address info:</legend>
             <div class="form-input">
               <label for="street" class="fontOne">Street:</label>
@@ -158,8 +173,8 @@
                 * Please enter a zip code.
               </p>
             </div>
-          </fieldset>
-        </div>
+          <!-- </fieldset> -->
+
 
         <button
           type="button"
@@ -186,8 +201,15 @@
         >
           Add Person
         </button>
-      </fieldset>
-    </div>
+      </div>
+      </div>
+      </div>
+      <!-- </fieldset> -->
+
+    <div class="container">
+    <div class="row">
+
+      <div class="col-xl-4">
 
     <div class="notifyPerson-wrapper">
       <div
@@ -213,11 +235,13 @@
       </div>
     </div>
 
-    <div>
-      <fieldset>
+  </div>
+
+      <!-- <fieldset> -->
+      <div class="col-xl-4">
         <legend class="headerOne flexTwo">Event details:</legend>
         <div class="form-input">
-          <label class="flexTwo">Title:</label>
+          <label class="flexTwo fontOne">Title:</label>
           <input
             class="flexTwo boxShadow"
             type="text"
@@ -234,7 +258,8 @@
         </div>
 
         <div class="form-input">
-          <label class="flexTwo">Add description:</label>
+          <label class="flexTwo fontOne
+          ">Add description:</label>
           <br />
           <textarea
             class="flexTwo boxShadow"
@@ -254,7 +279,7 @@
         </div>
 
         <div class="form-input">
-          <label for="url" class="flexTwo">Add link:</label>
+          <label for="url" class="flexTwo fontOne">Add link:</label>
           <input
             class="flexTwo boxShadow"
             type="text"
@@ -266,8 +291,11 @@
           />
         </div>
 
+      </div>
+
+      <div class="col-xl-4">
         <div class="form-input">
-          <label for="date" class="flexTwo">Set date:</label>
+          <label for="date" class="flexTwo fontOne">Set date:</label>
           <input
             class="flexTwo boxShadow"
             type="date"
@@ -279,8 +307,9 @@
           />
 
           <div>
-            <label for="time">Set time:</label>
+            <label for="time" class="fontOne">Set time:</label>
             <input
+            class="flexOne"
               type="time"
               [ngModel]="defaultTime"
               name="time"
@@ -292,8 +321,8 @@
             * Please enter a date.
           </p>
         </div>
-      </fieldset>
-    </div>
+      <!-- </fieldset> -->
+
 
     <button
       type="submit"
@@ -311,6 +340,9 @@
     >
       Submit
     </button>
+  </div>
+  </div>
+  </div>
   </form>
 </div>
 </div>
