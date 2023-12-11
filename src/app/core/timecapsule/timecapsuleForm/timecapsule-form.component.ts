@@ -13,10 +13,17 @@ import { FileUpload } from '../../upload/file-upload.model';
 export class TimecapsuleFormComponent {
   //* ==================== Properties ====================
   @ViewChild('timecapsuleForm') timecapsuleForm: NgForm;
-  selectedFiles?: FileList;
-  currentFileUpload?: FileUpload;
+
+  // currentFileUpload?: FileUpload;
+  selectedFile?: FileList;
+  public selectedFileList?: File[] | null = [];
+  currentUploadQueue?: FileUpload[] | null = [];
+
   percentage = 0;
   public notifyPeople: NotifyPerson[] = [];
+  showMsg: boolean = true;
+
+  // Form placeholder text
   defaultFirstName: string = 'John';
   defaultLastName: string = 'Doe';
   defaultPhone: string = '312-555-5556';
@@ -31,7 +38,8 @@ export class TimecapsuleFormComponent {
     'Details about the moment that you would like to put in the Memory Box.';
   defaultUrl: string = 'Link';
   defaultTime: string = '00:00';
-  showMsg: boolean = true;
+  // showMsg: boolean = true;
+  submitSuccess: boolean = false;
 
   //* ==================== Constructor ====================
   constructor(
@@ -77,7 +85,7 @@ export class TimecapsuleFormComponent {
       this.timecapsuleForm.form.value.phone
     );
     this.notifyPeople.push(notifyPerson);
-    this.timecapsuleForm.resetForm();
+    this.timecapsuleForm.reset(this.addPerson);
   };
 
   // Remove person from notifyPeople array
@@ -90,16 +98,20 @@ export class TimecapsuleFormComponent {
     return Date.parse(this.timecapsuleForm.form.value.date);
   };
 
+  // Take all fields from form and create the timecapsule object and upload any files from selectedFiles array to firebse storage.
   onSubmit = () => {
     const { title, desc } = this.timecapsuleForm.form.value;
 
     let newTimeCapsule: Timecapsule = this.timecapsuleService.createTimecapsule(
-      //TODO: add files [{name, url}]
       title,
       desc,
       this.getUNIXTimestamp(),
       this.notifyPeople
     );
+
+    // Upload file list
+    this.uploadCurrentQueue(newTimeCapsule.uuid);
+
 
     // Add New Timecapsule to Firebase
     this.timecapsuleService.onPostTimecapsule(newTimeCapsule);
@@ -114,33 +126,71 @@ export class TimecapsuleFormComponent {
       newTimecapsuleList.slice()
     );
 
-    this.showMsg = true;
+
+    this.submitSuccess = true;
     setTimeout(() => {
-      this.showMsg = false;
+      this.submitSuccess = false;
     }, 3000);
+
+    // Reset form
     this.timecapsuleForm.resetForm();
   };
 
-  // Assign file to property
+  // File imput change event assigns single file to selected file
   selectFile(event: any): void {
-    this.selectedFiles = event.target.files;
+    this.selectedFile = event.target.files;
   }
 
-  // Send file to firebase
-  upload(): void {
-    if (this.selectedFiles) {
-      const file: File | null = this.selectedFiles.item(0);
-      this.selectedFiles = undefined;
-
-      if (file) {
-        this.currentFileUpload = new FileUpload(file);
-        this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
-          (percentage) => {
-            this.percentage = Math.round(percentage ? percentage : 0);
-          },
-          (error) => console.log(error)
-        );
-      }
+  // Add file button click listener adds selected file to array from the and clears selected file for next file input
+  addSelectedFile(): void {
+    if (this.selectedFile) {
+      this.selectedFileList.push(this.selectedFile.item(0)); // By default, the form input of type file returns a value of FileList which is an array with only 1 item. We first need to remove the file from the array.
+      this.selectedFile = undefined;
     }
+  }
+
+  // Upload File list loops through each file in selectedFileList array and takes each item of the array (type File) and creates a new FileUpload which has properties needed for adding them to firebase storage.
+  uploadCurrentQueue(parentUUID) {
+    if (this.selectedFileList) {
+      this.selectedFileList.forEach((f) => {
+        let newFileUpload = new FileUpload(f);
+        // Assign each fileUpload's parentUUID property in currentUploadQueue to have the uuid of the newly generated timecapsule
+        newFileUpload.parentUUID = parentUUID;
+        // Once the File is converted to FileUpload, we then can push it back into a new array called uploadQueue
+        this.currentUploadQueue.push(newFileUpload);
+        // We need to finally loop through uploadQueue and take each item and run pushFileToStorage() which uploads them to firebase storage and creates an reference entry in realtime db.
+        this.currentUploadQueue.forEach((f) => {
+          this.uploadService.pushFileToStorage(f).subscribe(
+            (percentage) => {
+              this.percentage = Math.round(percentage ? percentage : 0);
+            },
+            (error) => console.log(error)
+          );
+        });
+      });
+    }
+  }
+
+  // Deprecated:
+  // Send file to firebase
+  // upload(): void {
+  //   if (this.selectedFile) {
+  //     const file: File | null = this.selectedFile.item(0);
+  //     this.selectedFile = undefined;
+  //     if (file) {
+  //       this.currentFileUpload = new FileUpload(file);
+  //       this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
+  //         (percentage) => {
+  //           this.percentage = Math.round(percentage ? percentage : 0);
+  //         },
+  //         (error) => console.log(error)
+  //       );
+  //     }
+  //   }
+  // }
+
+  // Todo: remove for production. for testing purposes only
+  console() {
+    console.log(this.selectedFileList);
   }
 }
