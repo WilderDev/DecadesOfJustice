@@ -31,7 +31,8 @@ export class TimecapsuleFormComponent {
     'Details about the moment that you would like to put in the Memory Box.';
   defaultUrl: string = 'Link';
   defaultTime: string = '00:00';
-  showMsg: boolean = true;
+  // showMsg: boolean = true;
+  submitSuccess: boolean = false;
 
   //* ==================== Constructor ====================
   constructor(
@@ -77,7 +78,7 @@ export class TimecapsuleFormComponent {
       this.timecapsuleForm.form.value.phone
     );
     this.notifyPeople.push(notifyPerson);
-    this.timecapsuleForm.resetForm();
+    this.timecapsuleForm.reset(this.addPerson);
   };
 
   // Remove person from notifyPeople array
@@ -101,6 +102,7 @@ export class TimecapsuleFormComponent {
       this.notifyPeople
     );
 
+
     // Add New Timecapsule to Firebase
     this.timecapsuleService.onPostTimecapsule(newTimeCapsule);
 
@@ -114,9 +116,9 @@ export class TimecapsuleFormComponent {
       newTimecapsuleList.slice()
     );
 
-    this.showMsg = true;
+    this.submitSuccess = true;
     setTimeout(() => {
-      this.showMsg = false;
+      this.submitSuccess = false;
     }, 3000);
     this.timecapsuleForm.resetForm();
   };

@@ -59,6 +59,25 @@
       <button class="btn btn-primary" type="button" (click)="onSwitchAuthMode()">Switch to {{ isLoginMode ? "Sign Up" : "Login" }}</button>
     </form>
 
+    <!-- * Success alerts -->
+    <div class="row">
+      <div class="col-xs-12">
+        <p class="alert alert-success" *ngIf="registerSuccess">
+          <strong>Registration Successful!</strong>
+          Please continue with your timecapsule(s)!
+          </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <p class="alert alert-success" *ngIf="loginSuccess">
+          <strong>Login Success!</strong>
+          Please continue with your timecapsule(s)!
+          </p>
+      </div>
+    </div>
+
     <!-- Error-->
     <p class="errorMSg" *ngIf="errMsg" >{{ errMsg }}</p>
   </div>
