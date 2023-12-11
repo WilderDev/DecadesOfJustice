@@ -22,6 +22,9 @@ export class AuthComponent {
     this.isLoginMode = !this.isLoginMode;
   }
 
+  registerSuccess: boolean = false;
+  loginSuccess: boolean = false;
+
 
   onAuthFormSubmit(formObj: NgForm) {
     if (!formObj.valid) return;
@@ -32,9 +35,11 @@ export class AuthComponent {
     if (this.isLoginMode) {
       // Sign In
       this.authObserv = this.authService.login(email, password);
+      this.loginSuccess = true;
     } else {
       // Sign Up
       this.authObserv = this.authService.signUp(email, password);
+      this.registerSuccess = true;
     }
 
     this.authObserv.subscribe((res) => {
