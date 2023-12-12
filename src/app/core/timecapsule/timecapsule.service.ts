@@ -78,11 +78,4 @@ export class TimecapsuleService {
       `${this.FIREBASE_URL}${this.basePath}/${uuid}.json`
     );
   };
-
-  // * BG: Find Timevapsule by title
- getTimecapsuleByTitle(title: string) {
-  const foundCapsule = this.loadedTimecapsules.find((timecapsule) => timecapsule.title === title);
-  return foundCapsule;
-}
-
 }

@@ -49,7 +49,7 @@ export class TimecapsuleItemComponent {
  // TODO: RE-WRITE THE DELETE METHOD
  deleteTimecapsule = (i) => {
    this.timecapsuleService
-     .onDeleteTimecapsule(this.timecapsuleService.loadedTimecapsules[i].id)
+     .onDeleteTimecapsule(this.timecapsuleService.loadedTimecapsules[i].uuid)
      .subscribe(
        () => this.timecapsuleService.loadedTimecapsules.splice(i, 1),
        (error) => {
