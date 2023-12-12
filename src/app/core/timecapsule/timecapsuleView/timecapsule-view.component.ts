@@ -33,7 +33,6 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
     this.timecapsulesChangedSub.unsubscribe();
   }
 
-
   //* ==================== Methods ====================
   fetchTimecapsules = () => {
     this.isLoading = true;
@@ -48,5 +47,12 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     );
+  };
+
+  deleteTimecapsule = (i) => {
+    this.timecapsuleService.onDeleteTimecapsule(
+      this.timecapsuleService.loadedTimecapsules[i].uuid
+    );
+    this.timecapsuleService.loadedTimecapsules.splice(i, 1);
   };
 }
