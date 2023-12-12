@@ -20,6 +20,7 @@ export class TimecapsuleService {
   constructor(private http: HttpClient, private db: AngularFireDatabase) {}
 
   //* ==================== Methods ====================
+
   // Create timecapsule
   createTimecapsule = (
     userId: string,

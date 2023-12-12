@@ -1,0 +1,65 @@
+.timecapsule {
+  position: relative;
+  outline: solid rgba(25, 167, 206, .7);
+}
+
+h1, h2, p {
+  text-align: center;
+  color: #F6F1F1;
+}
+
+img {
+  padding-top: 2%;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  margin: auto;
+}
+
+.btn {
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  transition: transform 0.3s ease 0s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+hr {
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  margin: auto;
+  background-color: #19A7CE;
+  color: #19A7CE;
+  width: 80%;
+  height: 2px;
+  opacity: 80%;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+a img {
+  margin-top: .5%;
+  transition: transform 0.3s ease 0s;
+}
+
+
+a img:hover {
+  transform: scale(1.25);
+}
+
+.countdown {
+  font-family: 'Archivo Black', sans-serif;
+  color: red;
+}
+
+.done {
+  font-family: 'Archivo Black', sans-serif;
+  color: #66ff00;
+}
+

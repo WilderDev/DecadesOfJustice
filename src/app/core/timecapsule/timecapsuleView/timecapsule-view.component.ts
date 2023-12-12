@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TimecapsuleService } from '../timecapsule.service';
 import { Timecapsule } from '../timecapsule.model';
-import { Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription, timestamp } from 'rxjs';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-timecapsule-view',
