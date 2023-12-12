@@ -74,6 +74,8 @@ export class TimecapsuleService {
 
   // Delete timecapsule
   onDeleteTimecapsule = (uuid) => {
+    let child = this.db.database.ref(this.basePath).orderByValue(); //! get reference ID from firebase realtime db (using timecapsule uuid) and use it in the delete path
+    console.log(child);
     return this.http.delete(
       `${this.FIREBASE_URL}${this.basePath}/${uuid}.json`
     );
