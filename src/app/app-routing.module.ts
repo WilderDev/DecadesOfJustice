@@ -16,8 +16,6 @@ const routes: Routes = [
   { path: "current-capsules", component: TimecapsuleViewComponent, canActivate: [AuthGuard] }, //Current Capsules
   {path: "view-capsule/:uuid", component: ViewTimecapsuleComponent, canActivate: [AuthGuard] }, // * BG: View Selected Capsule
 
-  //OPENING ROUTES NEEDS TO BE CREATED FOR WHEN THEIR CAPSULE OPEN
-  //{ path: "opening-capsules", component:,children:[{path:"", component:}]}, //Opening Capsules
   { path: "authentication", component: AuthComponent }  //Authentication
 ];
 

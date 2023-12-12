@@ -47,11 +47,11 @@ export class TimecapsuleItemComponent {
 
  //* ==================== Methods ====================
  // TODO: RE-WRITE THE DELETE METHOD
- deleteTimecapsule = (i) => {
+ deleteTimecapsule = () => {
    this.timecapsuleService
-     .onDeleteTimecapsule(this.timecapsuleService.loadedTimecapsules[i].uuid)
+     .onDeleteTimecapsule(this.timecapsuleService.loadedTimecapsules[this.timecapsule].uuid)
      .subscribe(
-       () => this.timecapsuleService.loadedTimecapsules.splice(i, 1),
+       () => this.timecapsuleService.loadedTimecapsules.splice(this.timecapsule, 1),
        (error) => {
          this.error = error.message;
          console.log(error);
