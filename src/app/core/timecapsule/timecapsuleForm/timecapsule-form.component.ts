@@ -5,6 +5,8 @@ import { Address, NotifyPerson, Timecapsule } from '../timecapsule.model';
 import { TimecapsuleService } from '../timecapsule.service';
 import { UploadService } from '../../upload/upload.service';
 import { FileUpload } from '../../upload/file-upload.model';
+import { AuthService } from 'src/app/shared/auth/auth.service';
+
 @Component({
   selector: 'app-timecapsule-form',
   templateUrl: './timecapsule-form.component.html',
@@ -43,6 +45,7 @@ export class TimecapsuleFormComponent {
 
   //* ==================== Constructor ====================
   constructor(
+    private authService: AuthService,
     private timecapsuleService: TimecapsuleService,
     private uploadService: UploadService
   ) {}
@@ -101,17 +104,22 @@ export class TimecapsuleFormComponent {
   // Take all fields from form and create the timecapsule object and upload any files from selectedFiles array to firebse storage.
   onSubmit = () => {
     const { title, desc } = this.timecapsuleForm.form.value;
+    let userId: string;
+    let newTimeCapsule: Timecapsule;
 
-    let newTimeCapsule: Timecapsule = this.timecapsuleService.createTimecapsule(
-      title,
-      desc,
-      this.getUNIXTimestamp(),
-      this.notifyPeople
-    );
+    this.authService.currentUser.subscribe((user) => {
+      userId = user.id;
+      newTimeCapsule = this.timecapsuleService.createTimecapsule(
+        userId,
+        title,
+        desc,
+        this.getUNIXTimestamp(),
+        this.notifyPeople
+      );
+    });
 
     // Upload file list
     this.uploadCurrentQueue(newTimeCapsule.uuid);
-
 
     // Add New Timecapsule to Firebase
     this.timecapsuleService.onPostTimecapsule(newTimeCapsule);
@@ -125,7 +133,6 @@ export class TimecapsuleFormComponent {
     this.timecapsuleService.timecapsulesChanged.next(
       newTimecapsuleList.slice()
     );
-
 
     this.submitSuccess = true;
     setTimeout(() => {

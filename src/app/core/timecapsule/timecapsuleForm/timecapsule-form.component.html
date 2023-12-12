@@ -1,5 +1,6 @@
 <div class="form-wrapper">
   <div class="bgImg">
+    <button type="button" (click)="console()">Show Info</button>
   <form (ngSubmit)="onSubmit()" #timecapsuleForm="ngForm">
 
       <div *ngIf="showMsg">
@@ -28,7 +29,7 @@
           />
           <p *ngIf="!fNameRef.valid && fNameRef.touched">
             * Please enter a first name.
-          </p>
+
         </div>
 
         <div class="form-input">
