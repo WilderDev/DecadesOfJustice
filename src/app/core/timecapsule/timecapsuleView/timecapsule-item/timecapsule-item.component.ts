@@ -15,6 +15,7 @@ export class TimecapsuleItemComponent {
  error: null;
 
  @Input() timecapsule;
+ @Input() i;
  countdownSub: Subscription;
  timer = interval(1000);
  isTime = false;
@@ -47,15 +48,16 @@ export class TimecapsuleItemComponent {
 
  //* ==================== Methods ====================
  // TODO: RE-WRITE THE DELETE METHOD
- deleteTimecapsule = () => {
-   this.timecapsuleService
-     .onDeleteTimecapsule(this.timecapsuleService.loadedTimecapsules[this.timecapsule].uuid)
-     .subscribe(
-       () => this.timecapsuleService.loadedTimecapsules.splice(this.timecapsule, 1),
-       (error) => {
-         this.error = error.message;
-         console.log(error);
-       }
+ deleteTimecapsule = (i) => {
+  console.log(this.timecapsuleService.loadedTimecapsules[i].uuid)
+  this.timecapsuleService
+    .onDeleteTimecapsule(this.timecapsuleService.loadedTimecapsules[i].uuid)
+    .subscribe(
+      () => this.timecapsuleService.loadedTimecapsules.splice(i, 1),
+      (error) => {
+        this.error = error.message;
+        console.log(error);
+      }
      );
  };
 

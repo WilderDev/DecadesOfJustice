@@ -75,6 +75,10 @@ export class TimecapsuleService {
 
   // Delete timecapsule
   onDeleteTimecapsule = (uuid) => {
+    console.log( this.http.delete(
+      `${this.FIREBASE_URL}${this.basePath}/${uuid}.json`))
+
+
     return this.http.delete(
       `${this.FIREBASE_URL}${this.basePath}/${uuid}.json`
     );
