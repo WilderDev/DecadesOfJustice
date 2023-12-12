@@ -87,4 +87,9 @@ export class UploadService {
     const storageRef = this.storage.ref(this.basePath);
     storageRef.child(name).delete();
   }
+
+  // Get entries in realtime database
+  getAllEntries() {
+    return this.db.list(this.basePath).valueChanges();
+  }
 }

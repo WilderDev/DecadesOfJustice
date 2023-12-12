@@ -69,15 +69,38 @@ export class TimecapsuleService {
       );
   };
 
+  // Get entries in realtime database
+  getAllEntries() {
+    return this.db.object(this.basePath).valueChanges();
+  }
+
   // Update timecapsule
-  onUpdateTimecapsule = (uuid) => {};
+  onUpdateTimecapsule = (uuid, newTimecapsule) => {
+    let id;
+    this.getAllEntries().subscribe((data) => {
+      let entries = Object.entries(data);
+      for (let i = 0; i < entries.length; i++) {
+        let entry = entries[i];
+        if (entry[1].uuid === uuid) {
+          id = entry[0].toString();
+          this.db.list(this.basePath).update(id, newTimecapsule);
+        }
+      }
+    });
+  };
 
   // Delete timecapsule
   onDeleteTimecapsule = (uuid) => {
-    let child = this.db.database.ref(this.basePath).orderByValue(); //! get reference ID from firebase realtime db (using timecapsule uuid) and use it in the delete path
-    console.log(child);
-    return this.http.delete(
-      `${this.FIREBASE_URL}${this.basePath}/${uuid}.json`
-    );
+    let id;
+    this.getAllEntries().subscribe((data) => {
+      let entries = Object.entries(data);
+      for (let i = 0; i < entries.length; i++) {
+        let entry = entries[i];
+        if (entry[1].uuid === uuid) {
+          id = entry[0].toString();
+          this.db.list(this.basePath).remove(id);
+        }
+      }
+    });
   };
 }
