@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TimecapsuleService } from '../timecapsule.service';
 import { Timecapsule } from '../timecapsule.model';
-import { Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription, timestamp } from 'rxjs';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-timecapsule-view',
@@ -32,6 +33,7 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
     this.timecapsulesChangedSub.unsubscribe();
   }
 
+
   //* ==================== Methods ====================
   fetchTimecapsules = () => {
     this.isLoading = true;
@@ -46,17 +48,5 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     );
-  };
-
-  deleteTimecapsule = (i) => {
-    this.timecapsuleService
-      .onDeleteTimecapsule(this.timecapsuleService.loadedTimecapsules[i].uuid)
-      .subscribe(
-        () => this.timecapsuleService.loadedTimecapsules.splice(i, 1),
-        (error) => {
-          this.error = error.message;
-          console.log(error);
-        }
-      );
   };
 }
