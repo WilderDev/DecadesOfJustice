@@ -3,6 +3,7 @@ export class FileUpload {
   name: string;
   url: string;
   file: File;
+  parentUUID: string;
 
   constructor(file: File) {
     this.file = file;

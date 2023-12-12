@@ -1,3 +1,43 @@
+.bgImg {
+  background-image: url(../../../../assets/images/yoav-hornung-LOxcL-LFsug-unsplash.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.headerOne {
+  color: #f6f1f1;
+  text-shadow: 2px 2px black;
+}
+
+.boxShadow {
+  box-shadow: 3px 2px black, -0.3em 0 0.2em #146c94;
+}
+
+.fontOne {
+  font-size: 18px;
+  font-weight: bolder;
+  text-shadow: 1px 1px black;
+}
+
+.flexOne {
+  display: flex;
+  border-width: 1px;
+  border-color: #146c94;
+  border-radius: 20px;
+  box-shadow: 3px 2px black, -0.3em 0 0.2em #146c94;
+}
+
+.flexTwo {
+  display: flex;
+  border-width: 1px;
+  border-color: #146c94;
+  border-radius: 20px;
+  position: relative;
+  bottom: 760px;
+  left: 575px;
+}
+
 .form {
   &-wrapper {
     height: 100%;
@@ -13,7 +53,7 @@
 
   &-input {
     margin: 8px;
-    color: #F6F1F1;
+    color: #f6f1f1;
 
     & p {
       display: inline;
@@ -44,6 +84,36 @@
     max-width: 300px;
     background-color: #F6F1F1;
     border-radius: 8px;
+    background-color: #f6f1f1;
+    border-radius: 20px;
+    font-weight: bold;
+    text-align: left;
+    position: relative;
+    bottom: 750px;
+    left: 550px;
+
+    & p {
+      margin: 0;
+    }
+  }
+}
+
+.fileUpload {
+  &-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &-card {
+    border: 1px solid black;
+    padding: 16px;
+    min-width: 150px;
+    width: fit-content;
+    max-width: 300px;
+    background-color: #f6f1f1;
+    border-radius: 20px;
     font-weight: bold;
     text-align: left;
     bottom: 750px;
@@ -126,4 +196,8 @@ textarea.ng-invalid.ng-touched {
 
 .flexTwo {
   @include border;
+}
+
+.alert-success {
+  color: green;
 }

@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export class Address {
   constructor(
     public street: string,
@@ -19,12 +21,13 @@ export class NotifyPerson {
 }
 
 export class Timecapsule {
-  id: string;
+  public uuid: string;
   constructor(
-    //TODO: add files [{ name, url }]
     public title: string,
     public desc: string,
     public timestamp: number,
     public notifyPeople: NotifyPerson[]
-  ) {}
+  ) {
+    this.uuid = uuidv4();
+  }
 }
