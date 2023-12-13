@@ -2,22 +2,16 @@ import { Injectable } from '@angular/core';
 import {
   AngularFireDatabase,
   AngularFireList,
-  DatabaseSnapshot,
 } from '@angular/fire/compat/database';
 import { FileUpload } from '../upload/file-upload.model';
 import { Timecapsule } from 'src/app/core/timecapsule/timecapsule.model';
 import { Observable, map } from 'rxjs';
-import { FsService } from '../fs/fs.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DbService {
-  constructor(
-    private db: AngularFireDatabase,
-    private dbUtils: DbService,
-    private fs: FsService
-  ) {}
+  constructor(private db: AngularFireDatabase) {}
 
   updateFileDatabase(key: string, path: string) {}
 
