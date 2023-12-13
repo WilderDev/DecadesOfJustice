@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { NotifyPerson, Timecapsule } from './timecapsule.model';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { DbService } from 'src/app/shared/utils/db/db.service';
+import { UploadService } from 'src/app/shared/utils/upload/upload.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +13,12 @@ export class TimecapsuleService {
   timecapsulesChanged = new Subject<Timecapsule[]>();
   loadedTimecapsules: Timecapsule[] = [];
   FIREBASE_URL: string = 'https://memorybox-80ee9-default-rtdb.firebaseio.com';
-  basePath = `/timecapsules`;
 
   //* ==================== Constructor ====================
-  constructor(private http: HttpClient, private db: AngularFireDatabase) {}
+  constructor(
+    private dbUtil: DbService,
+    private uploadService: UploadService
+  ) {}
 
   //* ==================== Methods ====================
 
@@ -32,74 +33,62 @@ export class TimecapsuleService {
     return new Timecapsule(userId, title, desc, timestamp, notifyPeople);
   };
 
-  // Post Timecapsule
-  // onPostTimecapsule = (timecapsule) => {
-  //   this.http
-  //     .post<Timecapsule>(
-  //       `${this.FIREBASE_URL}${this.basePath}.json`,
-  //       timecapsule
-  //     )
-  //     .subscribe(
-  //       (res) => {
-  //         //console.log(res);
-  //       },
-  //       (error) => {
-  //         console.log(error);
-  //       }
-  //     );
-  // };
-
-  onPostTimecapsule(timecapsule: Timecapsule): void {
-    this.db.list(this.basePath).push(timecapsule);
-  }
-
-  // Read timecapsule
-  onFetchAllTimecapsules = () => {
-    return this.http
-      .get<Timecapsule[]>(`${this.FIREBASE_URL}${this.basePath}.json`)
-      .pipe(
-        map((res) => {
-          const timecapsules = [];
-          for (const key in res) {
-            if (res.hasOwnProperty(key)) {
-              timecapsules.push({ ...res[key], id: key });
-            }
-          }
-          return timecapsules;
-        })
-      );
-  };
-
-  // Get entries in realtime database
-  getAllEntries() {
-    return this.db.object(this.basePath).valueChanges();
-  }
-
   // Update timecapsule
   onUpdateTimecapsule = (uuid, newTimecapsule) => {
-    let id;
-    this.getAllEntries().subscribe((data) => {
-      let entries = Object.entries(data);
+    // subscribe to the returned observable
+    this.dbUtil.getAllEntries('/timecapsules').subscribe((data) => {
+      // take the data returned and create an array of entries (which is in itself an array)
+      let entries = data;
+      // loop through the arrays
       for (let i = 0; i < entries.length; i++) {
         let entry = entries[i];
-        if (entry[1].uuid === uuid) {
-          id = entry[0].toString();
-          this.db.list(this.basePath).update(id, newTimecapsule);
+        // find the entry with a uuid property that matched the parameter
+        if (entry.uuid === uuid) {
+          // grab the id from the found entry
+          const key = entry.key;
+          // update the entry using the found id
+          //? this.dbUtil.updateFileDatabase(key, '/timecapsule');
         }
       }
     });
   };
 
   // Delete timecapsule
-  onDeleteTimecapsule = (uuid) => {
-    let id;
-    this.getAllEntries().subscribe((data) => {
-      let entries = Object.entries(data);
+  onDeleteTimecapsule = (uuid: string) => {
+    // delete timecapsule entry in /timecapsule
+    // subscribe to the returned observable from /timecapsules
+    this.dbUtil.getAllEntries('/timecapsules').subscribe((data) => {
+      // take the data returned and create an array of entries (which is in itself an array)
+      let entries = data;
+      // loop through the arrays
       for (let i = 0; i < entries.length; i++) {
         let entry = entries[i];
-        if (entry[1].uuid === uuid) {
-          id = entry[0].toString();
-          this.db.list(this.basePath).remove(id);
+        // find the entry with a uuid property that matched the parameter
+        if (entry.uuid === uuid) {
+          // grab the key from the found entry
+          const key = entry.key;
+          // remove the entry using the found id
+          this.dbUtil.deleteFileDatabase(key, '/timecapsules');
+        }
+      }
+    });
+    //delete uploads entry in /uploads then delete upload in storage
+    //subscribe to the returned observable from /uploads
+    this.dbUtil.getAllEntries('/uploads').subscribe((data) => {
+      // take the data returned and create an array of entries (which is in itself an array)
+      let entries = data;
+      // loop through the arrays
+      for (let i = 0; i < entries.length; i++) {
+        let entry = entries[i];
+        // find the entry with a parentUUID property that matches the parameter
+        if (entry.parentUUID === uuid) {
+          const key = entry.key; // grab the key from the found entry
+          const fileNames: string[] = [];
+          fileNames.push(entry.name); // grab the url from the found entry
+          this.dbUtil.deleteFileDatabase(key, '/uploads'); // remove the entry using the found id
+          for (let name of fileNames) {
+            this.uploadService.deleteFileStorage(name, '/uploads'); // Delete file from Firebase Storage /uploads
+          }
         }
       }
     });

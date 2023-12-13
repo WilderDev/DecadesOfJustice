@@ -1,6 +1,5 @@
 <div class="bgImg">
   <div class="form-wrapper">
-    <button type="button" (click)="console()">Show Info</button>
     <form (ngSubmit)="onSubmit()" #timecapsuleForm="ngForm">
       <div class="row">
         <div class="col-xs-12" *ngIf="showMsg">
@@ -284,7 +283,7 @@
             <input
               class="flexTwo boxShadow"
               type="date"
-              [ngModel]="this.getYearFromNow()"
+              [ngModel]="this.timeUtils.getYearFromNow()"
               name="date"
               id="date"
               #dateRef="ngModel"
