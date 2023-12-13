@@ -4,6 +4,7 @@ import { NotifyPerson, Timecapsule } from './timecapsule.model';
 import { Subject } from 'rxjs';
 import { DbService } from 'src/app/shared/utils/db/db.service';
 import { UploadService } from 'src/app/shared/utils/upload/upload.service';
+import { FsService } from 'src/app/shared/utils/fs/fs.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,8 @@ export class TimecapsuleService {
   //* ==================== Constructor ====================
   constructor(
     private dbUtil: DbService,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    private fs: FsService
   ) {}
 
   //* ==================== Methods ====================
@@ -68,7 +70,7 @@ export class TimecapsuleService {
           // grab the key from the found entry
           const key = entry.key;
           // remove the entry using the found id
-          this.dbUtil.deleteFileDatabase(key, '/timecapsules');
+          this.dbUtil.deleteDbEntry(key, '/timecapsules');
         }
       }
     });
@@ -85,9 +87,9 @@ export class TimecapsuleService {
           const key = entry.key; // grab the key from the found entry
           const fileNames: string[] = [];
           fileNames.push(entry.name); // grab the url from the found entry
-          this.dbUtil.deleteFileDatabase(key, '/uploads'); // remove the entry using the found id
+          this.dbUtil.deleteDbEntry(key, '/uploads'); // remove the entry using the found id
           for (let name of fileNames) {
-            this.uploadService.deleteFileStorage(name, '/uploads'); // Delete file from Firebase Storage /uploads
+            this.fs.deleteFileStorage(name, '/uploads'); // Delete file from Firebase Storage /uploads
           }
         }
       }

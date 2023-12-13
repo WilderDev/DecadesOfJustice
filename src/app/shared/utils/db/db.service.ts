@@ -1,14 +1,23 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import {
+  AngularFireDatabase,
+  AngularFireList,
+  DatabaseSnapshot,
+} from '@angular/fire/compat/database';
 import { FileUpload } from '../upload/file-upload.model';
 import { Timecapsule } from 'src/app/core/timecapsule/timecapsule.model';
 import { Observable, map } from 'rxjs';
+import { FsService } from '../fs/fs.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DbService {
-  constructor(private db: AngularFireDatabase) {}
+  constructor(
+    private db: AngularFireDatabase,
+    private dbUtils: DbService,
+    private fs: FsService
+  ) {}
 
   updateFileDatabase(key: string, path: string) {}
 
@@ -29,13 +38,18 @@ export class DbService {
   }
 
   // Create reference of storage name and location
-  saveFileData(fileUpload: FileUpload | Timecapsule, path: string): void {
+  saveDbEntry(fileUpload: FileUpload | Timecapsule, path: string): void {
     this.db.list(path).push(fileUpload);
     // this is the method that takes the fileUpload object (name and url) and puts them into the realtime db at the location specified by this.basePath
   }
 
   // Delete metadata for upload from database
-  deleteFileDatabase(key: string, path): Promise<void> {
+  deleteDbEntry(key: string, path): Promise<void> {
     return this.db.list(path).remove(key);
+  }
+
+  //* Read
+  getFiles(numberItems: number, path): AngularFireList<FileUpload> {
+    return this.db.list(path, (ref) => ref.limitToLast(numberItems));
   }
 }

@@ -8,6 +8,7 @@ import { FileUpload } from '../../../shared/utils/upload/file-upload.model';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { DbService } from 'src/app/shared/utils/db/db.service';
 import { TimeService } from 'src/app/shared/utils/time/time.service';
+import { FsService } from 'src/app/shared/utils/fs/fs.service';
 
 @Component({
   selector: 'app-timecapsule-form',
@@ -51,7 +52,8 @@ export class TimecapsuleFormComponent {
     private timecapsuleService: TimecapsuleService,
     private uploadService: UploadService,
     private dbUtils: DbService,
-    public timeUtils: TimeService
+    public timeUtils: TimeService,
+    private fs: FsService
   ) {}
 
   //* ==================== Methods ====================
@@ -101,7 +103,7 @@ export class TimecapsuleFormComponent {
       );
     });
     this.uploadCurrentQueue(newTimeCapsule.uuid); // Upload file list
-    this.dbUtils.saveFileData(newTimeCapsule, '/timecapsules'); // Add New Timecapsule to Firebase
+    this.dbUtils.saveDbEntry(newTimeCapsule, '/timecapsules'); // Add New Timecapsule to Firebase
     let newTimecapsuleList: Timecapsule[] =
       this.timecapsuleService.loadedTimecapsules; // Add New Timecapsule to loadedTimecapsules (in timecapsule.service.ts)
     newTimecapsuleList.push(newTimeCapsule);
@@ -139,7 +141,7 @@ export class TimecapsuleFormComponent {
         this.currentUploadQueue.push(newFileUpload);
         // We need to finally loop through uploadQueue and take each item and run pushFileToStorage() which uploads them to firebase storage and creates an reference entry in realtime db.
         this.currentUploadQueue.forEach((f) => {
-          this.uploadService.pushFileToStorage(f).subscribe(
+          this.uploadService.Upload(f).subscribe(
             (percentage) => {
               this.percentage = Math.round(percentage ? percentage : 0);
             },
