@@ -87,7 +87,7 @@ export class TimecapsuleFormComponent {
 
   // Take all fields from form and create the timecapsule object and upload any files from selectedFiles array to firebse storage.
   onSubmit = () => {
-    const { title, desc } = this.timecapsuleForm.form.value;
+    const { title, desc, date } = this.timecapsuleForm.form.value;
     let userId: string;
     let newTimeCapsule: Timecapsule;
     this.authService.currentUser.subscribe((user) => {
@@ -96,7 +96,7 @@ export class TimecapsuleFormComponent {
         userId,
         title,
         desc,
-        this.timeUtils.getUNIXTimestamp(this.timecapsuleForm.form.value.date),
+        this.timeUtils.getUNIXTimestamp(date),
         this.notifyPeople
       );
     });
