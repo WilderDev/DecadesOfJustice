@@ -3,9 +3,10 @@ import { NgForm } from '@angular/forms';
 
 import { Address, NotifyPerson, Timecapsule } from '../timecapsule.model';
 import { TimecapsuleService } from '../timecapsule.service';
-import { UploadService } from '../../upload/upload.service';
-import { FileUpload } from '../../upload/file-upload.model';
+import { UploadService } from '../../../shared/utils/upload/upload.service';
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { DbService } from 'src/app/shared/utils/db/db.service';
+import { TimeService } from 'src/app/shared/utils/time/time.service';
 
 @Component({
   selector: 'app-timecapsule-form',
@@ -19,11 +20,8 @@ export class TimecapsuleFormComponent {
   // currentFileUpload?: FileUpload;
   selectedFile?: FileList;
   public selectedFileList?: File[] | null = [];
-  currentUploadQueue?: FileUpload[] | null = [];
 
-  percentage = 0;
   public notifyPeople: NotifyPerson[] = [];
-  showMsg: boolean = true;
 
   // Form placeholder text
   defaultFirstName: string = 'John';
@@ -47,25 +45,12 @@ export class TimecapsuleFormComponent {
   constructor(
     private authService: AuthService,
     private timecapsuleService: TimecapsuleService,
+    private dbUtils: DbService,
+    public timeUtils: TimeService,
     private uploadService: UploadService
   ) {}
 
   //* ==================== Methods ====================
-  // Get future date and format it for form
-  getYearFromNow = () => {
-    const dateNotFormatted = new Date(Date.now() + 31556926000);
-    let dateString = dateNotFormatted.getFullYear() + '-';
-    if (dateNotFormatted.getMonth() < 9) {
-      dateString += '0';
-    }
-    dateString += dateNotFormatted.getMonth() + 1;
-    dateString += '-';
-    if (dateNotFormatted.getDate() < 10) {
-      dateString += '0';
-    }
-    dateString += dateNotFormatted.getDate();
-    return dateString;
-  };
 
   // Create address object => used for the addPerson method
   createAddressObj = (): Address => {
@@ -96,54 +81,37 @@ export class TimecapsuleFormComponent {
     this.notifyPeople.splice(i, 1);
   };
 
-  // Change date format
-  getUNIXTimestamp = (): number => {
-    return Date.parse(this.timecapsuleForm.form.value.date);
-  };
-
   // Take all fields from form and create the timecapsule object and upload any files from selectedFiles array to firebse storage.
   onSubmit = () => {
-    const { title, desc } = this.timecapsuleForm.form.value;
+    const { title, desc, date } = this.timecapsuleForm.form.value;
     let userId: string;
     let newTimeCapsule: Timecapsule;
-
     this.authService.currentUser.subscribe((user) => {
       userId = user.id;
       newTimeCapsule = this.timecapsuleService.createTimecapsule(
         userId,
         title,
         desc,
-        this.getUNIXTimestamp(),
+        this.timeUtils.getUNIXTimestamp(date),
         this.notifyPeople
       );
     });
-
-    // Upload file list
-    this.uploadCurrentQueue(newTimeCapsule.uuid);
-
-    // Add New Timecapsule to Firebase
-    this.timecapsuleService.onPostTimecapsule(newTimeCapsule);
-
-    // Add New Timecapsule to loadedTimecapsules (in timecapsule.service.ts)
+    this.uploadService.uploadQueue(this.selectedFileList, newTimeCapsule.uuid); // Upload file list
+    this.dbUtils.saveDbEntry(newTimeCapsule, '/timecapsules'); // Add New Timecapsule to Firebase
     let newTimecapsuleList: Timecapsule[] =
-      this.timecapsuleService.loadedTimecapsules;
+      this.timecapsuleService.loadedTimecapsules; // Add New Timecapsule to loadedTimecapsules (in timecapsule.service.ts)
     newTimecapsuleList.push(newTimeCapsule);
-
-    // Update loadedTimecapsules in timecapsule.service.ts
     this.timecapsuleService.timecapsulesChanged.next(
-      newTimecapsuleList.slice()
+      newTimecapsuleList.slice() // Update loadedTimecapsules in timecapsule.service.ts
     );
-
     this.submitSuccess = true;
     setTimeout(() => {
       this.submitSuccess = false;
     }, 3000);
-
-    // Reset form
-    this.timecapsuleForm.resetForm();
+    this.timecapsuleForm.resetForm(); // Reset form
   };
 
-  // File imput change event assigns single file to selected file
+  // File input on form has a change event which assigns a single file as selectedFile
   selectFile(event: any): void {
     this.selectedFile = event.target.files;
   }
@@ -154,50 +122,5 @@ export class TimecapsuleFormComponent {
       this.selectedFileList.push(this.selectedFile.item(0)); // By default, the form input of type file returns a value of FileList which is an array with only 1 item. We first need to remove the file from the array.
       this.selectedFile = undefined;
     }
-  }
-
-  // Upload File list loops through each file in selectedFileList array and takes each item of the array (type File) and creates a new FileUpload which has properties needed for adding them to firebase storage.
-  uploadCurrentQueue(parentUUID) {
-    if (this.selectedFileList) {
-      this.selectedFileList.forEach((f) => {
-        let newFileUpload = new FileUpload(f);
-        // Assign each fileUpload's parentUUID property in currentUploadQueue to have the uuid of the newly generated timecapsule
-        newFileUpload.parentUUID = parentUUID;
-        // Once the File is converted to FileUpload, we then can push it back into a new array called uploadQueue
-        this.currentUploadQueue.push(newFileUpload);
-        // We need to finally loop through uploadQueue and take each item and run pushFileToStorage() which uploads them to firebase storage and creates an reference entry in realtime db.
-        this.currentUploadQueue.forEach((f) => {
-          this.uploadService.pushFileToStorage(f).subscribe(
-            (percentage) => {
-              this.percentage = Math.round(percentage ? percentage : 0);
-            },
-            (error) => console.log(error)
-          );
-        });
-      });
-    }
-  }
-
-  // Deprecated:
-  // Send file to firebase
-  // upload(): void {
-  //   if (this.selectedFile) {
-  //     const file: File | null = this.selectedFile.item(0);
-  //     this.selectedFile = undefined;
-  //     if (file) {
-  //       this.currentFileUpload = new FileUpload(file);
-  //       this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
-  //         (percentage) => {
-  //           this.percentage = Math.round(percentage ? percentage : 0);
-  //         },
-  //         (error) => console.log(error)
-  //       );
-  //     }
-  //   }
-  // }
-
-  // Todo: remove for production. for testing purposes only
-  console() {
-    console.log(this.selectedFileList);
   }
 }
