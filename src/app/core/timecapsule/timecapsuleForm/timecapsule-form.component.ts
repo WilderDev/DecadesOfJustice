@@ -38,8 +38,9 @@ export class TimecapsuleFormComponent {
     'Details about the moment that you would like to put in the Memory Box.';
   defaultUrl: string = 'Link';
   defaultTime: string = '00:00';
-  // showMsg: boolean = true;
+  showMsg: boolean = true;
   submitSuccess: boolean = false;
+  currentPage: number = 1;
 
   //* ==================== Constructor ====================
   constructor(
@@ -122,5 +123,13 @@ export class TimecapsuleFormComponent {
       this.selectedFileList.push(this.selectedFile.item(0)); // By default, the form input of type file returns a value of FileList which is an array with only 1 item. We first need to remove the file from the array.
       this.selectedFile = undefined;
     }
+  }
+
+  nextPage(): void {
+    this.currentPage = this.currentPage + 1;
+  }
+
+  prevPage(): void {
+    this.currentPage = this.currentPage - 1;
   }
 }

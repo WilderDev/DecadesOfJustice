@@ -21,7 +21,6 @@
 }
 
 .flexOne {
-  display: flex;
   border-width: 1px;
   border-color: #146c94;
   border-radius: 20px;
@@ -29,7 +28,6 @@
 }
 
 .flexTwo {
-  display: flex;
   border-width: 1px;
   border-color: #146c94;
   border-radius: 20px;
@@ -87,9 +85,6 @@
     border-radius: 20px;
     font-weight: bold;
     text-align: left;
-    position: relative;
-    bottom: 750px;
-    left: 550px;
 
     & p {
       margin: 0;
@@ -115,13 +110,6 @@
     border-radius: 20px;
     font-weight: bold;
     text-align: left;
-    position: relative;
-    bottom: 750px;
-    left: 550px;
-
-    & p {
-      margin: 0;
-    }
   }
 }
 

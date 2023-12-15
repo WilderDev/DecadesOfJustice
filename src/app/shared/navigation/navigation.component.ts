@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HTTPService } from '../utils/http/http.service';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 
@@ -13,10 +12,7 @@ export class NavigationComponent {
   collapsed: boolean = true;
   currUserSub: Subscription;
 
-  constructor(
-    private httpService: HTTPService,
-    private authService: AuthService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.currUserSub = this.authService.currentUser.subscribe((user) => {
