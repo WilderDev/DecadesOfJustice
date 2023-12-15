@@ -54,7 +54,7 @@ export class TimecapsuleService {
       }
     });
   };
-*/
+
 
   // Delete timecapsule
   onDeleteTimecapsule = (uuid: string) => {
