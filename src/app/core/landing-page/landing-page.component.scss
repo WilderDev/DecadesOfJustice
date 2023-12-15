@@ -1,5 +1,5 @@
 .bgImg {
-  background-image: url("../../assets/images/landing_page_title_bg.png");
+  background-image: url("../../../assets/images/landing_page_title_bg.png");
   background-size: cover;
   outline: solid rgba(25, 167, 206, .7);
 }
@@ -13,6 +13,8 @@
   color: #F6F1F1;
   text-shadow: 2px 3px black;
   font-family: 'Roboto', sans-serif;
+  margin: auto;
+  max-width: 50%;
 }
 
 .card {
