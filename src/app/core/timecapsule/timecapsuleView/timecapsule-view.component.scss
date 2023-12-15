@@ -2,6 +2,16 @@
   background-image: url("../../../../assets/images/landing_page_title_bg.png");
   background-size: cover;
   outline: solid rgba(25, 167, 206, .7);
+  position: relative;
+  isolation: isolate;
+}
+.bgImg::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .4;
+  background-color: #000000;
 }
 .appTitle {
   text-align: center;
@@ -13,5 +23,7 @@
   color: #F6F1F1;
   text-shadow: 2px 3px black;
   font-family: 'Roboto', sans-serif;
+  margin: auto;
+  max-width: 50%;
 }
 
