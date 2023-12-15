@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-// import { HTTPService } from '../utils/http/http.service';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 
@@ -14,7 +13,6 @@ export class NavigationComponent {
   currUserSub: Subscription;
 
   constructor(
-    // private httpService: HTTPService,
     private authService: AuthService
   ) {}
 
