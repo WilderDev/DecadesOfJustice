@@ -23,6 +23,7 @@ export class NotifyPerson {
 export class Timecapsule {
   public uuid: string;
   constructor(
+    public userID: string,
     public title: string,
     public desc: string,
     public timestamp: number,

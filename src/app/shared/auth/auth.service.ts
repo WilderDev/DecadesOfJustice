@@ -56,8 +56,9 @@ export class AuthService {
       .pipe(
         tap((res) => {
           const { email, localId, idToken, expiresIn } = res;
-
-          this.handleAuth(email, localId, idToken, +expiresIn);
+          let user = this.handleAuth(email, localId, idToken, +expiresIn);
+          // Add entry into firebase db /users
+          this.db.list(this.basePath).push(user);
         })
       );
   }
@@ -86,13 +87,12 @@ export class AuthService {
     const formUser = new User(email, userId, token, expDate);
     this.currentUser.next(formUser);
 
-    // Add entry into firebase db /users
-    this.db.list(this.basePath).push(formUser);
-
     this.automaticSignOut(expiresIn * 1000);
 
     // Save new user in localStorage
     localStorage.setItem('userData', JSON.stringify(formUser));
+
+    return formUser;
   }
 
   signOut() {

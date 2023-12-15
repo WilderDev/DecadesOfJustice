@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TimecapsuleService } from '../timecapsule.service';
-import { Timecapsule } from '../timecapsule.model';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { DbService } from 'src/app/shared/utils/db/db.service';
 
 @Component({
   selector: 'app-timecapsule-view',
@@ -15,7 +15,10 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
   error: null;
 
   //* ==================== Constructor ====================
-  constructor(public timecapsuleService: TimecapsuleService) {}
+  constructor(
+    public timecapsuleService: TimecapsuleService,
+    private dbUtils: DbService
+  ) {}
 
   //* ==================== Lifecycle Hooks ====================
   ngOnInit(): void {
@@ -35,10 +38,9 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
   //* ==================== Methods ====================
   fetchTimecapsules = () => {
     this.isLoading = true;
-    this.timecapsuleService.onFetchAllTimecapsules().subscribe(
+    this.dbUtils.getAllEntries('/timecapsules').subscribe(
       (timecapsules) => {
         this.isLoading = false;
-        // console.log(timecapsules);
         this.timecapsuleService.timecapsulesChanged.next(timecapsules.slice());
       },
       (error) => {
@@ -48,15 +50,10 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
     );
   };
 
-  deleteTimecapsule = (i) => {
-    this.timecapsuleService
-      .onDeleteTimecapsule(this.timecapsuleService.loadedTimecapsules[i].uuid)
-      .subscribe(
-        () => this.timecapsuleService.loadedTimecapsules.splice(i, 1),
-        (error) => {
-          this.error = error.message;
-          console.log(error);
-        }
-      );
-  };
+  deleteTimecapsule(i) {
+    this.timecapsuleService.onDeleteTimecapsule(
+      this.timecapsuleService.loadedTimecapsules[i].uuid
+    );
+    this.timecapsuleService.loadedTimecapsules.splice(i, 1);
+  }
 }
