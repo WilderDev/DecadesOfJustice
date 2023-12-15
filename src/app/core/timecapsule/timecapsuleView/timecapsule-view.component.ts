@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output } from '@angular/core';
 import { TimecapsuleService } from '../timecapsule.service';
 import { Timecapsule } from '../timecapsule.model';
 import { Observable, Subject, Subscription, timestamp } from 'rxjs';
@@ -14,6 +14,7 @@ export class TimecapsuleViewComponent implements OnInit, OnDestroy {
   timecapsulesChangedSub: Subscription;
   isLoading: boolean = false;
   error: null;
+  @Output() timecasule;
 
   //* ==================== Constructor ====================
   constructor(public timecapsuleService: TimecapsuleService) {}
