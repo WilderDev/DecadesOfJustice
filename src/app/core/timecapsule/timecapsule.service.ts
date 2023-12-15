@@ -35,27 +35,6 @@ export class TimecapsuleService {
     return new Timecapsule(userId, title, desc, timestamp, notifyPeople);
   };
 
-  // Update timecapsule
-  onUpdateTimecapsule = (uuid, newTimecapsule) => {
-    // subscribe to the returned observable
-    this.dbUtil.getAllEntries('/timecapsules').subscribe((data) => {
-      // take the data returned and create an array of entries (which is in itself an array)
-      let entries = data;
-      // loop through the arrays
-      for (let i = 0; i < entries.length; i++) {
-        let entry = entries[i];
-        // find the entry with a uuid property that matched the parameter
-        if (entry.uuid === uuid) {
-          // grab the id from the found entry
-          const key = entry.key;
-          // update the entry using the found id
-          //? this.dbUtil.updateFileDatabase(key, '/timecapsule');
-        }
-      }
-    });
-  };
-
-
   // Delete timecapsule
   onDeleteTimecapsule = (uuid: string) => {
     // delete timecapsule entry in /timecapsule

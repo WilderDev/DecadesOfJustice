@@ -12,9 +12,7 @@ export class NavigationComponent {
   collapsed: boolean = true;
   currUserSub: Subscription;
 
-  constructor(
-    private authService: AuthService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.currUserSub = this.authService.currentUser.subscribe((user) => {
