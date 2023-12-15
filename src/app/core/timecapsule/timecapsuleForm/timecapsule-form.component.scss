@@ -1,5 +1,5 @@
 .bgImg {
-background-color: black;
+  background-color: black;
 }
 
 .headerOne {
@@ -23,7 +23,6 @@ background-color: black;
   border-radius: 8px;
   box-shadow: 3px 2px black, -0.3em 0 0.2em #146c94;
 }
-
 
 .form {
   &-wrapper {
@@ -105,4 +104,18 @@ button {
 
 .alert-success {
   color: green;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+
+  & label {
+    margin-bottom: 4px;
+  }
+
+  & input {
+    padding: 4px;
+    max-width: 300px;
+  }
 }

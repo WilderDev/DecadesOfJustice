@@ -70,7 +70,7 @@ export class TimecapsuleFormComponent {
       this.timecapsuleForm.form.value.fName,
       this.timecapsuleForm.form.value.lName,
       this.timecapsuleForm.form.value.email,
-      this.createAddressObj(),
+      // this.createAddressObj(),
       this.timecapsuleForm.form.value.phone
     );
     this.notifyPeople.push(notifyPerson);
