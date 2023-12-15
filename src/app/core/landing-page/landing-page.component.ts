@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class LandingPageComponent {
 
+  ndrConstruct() {
+    return alert('Currently Under Construction. Check back later.')
+  }
+
 }
