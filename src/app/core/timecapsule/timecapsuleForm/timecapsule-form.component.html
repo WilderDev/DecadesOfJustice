@@ -2,12 +2,7 @@
   <div class="form-wrapper">
     <form (ngSubmit)="onSubmit()" #timecapsuleForm="ngForm">
       <div class="row">
-        <div class="col-xs-12" *ngIf="showMsg">
-          <p class="alert alert-success">
-            <strong>Registration Success!</strong> Please click here to login!.
-          </p>
-        </div>
-        <fieldset>
+        <div *ngIf="currentPage === 1">
           <legend class="headerOne">Add a person to notify:</legend>
 
           <div class="form-input">
@@ -75,91 +70,89 @@
             </p>
           </div>
 
-          <div>
-            <fieldset>
-              <legend class="headerOne">Address info:</legend>
-              <div class="form-input">
-                <label for="street" class="fontOne">Street:</label>
-                <input
-                  class="flexOne"
-                  type="text"
-                  ngModel
-                  [placeholder]="defaultStreet"
-                  name="street"
-                  id="street"
-                  #streetRef="ngModel"
-                  required
-                />
-                <p *ngIf="!streetRef.valid && streetRef.touched">
-                  * Please enter a street address.
-                </p>
-              </div>
+          <!-- Street Address -->
+          <!-- <div>
+            <div class="form-input">
+              <label for="street" class="fontOne">Street:</label>
+              <input
+                class="flexOne"
+                type="text"
+                ngModel
+                [placeholder]="defaultStreet"
+                name="street"
+                id="street"
+                #streetRef="ngModel"
+                required
+              />
+              <p *ngIf="!streetRef.valid && streetRef.touched">
+                * Please enter a street address.
+              </p>
+            </div>
 
-              <div class="form-input">
-                <label for="apt" class="fontOne">Apartment:</label>
-                <input
-                  class="flexOne"
-                  type="text"
-                  ngModel
-                  [placeholder]="defaultApt"
-                  name="apt"
-                  id="apt"
-                  #aptRef="ngModel"
-                />
-              </div>
+            <div class="form-input">
+              <label for="apt" class="fontOne">Apartment:</label>
+              <input
+                class="flexOne"
+                type="text"
+                ngModel
+                [placeholder]="defaultApt"
+                name="apt"
+                id="apt"
+                #aptRef="ngModel"
+              />
+            </div>
 
-              <div class="form-input">
-                <label for="city" class="fontOne">City:</label>
-                <input
-                  class="flexOne"
-                  type="text"
-                  ngModel
-                  [placeholder]="defaultCity"
-                  name="city"
-                  id="city"
-                  #cityRef="ngModel"
-                  required
-                />
-                <p *ngIf="!cityRef.valid && cityRef.touched">
-                  * Please enter a city.
-                </p>
-              </div>
+            <div class="form-input">
+              <label for="city" class="fontOne">City:</label>
+              <input
+                class="flexOne"
+                type="text"
+                ngModel
+                [placeholder]="defaultCity"
+                name="city"
+                id="city"
+                #cityRef="ngModel"
+                required
+              />
+              <p *ngIf="!cityRef.valid && cityRef.touched">
+                * Please enter a city.
+              </p>
+            </div>
 
-              <div class="form-input">
-                <label for="state" class="fontOne">State:</label>
-                <input
-                  class="flexOne"
-                  type="text"
-                  ngModel
-                  [placeholder]="defaultState"
-                  name="state"
-                  id="state"
-                  #stateRef="ngModel"
-                  required
-                />
-                <p *ngIf="!stateRef.valid && stateRef.touched">
-                  * Please enter a state.
-                </p>
-              </div>
+            <div class="form-input">
+              <label for="state" class="fontOne">State:</label>
+              <input
+                class="flexOne"
+                type="text"
+                ngModel
+                [placeholder]="defaultState"
+                name="state"
+                id="state"
+                #stateRef="ngModel"
+                required
+              />
+              <p *ngIf="!stateRef.valid && stateRef.touched">
+                * Please enter a state.
+              </p>
+            </div>
 
-              <div class="form-input">
-                <label for="zip" class="fontOne">Zip:</label>
-                <input
-                  class="flexOne"
-                  type="number"
-                  ngModel
-                  [placeholder]="defaultZip"
-                  name="zip"
-                  id="zip"
-                  #zipRef="ngModel"
-                  required
-                />
-                <p *ngIf="!zipRef.valid && zipRef.touched">
-                  * Please enter a zip code.
-                </p>
-              </div>
-            </fieldset>
-          </div>
+            <div class="form-input">
+              <label for="zip" class="fontOne">Zip:</label>
+              <input
+                class="flexOne"
+                type="number"
+                ngModel
+                [placeholder]="defaultZip"
+                name="zip"
+                id="zip"
+                #zipRef="ngModel"
+                required
+              />
+              <p *ngIf="!zipRef.valid && zipRef.touched">
+                * Please enter a zip code.
+              </p>
+            </div>
+          </div> -->
 
           <button
             type="button"
@@ -172,170 +165,180 @@
                 lNameRef.valid &&
                 lNameRef.touched &&
                 emailRef.valid &&
-                emailRef.touched &&
-                stateRef.valid &&
-                stateRef.touched &&
-                cityRef.valid &&
-                cityRef.touched &&
-                stateRef.valid &&
-                stateRef.touched &&
-                zipRef.valid &&
-                zipRef.touched
+                emailRef.touched
               )
             "
           >
             Add Person
           </button>
-        </fieldset>
-      </div>
 
-      <div class="notifyPerson-wrapper">
-        <div
-          *ngFor="let notifyPerson of this.notifyPeople; index as i"
-          class="notifyPerson-card boxShadow"
-        >
-          <p>Name: {{ notifyPerson.firstName }} {{ notifyPerson.lastName }}</p>
-          <p *ngIf="notifyPerson.phone">Phone: {{ notifyPerson.phone }}</p>
-          <p>Email: {{ notifyPerson.email }}</p>
-          <p>Address:</p>
-          <div class="address">
-            <p>Street: {{ notifyPerson.address.street }}</p>
-            <p *ngIf="notifyPerson.address.apartment">
-              Apt: {{ notifyPerson.address.apartment }}
-            </p>
-            <p>City: {{ notifyPerson.address.city }}</p>
-            <p>State: {{ notifyPerson.address.state }}</p>
-            <p>Zip: {{ notifyPerson.address.zipCode }}</p>
+          <div class="notifyPerson-wrapper">
+            <div
+              *ngFor="let notifyPerson of this.notifyPeople; index as i"
+              class="notifyPerson-card boxShadow"
+            >
+              <p>
+                Name: {{ notifyPerson.firstName }} {{ notifyPerson.lastName }}
+              </p>
+              <p *ngIf="notifyPerson.phone">Phone: {{ notifyPerson.phone }}</p>
+              <p>Email: {{ notifyPerson.email }}</p>
+              <!-- <p>Address:</p> -->
+              <!-- <div class="address">
+                <p>Street: {{ notifyPerson.address.street }}</p>
+                <p *ngIf="notifyPerson.address.apartment">
+                  Apt: {{ notifyPerson.address.apartment }}
+                </p>
+                <p>City: {{ notifyPerson.address.city }}</p>
+                <p>State: {{ notifyPerson.address.state }}</p>
+                <p>Zip: {{ notifyPerson.address.zipCode }}</p>
+              </div> -->
+              <div class="col-xs-12">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  (click)="removePerson(i)"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
           </div>
           <button
             type="button"
-            class="btn btn-danger"
-            (click)="removePerson(i)"
+            class="btn btn-success boxShadow"
+            (click)="nextPage()"
+            [disabled]="!notifyPeople[0]"
           >
-            Remove
+            Next
           </button>
         </div>
       </div>
 
-      <div>
-        <fieldset>
-          <legend class="headerOne flexTwo">Event details:</legend>
-          <div class="form-input">
-            <label class="flexTwo">Title:</label>
-            <input
-              class="flexTwo boxShadow"
-              type="text"
-              ngModel
-              [placeholder]="defaultTitle"
-              name="title"
-              id="title"
-              #titleRef="ngModel"
-              required
-            />
-            <p *ngIf="!titleRef.valid && titleRef.touched">
-              * Please enter a title.
-            </p>
-          </div>
+      <div *ngIf="currentPage === 2">
+        <legend class="headerOne">Event details:</legend>
+        <div class="form-input">
+          <label class="">Title:</label>
+          <input
+            class="boxShadow"
+            type="text"
+            ngModel
+            [placeholder]="defaultTitle"
+            name="title"
+            id="title"
+            #titleRef="ngModel"
+            required
+          />
+          <p *ngIf="!titleRef.valid && titleRef.touched">
+            * Please enter a title.
+          </p>
+        </div>
 
-          <div class="form-input">
-            <label class="flexTwo">Add description:</label>
-            <br />
-            <textarea
-              class="flexTwo boxShadow"
-              ngModel
-              [placeholder]="defaultDesc"
-              name="desc"
-              id="desc"
-              #descRef="ngModel"
-              required
-              style="resize: none"
-              rows="5"
-              cols="40"
-            ></textarea>
-            <p *ngIf="!descRef.valid && descRef.touched">
-              * Please enter a description.
-            </p>
-          </div>
+        <div class="form-input">
+          <label class="">Add description:</label>
+          <br />
+          <textarea
+            class="boxShadow"
+            ngModel
+            [placeholder]="defaultDesc"
+            name="desc"
+            id="desc"
+            #descRef="ngModel"
+            required
+            style="resize: none"
+            rows="5"
+            cols="40"
+          ></textarea>
+          <p *ngIf="!descRef.valid && descRef.touched">
+            * Please enter a description.
+          </p>
+        </div>
 
-          <div class="form-input">
-            <label for="fileUpload" class="flexTwo">Upload Image:</label>
+        <div class="form-input">
+          <label for="fileUpload">Upload Image:</label>
+          <input
+            class="boxShadow"
+            type="file"
+            ngModel
+            placeholder="fileUpload"
+            name="fileUpload"
+            id="fileUpload"
+            #fileUploadRef="ngModel"
+            (change)="selectFile($event)"
+          />
+        </div>
+        <button
+          type="button"
+          [disabled]="!selectedFile"
+          (click)="addSelectedFile()"
+        >
+          Add File
+        </button>
+
+        <div class="form-input">
+          <label for="date">Set date:</label>
+          <input
+            class="boxShadow"
+            type="date"
+            [ngModel]="this.timeUtils.getYearFromNow()"
+            name="date"
+            id="date"
+            #dateRef="ngModel"
+            required
+          />
+
+          <div>
+            <label for="time">Set time:</label>
             <input
-              class="flexTwo boxShadow"
-              type="file"
-              ngModel
-              placeholder="fileUpload"
-              name="fileUpload"
-              id="fileUpload"
-              #fileUploadRef="ngModel"
-              (change)="selectFile($event)"
+              type="time"
+              [ngModel]="defaultTime"
+              name="time"
+              id="time"
+              #timeRef="ngModel"
             />
           </div>
-          <button
-            type="button"
-            [disabled]="!selectedFile"
-            (click)="addSelectedFile()"
+          <p *ngIf="!dateRef.valid && dateRef.touched">
+            * Please enter a date.
+          </p>
+        </div>
+        <div class="fileUpload-wrapper">
+          <div
+            class="fileUpload-card boxShadow"
+            *ngFor="let file of this.selectedFileList; index as i"
           >
-            Add File
-          </button>
+            <img [src]="" [alt]="file.name" />
 
-          <div class="form-input">
-            <label for="date" class="flexTwo">Set date:</label>
-            <input
-              class="flexTwo boxShadow"
-              type="date"
-              [ngModel]="this.timeUtils.getYearFromNow()"
-              name="date"
-              id="date"
-              #dateRef="ngModel"
-              required
-            />
-
-            <div>
-              <label for="time">Set time:</label>
-              <input
-                type="time"
-                [ngModel]="defaultTime"
-                name="time"
-                id="time"
-                #timeRef="ngModel"
-              />
-            </div>
-            <p *ngIf="!dateRef.valid && dateRef.touched">
-              * Please enter a date.
-            </p>
-          </div>
-          <div class="fileUpload-wrapper">
-            <div
-              class="fileUpload-card boxShadow"
-              *ngFor="let file of this.selectedFileList; index as i"
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="this.selectedFileList.splice(i, 1)"
             >
-              <img [src]="" [alt]="file.name" />
-
-              <button
-                type="button"
-                (click)="this.selectedFileList.splice(i, 1)"
-              >
-                Delete File
-              </button>
-            </div>
+              Delete File
+            </button>
           </div>
-          <button
-            type="submit"
-            class="btn btn-primary flexTwo boxShadow"
-            [disabled]="
-              !(
-                titleRef.valid &&
-                titleRef.touched &&
-                descRef.valid &&
-                descRef.touched &&
-                dateRef.valid &&
-                timeRef.valid
-              ) || !notifyPeople[0]
-            "
-          >
-            Submit
-          </button>
-        </fieldset>
+        </div>
+        <button
+          type="button"
+          class="btn btn-danger boxShadow"
+          (click)="prevPage()"
+        >
+          Prev
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary boxShadow"
+          [disabled]="
+            !(
+              titleRef.valid &&
+              titleRef.touched &&
+              descRef.valid &&
+              descRef.touched &&
+              dateRef.valid &&
+              timeRef.valid
+            ) || !notifyPeople[0]
+          "
+        >
+          Submit
+        </button>
       </div>
     </form>
   </div>

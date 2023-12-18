@@ -1,18 +1,30 @@
 .bgImg {
-  background-image: url("../../assets/images/landing_page_title_bg.png");
+  background-image: url("../../../assets/images/landing_page_title_bg.png");
   background-size: cover;
   outline: solid rgba(25, 167, 206, .7);
+  position: relative;
+  isolation: isolate;
+}
+.bgImg::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .4;
+  background-color: #000000;
 }
 .appTitle {
   text-align: center;
   color: #F6F1F1;
-  text-shadow: 5px 3px black;
+  text-shadow: 5px 3px black
 }
 .aboutApp {
   text-align: center;
   color: #F6F1F1;
   text-shadow: 2px 3px black;
   font-family: 'Roboto', sans-serif;
+  margin: auto;
+  max-width: 50%;
 }
 
 .card {
@@ -20,6 +32,7 @@
   -webkit-box-shadow: 10px 10px 31px 0px rgba(25,167,206,0.30);
   -moz-box-shadow: 10px 10px 31px 0px rgba(25,167,206,0.30);
   transition: transform 0.3s ease 0s;
+  margin-bottom: 80px;
 }
 .card-text {
   text-align: center;
