@@ -1,7 +1,6 @@
 .bgImg {
-  background-image: url("../../../../../assets/images/landing_page_title_bg.png");
+    background: linear-gradient(to bottom right, black ,rgba(25,167,206,0.8));
   background-size: cover;
-  outline: solid rgba(25, 167, 206, .7);
 }
 
 * {

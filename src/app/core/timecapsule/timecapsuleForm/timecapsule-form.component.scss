@@ -1,5 +1,17 @@
 .bgImg {
-  background-color: black;
+    background: linear-gradient(to bottom right, black ,#146c94);
+    outline: solid rgba(25, 167, 206, .7);
+    position: relative;
+    isolation: isolate;
+}
+
+.bgImg::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .4;
+  background-color: #000000;
 }
 
 .headerOne {
@@ -17,11 +29,17 @@
   text-shadow: 1px 1px black;
 }
 
+.item{
+  display: flex
+}
+
 .flexOne {
   border-width: 1px;
   border-color: #146c94;
   border-radius: 8px;
   box-shadow: 3px 2px black, -0.3em 0 0.2em #146c94;
+  padding: 10px;
+  margin: 10px;
 }
 
 .form {
