@@ -6,6 +6,7 @@
           <legend class="headerOne">Add a person to notify:</legend>
 
           <div class="form-input">
+            <br>
             <label for="fName" class="fontOne">First name:</label>
             <input
               class="flexOne"
@@ -23,6 +24,7 @@
           </div>
 
           <div class="form-input">
+            <br>
             <label for="lName" class="fontOne">Last name:</label>
             <input
               class="flexOne"
@@ -40,6 +42,7 @@
           </div>
 
           <div class="form-input">
+            <br>
             <label for="phone" class="fontOne">Phone:</label>
             <input
               class="flexOne"
@@ -53,6 +56,7 @@
           </div>
 
           <div class="form-input">
+            <br>
             <label for="email" class="fontOne">Email:</label>
             <input
               class="flexOne"
@@ -69,90 +73,6 @@
               * Please enter a valid email.
             </p>
           </div>
-
-          <!-- Street Address -->
-          <!-- <div>
-            <div class="form-input">
-              <label for="street" class="fontOne">Street:</label>
-              <input
-                class="flexOne"
-                type="text"
-                ngModel
-                [placeholder]="defaultStreet"
-                name="street"
-                id="street"
-                #streetRef="ngModel"
-                required
-              />
-              <p *ngIf="!streetRef.valid && streetRef.touched">
-                * Please enter a street address.
-              </p>
-            </div>
-
-            <div class="form-input">
-              <label for="apt" class="fontOne">Apartment:</label>
-              <input
-                class="flexOne"
-                type="text"
-                ngModel
-                [placeholder]="defaultApt"
-                name="apt"
-                id="apt"
-                #aptRef="ngModel"
-              />
-            </div>
-
-            <div class="form-input">
-              <label for="city" class="fontOne">City:</label>
-              <input
-                class="flexOne"
-                type="text"
-                ngModel
-                [placeholder]="defaultCity"
-                name="city"
-                id="city"
-                #cityRef="ngModel"
-                required
-              />
-              <p *ngIf="!cityRef.valid && cityRef.touched">
-                * Please enter a city.
-              </p>
-            </div>
-
-            <div class="form-input">
-              <label for="state" class="fontOne">State:</label>
-              <input
-                class="flexOne"
-                type="text"
-                ngModel
-                [placeholder]="defaultState"
-                name="state"
-                id="state"
-                #stateRef="ngModel"
-                required
-              />
-              <p *ngIf="!stateRef.valid && stateRef.touched">
-                * Please enter a state.
-              </p>
-            </div>
-
-            <div class="form-input">
-              <label for="zip" class="fontOne">Zip:</label>
-              <input
-                class="flexOne"
-                type="number"
-                ngModel
-                [placeholder]="defaultZip"
-                name="zip"
-                id="zip"
-                #zipRef="ngModel"
-                required
-              />
-              <p *ngIf="!zipRef.valid && zipRef.touched">
-                * Please enter a zip code.
-              </p>
-            </div>
-          </div> -->
 
           <button
             type="button"
@@ -171,7 +91,7 @@
           >
             Add Person
           </button>
-
+          <br>
           <div class="notifyPerson-wrapper">
             <div
               *ngFor="let notifyPerson of this.notifyPeople; index as i"
@@ -182,16 +102,7 @@
               </p>
               <p *ngIf="notifyPerson.phone">Phone: {{ notifyPerson.phone }}</p>
               <p>Email: {{ notifyPerson.email }}</p>
-              <!-- <p>Address:</p> -->
-              <!-- <div class="address">
-                <p>Street: {{ notifyPerson.address.street }}</p>
-                <p *ngIf="notifyPerson.address.apartment">
-                  Apt: {{ notifyPerson.address.apartment }}
-                </p>
-                <p>City: {{ notifyPerson.address.city }}</p>
-                <p>State: {{ notifyPerson.address.state }}</p>
-                <p>Zip: {{ notifyPerson.address.zipCode }}</p>
-              </div> -->
+
               <div class="col-xs-12">
                 <button
                   type="button"
@@ -217,9 +128,9 @@
       <div *ngIf="currentPage === 2">
         <legend class="headerOne">Event details:</legend>
         <div class="form-input">
-          <label class="">Title:</label>
+          <label>Title:</label>
           <input
-            class="boxShadow"
+            class="boxShadow flexOne"
             type="text"
             ngModel
             [placeholder]="defaultTitle"
@@ -237,7 +148,7 @@
           <label class="">Add description:</label>
           <br />
           <textarea
-            class="boxShadow"
+            class="boxShadow flexOne"
             ngModel
             [placeholder]="defaultDesc"
             name="desc"
@@ -254,9 +165,8 @@
         </div>
 
         <div class="form-input">
-          <label for="fileUpload">Upload Image:</label>
+          <label for="fileUpload" class="item1">Upload Image:</label>
           <input
-            class="boxShadow"
             type="file"
             ngModel
             placeholder="fileUpload"
@@ -267,6 +177,7 @@
           />
         </div>
         <button
+          class="flexOne"
           type="button"
           [disabled]="!selectedFile"
           (click)="addSelectedFile()"
@@ -277,7 +188,7 @@
         <div class="form-input">
           <label for="date">Set date:</label>
           <input
-            class="boxShadow"
+            class="boxShadow flexOne"
             type="date"
             [ngModel]="this.timeUtils.getYearFromNow()"
             name="date"
@@ -285,10 +196,12 @@
             #dateRef="ngModel"
             required
           />
-
+          <br>
+          <br>
           <div>
             <label for="time">Set time:</label>
             <input
+              class="flexOne"
               type="time"
               [ngModel]="defaultTime"
               name="time"
